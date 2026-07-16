@@ -96,3 +96,6 @@ Ideas for further development, roughly in priority order:
    `src-tauri/Cargo.toml` (unused by `main.rs`); verified with `cargo check`.
 6. **Auto-update + licensing.** Tauri's updater plugin plus a license-key check
    (e.g. Lemon Squeezy) is the standard indie-app distribution path.
+   Implementation plan (keys, config, CI, in-app gate) in
+   [`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md); needs a storefront + signing
+   keys to activate.
