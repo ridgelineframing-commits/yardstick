@@ -86,10 +86,12 @@ Ideas for further development, roughly in priority order:
    [`.github/workflows/build.yml`](.github/workflows/build.yml) builds the `.exe`
    on a Windows runner for every push/PR (uploaded as an artifact) and attaches
    it to any `v*` tagged release.
-3. **Single-source the version.** It's set in three files; derive the rest from
-   `package.json`.
+3. ~~**Single-source the version.**~~ ✅ Done — `package.json` is canonical;
+   `tauri.conf.json` reads it via `"version": "../package.json"`.
 4. **Code signing.** An Authenticode certificate clears the Windows SmartScreen
-   "unknown publisher" warning for customers.
+   "unknown publisher" warning for customers. Runbook (cert options, Tauri
+   config, CI secret wiring) in [`docs/SIGNING.md`](docs/SIGNING.md); needs a
+   purchased certificate to activate.
 5. **Trim unused Rust deps.** `src-tauri/Cargo.toml` declares `serde` /
    `serde_json` that `main.rs` doesn't use.
 6. **Auto-update + licensing.** Tauri's updater plugin plus a license-key check
