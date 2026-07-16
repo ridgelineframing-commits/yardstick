@@ -1,9 +1,11 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Yardstick",
-  "version": "1.0.0",
+  "version": "../package.json",
   "identifier": "construction.ridgeline.yardstick",
   "build": {
+    "beforeDevCommand": "node update-src.js",
+    "beforeBuildCommand": "node update-src.js",
     "frontendDist": "../src"
   },
   "app": {

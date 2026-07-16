@@ -6,9 +6,9 @@
 <title>Yardstick · PDF Markup &amp; Plan Takeoff</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cg stroke='%23fff' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 38V22'/%3E%3Cpath d='M26 38V29'/%3E%3Cpath d='M38 38V22'/%3E%3Cpath d='M50 38V29'/%3E%3C/g%3E%3Cpath d='M10 46h44' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cg stroke='%23fff' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 38V22'/%3E%3Cpath d='M26 38V29'/%3E%3Cpath d='M38 38V22'/%3E%3Cpath d='M50 38V29'/%3E%3C/g%3E%3Cpath d='M10 46h44' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
-<script src="vendor/pdf.min.js"></script>
-<script src="vendor/xlsx.bundle.js"></script>
-<script src="vendor/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   :root{
     --bg:#eef2f7; --bg2:#e6ebf2; --panel:#ffffff; --panel2:#f3f6fa; --panel3:#eaeff5;
@@ -64,7 +64,6 @@
   button:active{transform:translateY(0)}
   button.tool.active{background:linear-gradient(180deg,#2f6bf0,#1d4ed8);border-color:var(--primary-d);color:#fff;box-shadow:0 3px 12px #2563eb55}
   button.tool.cal.active{background:linear-gradient(180deg,#1fae57,#15863f);border-color:#15863f;color:#fff}
-  button#btnRoom{font-weight:800}
   button.prim{background:linear-gradient(180deg,#2f6bf0,#1d4ed8);border-color:var(--primary-d);color:#fff}
   button.alt{background:linear-gradient(180deg,#14b3a6,#0d9488);border-color:#0d9488;color:#fff}
   button.go{background:linear-gradient(180deg,#1fae57,#15863f);border-color:#15863f;color:#fff}
@@ -351,7 +350,7 @@
 
 <script>
 const pdfjsLib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
-pdfjsLib.GlobalWorkerOptions.workerSrc="vendor/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 const { jsPDF } = window.jspdf;
 
 const ROOMPAL=['#4caf6f','#3c9ae8','#e8843c','#c46be0','#e0b341','#46c2b6','#e06b8b','#8bbf3c','#b07be0','#5f8ff0','#e0795b','#3cc6e8'];
@@ -776,7 +775,6 @@ function showPopover(it){const p=$('popover');if(!p)return;S.popId=it.id;p.inner
   else if(it.type==='comment'){const eb=document.createElement('button');eb.textContent='✎ Edit note';eb.onclick=e=>{e.stopPropagation();commentDialog(it,()=>showPopover(it));};row.appendChild(eb);
     row.appendChild(mkSel(NOTE_CATS,it.cat||'Basic',v=>{it.cat=v;renderAll();}));}
   else if(it.type==='structure'){const eb=document.createElement('button');eb.textContent='✎ Edit callout';eb.onclick=e=>{e.stopPropagation();structDialog(it,()=>showPopover(it));};row.appendChild(eb);}
-  else if(it.type==='structure'){const eb=document.createElement('button');eb.textContent='✎ Edit callout';eb.onclick=e=>{e.stopPropagation();structDialog(it,()=>showPopover(it));};row.appendChild(eb);}
   p.appendChild(row);
   if(it.type==='room'&&it.notes){const nr=document.createElement('div');nr.className='prow';nr.innerHTML='<span class="pill">'+it.notes.replace(/</g,'&lt;')+'</span>';p.appendChild(nr);}
   const row2=document.createElement('div');row2.className='prow';const lpill=document.createElement('span');lpill.className='tag';lpill.textContent=it.level||S.level;row2.appendChild(lpill);
@@ -1114,9 +1112,6 @@ function itemRow(it){const div=document.createElement('div');div.className='item
       const ti=document.createElement('input');ti.className='cmt-in';ti.value=it.text||'';ti.placeholder='note…';
       ti.onclick=e=>e.stopPropagation();ti.onchange=()=>{it.text=ti.value;renderAll();};sub.appendChild(ti);
       sub.appendChild(mkSel(NOTE_CATS,it.cat||'Basic',v=>{it.cat=v;renderAll();}));
-    } else if(it.type==='structure'){
-      const ti=document.createElement('input');ti.className='cmt-in';ti.value=it.callout||'';ti.placeholder='structural callout…';
-      ti.onclick=e=>e.stopPropagation();ti.onchange=()=>{it.callout=ti.value;renderAll();};sub.appendChild(ti);
     } else if(it.type==='structure'){
       const ti=document.createElement('input');ti.className='cmt-in';ti.value=it.callout||'';ti.placeholder='structural callout…';
       ti.onclick=e=>e.stopPropagation();ti.onchange=()=>{it.callout=ti.value;renderAll();};sub.appendChild(ti);
