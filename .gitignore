@@ -1,4 +1,12 @@
-﻿desktop.ini
+desktop.ini
 .DS_Store
 node_modules/
 *.log
+
+# Rust / Tauri build output
+/src-tauri/target/
+/src-tauri/gen/
+
+# Bundled installers
+dist/
+*.exe

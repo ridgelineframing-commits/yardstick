@@ -64,7 +64,6 @@
   button:active{transform:translateY(0)}
   button.tool.active{background:linear-gradient(180deg,#2f6bf0,#1d4ed8);border-color:var(--primary-d);color:#fff;box-shadow:0 3px 12px #2563eb55}
   button.tool.cal.active{background:linear-gradient(180deg,#1fae57,#15863f);border-color:#15863f;color:#fff}
-  button#btnRoom{font-weight:800}
   button.prim{background:linear-gradient(180deg,#2f6bf0,#1d4ed8);border-color:var(--primary-d);color:#fff}
   button.alt{background:linear-gradient(180deg,#14b3a6,#0d9488);border-color:#0d9488;color:#fff}
   button.go{background:linear-gradient(180deg,#1fae57,#15863f);border-color:#15863f;color:#fff}
@@ -776,7 +775,6 @@ function showPopover(it){const p=$('popover');if(!p)return;S.popId=it.id;p.inner
   else if(it.type==='comment'){const eb=document.createElement('button');eb.textContent='✎ Edit note';eb.onclick=e=>{e.stopPropagation();commentDialog(it,()=>showPopover(it));};row.appendChild(eb);
     row.appendChild(mkSel(NOTE_CATS,it.cat||'Basic',v=>{it.cat=v;renderAll();}));}
   else if(it.type==='structure'){const eb=document.createElement('button');eb.textContent='✎ Edit callout';eb.onclick=e=>{e.stopPropagation();structDialog(it,()=>showPopover(it));};row.appendChild(eb);}
-  else if(it.type==='structure'){const eb=document.createElement('button');eb.textContent='✎ Edit callout';eb.onclick=e=>{e.stopPropagation();structDialog(it,()=>showPopover(it));};row.appendChild(eb);}
   p.appendChild(row);
   if(it.type==='room'&&it.notes){const nr=document.createElement('div');nr.className='prow';nr.innerHTML='<span class="pill">'+it.notes.replace(/</g,'&lt;')+'</span>';p.appendChild(nr);}
   const row2=document.createElement('div');row2.className='prow';const lpill=document.createElement('span');lpill.className='tag';lpill.textContent=it.level||S.level;row2.appendChild(lpill);
@@ -1114,9 +1112,6 @@ function itemRow(it){const div=document.createElement('div');div.className='item
       const ti=document.createElement('input');ti.className='cmt-in';ti.value=it.text||'';ti.placeholder='note…';
       ti.onclick=e=>e.stopPropagation();ti.onchange=()=>{it.text=ti.value;renderAll();};sub.appendChild(ti);
       sub.appendChild(mkSel(NOTE_CATS,it.cat||'Basic',v=>{it.cat=v;renderAll();}));
-    } else if(it.type==='structure'){
-      const ti=document.createElement('input');ti.className='cmt-in';ti.value=it.callout||'';ti.placeholder='structural callout…';
-      ti.onclick=e=>e.stopPropagation();ti.onchange=()=>{it.callout=ti.value;renderAll();};sub.appendChild(ti);
     } else if(it.type==='structure'){
       const ti=document.createElement('input');ti.className='cmt-in';ti.value=it.callout||'';ti.placeholder='structural callout…';
       ti.onclick=e=>e.stopPropagation();ti.onchange=()=>{it.callout=ti.value;renderAll();};sub.appendChild(ti);
