@@ -1,5 +1,7 @@
 [package]
 name = "yardstick"
+# Internal Rust crate version only. The app / installer version is single-sourced
+# from package.json (tauri.conf.json reads it via "version": "../package.json").
 version = "1.0.0"
 description = "Yardstick — PDF Markup & Plan Takeoff, by Ridgeline"
 edition = "2021"
