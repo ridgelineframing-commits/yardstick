@@ -92,7 +92,7 @@ Ideas for further development, roughly in priority order:
    "unknown publisher" warning for customers. Runbook (cert options, Tauri
    config, CI secret wiring) in [`docs/SIGNING.md`](docs/SIGNING.md); needs a
    purchased certificate to activate.
-5. **Trim unused Rust deps.** `src-tauri/Cargo.toml` declares `serde` /
-   `serde_json` that `main.rs` doesn't use.
+5. ~~**Trim unused Rust deps.**~~ ✅ Done — removed `serde` / `serde_json` from
+   `src-tauri/Cargo.toml` (unused by `main.rs`); verified with `cargo check`.
 6. **Auto-update + licensing.** Tauri's updater plugin plus a license-key check
    (e.g. Lemon Squeezy) is the standard indie-app distribution path.
