@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "identifier": "construction.ridgeline.yardstick",
   "build": {
+    "beforeDevCommand": "node update-src.js",
+    "beforeBuildCommand": "node update-src.js",
     "frontendDist": "../src"
   },
   "app": {

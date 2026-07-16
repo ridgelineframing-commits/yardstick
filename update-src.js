@@ -1,20 +1,24 @@
 #!/usr/bin/env node
-// Sync the standalone Yardstick web app into the desktop shell.
+// Generate the desktop app entry (src/index.html) from the canonical source.
 //
-// Yardstick is authored as a single HTML file that loads pdf.js / xlsx / jsPDF
-// from public CDNs. The desktop build must run fully offline, so this script
-// copies that file into src/index.html and rewrites every CDN <script> URL to
-// the copy bundled under src/vendor/.
+// Yardstick is authored once as app/index.html, which loads pdf.js / xlsx /
+// jsPDF from public CDNs so it works as a plain web page. The desktop build
+// must run fully offline, so this script copies that file to src/index.html and
+// rewrites every CDN <script> URL to the copy bundled under src/vendor/.
+//
+// app/index.html is the source of truth (tracked in git). src/index.html is a
+// generated build artifact and is produced automatically before dev/build via
+// tauri.conf.json's beforeDevCommand / beforeBuildCommand.
 //
 // Usage:  node update-src.js [path-to-source.html]
-// Default source: ../Yardstick_Takeoff_v3.html (the web authoring copy).
+// Default source: app/index.html
 
 const fs = require('fs');
 const path = require('path');
 
 const SRC = process.argv[2]
   ? path.resolve(process.argv[2])
-  : path.join(__dirname, '..', 'Yardstick_Takeoff_v3.html');
+  : path.join(__dirname, 'app', 'index.html');
 const OUT = path.join(__dirname, 'src', 'index.html');
 
 // CDN URL -> local vendored copy. Applied to every occurrence.
@@ -27,7 +31,8 @@ const REWRITES = [
 
 if (!fs.existsSync(SRC)) {
   console.error(`✗ Source app not found:\n    ${SRC}\n` +
-    `  Pass the path explicitly:  node update-src.js /path/to/Yardstick_Takeoff_v3.html`);
+    `  Expected the canonical app at app/index.html, or pass a path explicitly:\n` +
+    `    node update-src.js /path/to/index.html`);
   process.exit(1);
 }
 
@@ -51,5 +56,6 @@ if (leftover) {
   process.exit(1);
 }
 
+fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html);
-console.log(`✓ src/index.html refreshed from ${path.relative(process.cwd(), SRC)} (offline-ready).`);
+console.log(`✓ src/index.html generated from ${path.relative(process.cwd(), SRC)} (offline-ready).`);

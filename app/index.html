@@ -6,9 +6,9 @@
 <title>Yardstick · PDF Markup &amp; Plan Takeoff</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cg stroke='%23fff' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 38V22'/%3E%3Cpath d='M26 38V29'/%3E%3Cpath d='M38 38V22'/%3E%3Cpath d='M50 38V29'/%3E%3C/g%3E%3Cpath d='M10 46h44' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cg stroke='%23fff' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 38V22'/%3E%3Cpath d='M26 38V29'/%3E%3Cpath d='M38 38V22'/%3E%3Cpath d='M50 38V29'/%3E%3C/g%3E%3Cpath d='M10 46h44' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
-<script src="vendor/pdf.min.js"></script>
-<script src="vendor/xlsx.bundle.js"></script>
-<script src="vendor/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   :root{
     --bg:#eef2f7; --bg2:#e6ebf2; --panel:#ffffff; --panel2:#f3f6fa; --panel3:#eaeff5;
@@ -350,7 +350,7 @@
 
 <script>
 const pdfjsLib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
-pdfjsLib.GlobalWorkerOptions.workerSrc="vendor/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 const { jsPDF } = window.jspdf;
 
 const ROOMPAL=['#4caf6f','#3c9ae8','#e8843c','#c46be0','#e0b341','#46c2b6','#e06b8b','#8bbf3c','#b07be0','#5f8ff0','#e0795b','#3cc6e8'];
