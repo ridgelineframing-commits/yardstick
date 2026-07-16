@@ -1,0 +1,13 @@
+{
+  "name": "yardstick-desktop",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "update-src": "node update-src.js",
+    "dev": "tauri dev",
+    "build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}
