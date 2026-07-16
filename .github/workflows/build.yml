@@ -44,7 +44,7 @@ jobs:
           workspaces: src-tauri
 
       - name: Install npm dependencies
-        run: npm install
+        run: npm ci
 
       # Runs update-src.js (beforeBuildCommand) then bundles the NSIS installer.
       - name: Build installer
