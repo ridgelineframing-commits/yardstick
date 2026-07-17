@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>Yardstick · PDF Markup &amp; Plan Takeoff</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cg stroke='%23fff' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 38V22'/%3E%3Cpath d='M26 38V29'/%3E%3Cpath d='M38 38V22'/%3E%3Cpath d='M50 38V29'/%3E%3C/g%3E%3Cpath d='M10 46h44' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Cg stroke='%23fff' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M14 38V22'/%3E%3Cpath d='M26 38V29'/%3E%3Cpath d='M38 38V22'/%3E%3Cpath d='M50 38V29'/%3E%3C/g%3E%3Cpath d='M10 46h44' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -18,7 +20,7 @@
     --r:10px; --sh:0 1px 3px rgba(20,40,80,.10); --sh2:0 6px 22px rgba(20,40,80,.14);
   }
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%;font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif;font-size:13px;color:var(--txt);
+  html,body{margin:0;height:100%;overflow:hidden;font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif;font-size:13px;color:var(--txt);
     background:radial-gradient(1100px 600px at 80% -8%,#ffffff 0%,var(--bg) 55%);}
   #app{display:flex;flex-direction:column;height:100vh}
   ::-webkit-scrollbar{width:11px;height:11px}
@@ -182,11 +184,95 @@
   .ighead{display:flex;align-items:center;gap:7px;padding:7px 14px;background:var(--panel2);border-bottom:1px solid var(--line);cursor:pointer;font-size:11.5px;font-weight:700;color:#33445c;user-select:none}
   .ighead .isw{width:10px;height:10px;border-radius:3px;border:1px solid #0002;flex:none}
   .ighead .chev{margin-left:auto;color:var(--faint);font-size:10px}
+
+  /* ============ tool toolbar (all sizes) ============ */
+  .stagewrap{flex:1;display:flex;flex-direction:column;min-width:0}
+  #toolbar{flex:none;display:flex;flex-direction:column;gap:7px;padding:8px 10px;
+    background:linear-gradient(180deg,#ffffff,#f2f6fb);border-bottom:1px solid var(--line);
+    box-shadow:0 2px 8px rgba(20,40,80,.06);z-index:20}
+  #toolChips{display:flex;gap:7px;overflow-x:auto;overflow-y:hidden;padding-bottom:2px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+  #toolChips::-webkit-scrollbar{height:6px}
+  .tchip{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:11px;
+    border:1px solid var(--line2);background:#fff;color:var(--txt);font-size:13px;font-weight:700;cursor:pointer;
+    box-shadow:var(--sh);white-space:nowrap;transition:.12s;user-select:none}
+  .tchip:hover{border-color:var(--primary);color:var(--primary-d);transform:translateY(-1px)}
+  .tchip .dot{width:11px;height:11px;border-radius:50%;flex:none;box-shadow:0 0 0 1.5px #00000012}
+  .tchip.active{background:linear-gradient(180deg,#2f6bf0,#1d4ed8);border-color:var(--primary-d);color:#fff;box-shadow:0 3px 12px #2563eb55}
+  .tchip.active .dot{box-shadow:0 0 0 1.5px #ffffff88}
+  .tchip.cal.active{background:linear-gradient(180deg,#1fae57,#15863f);border-color:#15863f;box-shadow:0 3px 12px #16a34a55}
+  .tchip .div{width:1px;align-self:stretch;background:var(--line2)}
+  #toolDiv{flex:0 0 auto;width:1px;align-self:stretch;background:var(--line2);margin:2px 3px}
+  #toolbarOpts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  #toolbarOpts:empty{display:none}
+  #toolbarOpts .pal{display:flex;flex-wrap:wrap;gap:6px}
+  #toolbarOpts .pal button{padding:8px 12px;font-size:12.5px}
+  #toolbarOpts .pal button.active{background:linear-gradient(180deg,#2f6bf0,#1d4ed8);border-color:var(--primary-d);color:#fff}
+  #toolbarOpts .pre{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:7px 9px}
+  #toolbarOpts .pre input[type=text]{width:64px;background:#fff;border:1px solid var(--line2);border-radius:7px;padding:6px 7px}
+  #toolbarOpts .dropchip{border:1.5px dashed var(--primary);color:var(--primary-d);background:#eef4ff;border-radius:9px;padding:8px 11px;font-weight:700;cursor:grab;text-align:center}
+  #toolbarOpts .paltip{font-size:11.5px;color:var(--muted);margin:0;flex:1 1 100%;line-height:1.4}
+
+  /* ============ mobile nav + drawers ============ */
+  .navbtn{display:none;background:#1b2f4d;border:1px solid #2a4468;color:#dbe7f5;padding:9px 12px;
+    border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex:none}
+  .navbtn:hover{border-color:var(--primary);color:#fff}
+  .drawerClose{display:none}
+  #drawerBack{position:fixed;inset:0;background:#0f1c2e66;z-index:90;opacity:0;pointer-events:none;transition:opacity .2s}
+  body.drawer-l #drawerBack,body.drawer-r #drawerBack{opacity:1;pointer-events:auto}
+
+  @media (max-width:1024px){
+    header{gap:8px;padding:9px 11px}
+    header .sub{display:none}
+    a.pbLink{display:none}
+    header .logo{font-size:15px}
+    header label.pill{display:none}
+    header #projName{width:auto;flex:1;min-width:60px}
+    header button{white-space:nowrap}
+    .navbtn{display:inline-block}
+
+    .side{position:fixed;top:0;bottom:0;left:0;width:86vw;max-width:350px;z-index:100;
+      transform:translateX(-100%);transition:transform .22s ease;box-shadow:8px 0 30px rgba(15,28,46,.32)}
+    .side.right{left:auto;right:0;transform:translateX(100%);width:88vw;max-width:400px;
+      box-shadow:-8px 0 30px rgba(15,28,46,.32)}
+    body.drawer-l .side:not(.right){transform:translateX(0)}
+    body.drawer-r .side.right{transform:translateX(0)}
+
+    #collapseWrap,#expandTab{display:none!important}
+    .side.right.collapsed{width:88vw}
+    .side.right.collapsed .sec,.side.right.collapsed .footbar,.side.right.collapsed .ghead,.side.right.collapsed .gbody{display:block}
+
+    .drawerClose{display:flex;align-items:center;justify-content:center;gap:6px;position:sticky;top:0;z-index:5;
+      width:100%;padding:12px;border:none;border-bottom:1px solid var(--line);border-radius:0;
+      background:var(--panel2);color:var(--muted);font-weight:700;box-shadow:none}
+
+    /* touch-friendly sizing */
+    button{padding:10px 13px;font-size:13px}
+    .sec h3{font-size:11px}
+    .tchip{padding:11px 16px;font-size:14px}
+    input[type=number]{padding:8px;font-size:14px}
+    input[type=text],select{font-size:14px}
+    .item{padding:12px 14px}
+    .item .nm{font-size:13px}
+    .footbar button{flex:1 1 auto}
+  }
+  @media (max-width:560px){
+    .side{width:92vw}
+    .side.right{width:94vw}
+    #toolbar{padding:7px 8px}
+    .tchip{padding:10px 13px}
+    header .logo span.r{display:none}
+    header .logo:before{width:24px;height:24px}
+  }
+  /* stylus / touch: no hover lift that sticks, bigger hit area on canvas handles handled in JS */
+  @media (hover:none){
+    .tchip:hover,button:hover{transform:none}
+  }
 </style>
 </head>
 <body>
 <div id="app">
   <header>
+    <button class="navbtn" id="btnDrawerL" title="Tools &amp; setup" aria-label="Open tools and setup">☰</button>
     <div><div class="logo"><span class="r">YARDSTICK</span></div>
       <div class="sub">PDF Markup &amp; Plan Takeoff</div></div>
     <div class="spacer"></div>
@@ -205,13 +291,16 @@
     <label class="pill">Project</label>
     <input type="text" id="projName" placeholder="Project / job name" style="width:180px">
     <button id="btnOpen">Open PDF</button>
+    <button class="navbtn" id="btnDrawerR" title="Items &amp; totals" aria-label="Open items and totals">Totals</button>
     <input type="file" id="fileInput" accept="application/pdf" style="display:none">
     <input type="file" id="jobInput" accept=".json,application/json" style="display:none">
   </header>
+  <div id="drawerBack"></div>
 
   <div class="main">
     <!-- LEFT -->
     <div class="side">
+      <button class="drawerClose" data-close>✕ &nbsp;Close</button>
       <div class="sec">
         <h3>1 &middot; Page &amp; Zoom</h3>
         <div class="row">
@@ -233,16 +322,7 @@
 
       <div class="sec">
         <h3>3 &middot; Trace</h3>
-        <div id="taccWrap">
-          <div class="tacc" data-tool="select"><div class="thead">➤ Select / edit <span class="chev">▸</span></div><div class="tbody" id="tb-select"></div></div>
-          <div class="tacc" data-tool="room"><div class="thead">▭ Room <span class="chev">▸</span></div><div class="tbody" id="tb-room"></div></div>
-          <div class="tacc" data-tool="door"><div class="thead">Door <span class="chev">▸</span></div><div class="tbody" id="tb-door"></div></div>
-          <div class="tacc" data-tool="window"><div class="thead">Window <span class="chev">▸</span></div><div class="tbody" id="tb-window"></div></div>
-          <div class="tacc" data-tool="fixture"><div class="thead">Plumbing <span class="chev">▸</span></div><div class="tbody" id="tb-fixture"></div></div>
-          <div class="tacc" data-tool="electrical"><div class="thead">Electrical <span class="chev">▸</span></div><div class="tbody" id="tb-electrical"></div></div>
-          <div class="tacc" data-tool="structure"><div class="thead">⌐ Structure <span class="chev">▸</span></div><div class="tbody" id="tb-structure"></div></div>
-          <div class="tacc" data-tool="comment"><div class="thead">✎ Comment <span class="chev">▸</span></div><div class="tbody" id="tb-comment"></div></div>
-        </div>
+        <div class="hint" style="display:block">Pick a tool from the <b>toolbar above the drawing</b> — Room, Door, Window, Plumbing, Electrical, Structure, Note — then tap the plan to place or trace it.</div>
         <div class="row" style="margin-top:8px">
           <button class="btn-sec" id="btnReadText">🔤 Read doors / windows / fixtures from PDF text</button>
         </div>
@@ -274,6 +354,22 @@
     </div>
 
     <!-- STAGE -->
+    <div class="stagewrap">
+    <div id="toolbar">
+      <div id="toolChips">
+        <button class="tool tchip" data-tool="select"><span class="dot" style="background:#64748b"></span>Select</button>
+        <button class="tool tchip" data-tool="room"><span class="dot" style="background:#4caf6f"></span>Room</button>
+        <button class="tool tchip" data-tool="door"><span class="dot" style="background:#475569"></span>Door</button>
+        <button class="tool tchip" data-tool="window"><span class="dot" style="background:#b45309"></span>Window</button>
+        <button class="tool tchip" data-tool="fixture"><span class="dot" style="background:#2563eb"></span>Plumbing</button>
+        <button class="tool tchip" data-tool="electrical"><span class="dot" style="background:#dc2626"></span>Electrical</button>
+        <button class="tool tchip" data-tool="structure"><span class="dot" style="background:#9333ea"></span>Structure</button>
+        <button class="tool tchip" data-tool="comment"><span class="dot" style="background:#64748b"></span>Note</button>
+        <span id="toolDiv"></span>
+        <button class="tool tchip cal" data-tool="calibrate"><span class="dot" style="background:#16a34a"></span>Set scale</button>
+      </div>
+      <div id="toolbarOpts"></div>
+    </div>
     <div class="stage" id="stage">
       <div id="stageInner">
         <canvas id="pdfCanvas" width="900" height="650"></canvas>
@@ -287,12 +383,14 @@
       </div></div>
       <div class="drop" id="dropHint">
         <div class="big">Drop a plan PDF here</div>
-        <div>or click <b>Open PDF</b> &middot; calibrate &middot; auto-trace</div>
+        <div>or tap <b>Open PDF</b> &middot; set scale &middot; auto-trace</div>
       </div>
+    </div>
     </div>
 
     <!-- RIGHT -->
     <div class="side right" id="rightPanel">
+      <button class="drawerClose" data-close>✕ &nbsp;Close</button>
       <div id="expandTab">◀ &nbsp;Items · Totals &amp; Schedules</div>
       <div id="collapseWrap"><button id="btnCollapseR" title="Collapse panel to free up space">Collapse ⇥</button></div>
       <div class="ghead" id="ghItems">Items <span id="itemCount" class="pill" style="text-transform:none;letter-spacing:0"></span><span class="chev">▾</span></div>
@@ -435,11 +533,50 @@ function setTool(t){S.tool=t;hidePopover();if(t!=='room'&&t!=='cabinet'&&t!=='co
 
 function evtUnits(e){const r=$('overlay').getBoundingClientRect();return{x:(e.clientX-r.left)/S.scale,y:(e.clientY-r.top)/S.scale};}
 const ov=$('overlay');
-ov.addEventListener('mousedown',onDown);
-ov.addEventListener('mousemove',onMove);
-window.addEventListener('mouseup',onUp);
-ov.addEventListener('click',onClick);
-ov.addEventListener('dblclick',onDbl);
+// Unified pointer input: works for mouse, pen, and touch. One finger drives the
+// active tool (tap = place/select, drag = move a handle); two fingers pan + pinch-zoom.
+ov.style.touchAction='none';
+const _ptrs=new Map();let _pinch=null,_lastTap=0,_tapXY=null,_downXY=null,_moved=false,_zoomBusy=false;
+const _mid=(a,b)=>({x:(a.x+b.x)/2,y:(a.y+b.y)/2});
+function zoomAround(cx,cy,factor){
+  const ns=Math.max(0.3,Math.min(6,S.scale*factor));
+  if(Math.abs(ns-S.scale)<1e-4||_zoomBusy)return;
+  const r=ov.getBoundingClientRect(),ax=cx-r.left,ay=cy-r.top,k=ns/S.scale;
+  const sx=stage.scrollLeft,sy=stage.scrollTop;S.scale=ns;_zoomBusy=true;
+  renderPage().then(()=>{stage.scrollLeft=sx+ax*(k-1);stage.scrollTop=sy+ay*(k-1);_zoomBusy=false;});
+}
+ov.addEventListener('pointerdown',e=>{
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  try{ov.setPointerCapture(e.pointerId);}catch(_){}
+  _ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(_ptrs.size===1){_moved=false;_downXY={x:e.clientX,y:e.clientY};onDown(e);}
+  else if(_ptrs.size===2){S.drag=null;S.suppressClick=true;const v=[..._ptrs.values()];
+    _pinch={d:Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y),c:_mid(v[0],v[1])};redraw();}
+});
+ov.addEventListener('pointermove',e=>{
+  if(!_ptrs.has(e.pointerId))return;
+  _ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(_ptrs.size>=2){const v=[..._ptrs.values()],d=Math.hypot(v[0].x-v[1].x,v[0].y-v[1].y),c=_mid(v[0],v[1]);
+    if(_pinch){stage.scrollLeft-=(c.x-_pinch.c.x);stage.scrollTop-=(c.y-_pinch.c.y);
+      if(_pinch.d>0&&Math.abs(d/_pinch.d-1)>0.02)zoomAround(c.x,c.y,d/_pinch.d);}
+    _pinch={d,c};return;}
+  if(_downXY&&Math.hypot(e.clientX-_downXY.x,e.clientY-_downXY.y)>5)_moved=true;
+  onMove(e);
+});
+function _ptrEnd(e){
+  const wasOne=_ptrs.size===1;_ptrs.delete(e.pointerId);
+  if(_ptrs.size>=2)return;
+  if(_ptrs.size===1){const v=[..._ptrs.values()][0];_pinch=null;_downXY={x:v.x,y:v.y};_moved=true;return;}
+  if(_pinch){_pinch=null;S.suppressClick=false;return;}
+  if(S.drag){onUp();return;}
+  if(!wasOne||_moved){S.suppressClick=false;return;}
+  onClick(e);
+  const now=Date.now();
+  if(now-_lastTap<300&&_tapXY&&Math.hypot(e.clientX-_tapXY.x,e.clientY-_tapXY.y)<24){onDbl(e);_lastTap=0;_tapXY=null;}
+  else{_lastTap=now;_tapXY={x:e.clientX,y:e.clientY};}
+}
+ov.addEventListener('pointerup',_ptrEnd);
+ov.addEventListener('pointercancel',e=>{_ptrs.delete(e.pointerId);if(_ptrs.size<2)_pinch=null;if(S.drag)onUp();});
 
 function onDown(e){
   const u=evtUnits(e);S.mouse=u;
@@ -667,8 +804,7 @@ function placeOpening(kind,u){
   else{const p=S.preset.window;S.items.push({id:uid(),type:'window',at:u,width:p.width,height:p.height,wtype:p.wtype,tempered:!!p.tempered,level:S.level});}
   recompute();}
 // contextual tool options rendered inside the active tool's accordion body
-function renderToolOpts(){const t=S.tool;const w=$('tb-'+t);
-  document.querySelectorAll('.tacc .tbody').forEach(b=>{if(b.id!=='tb-'+t)b.innerHTML='';});
+function renderToolOpts(){const t=S.tool;const w=$('toolbarOpts');
   if(!w)return;w.innerHTML='';
   const tipEl=s=>{const d=document.createElement('div');d.className='paltip';d.style.marginTop='0';d.textContent=s;w.appendChild(d);};
   if(t==='select'){tipEl('Click any item on the plan to edit or delete it. Drag square handles to reshape. Del key removes the selected item.');return;}
@@ -1398,6 +1534,15 @@ $('btnSample').onclick=()=>{$('dropHint').style.display='none';S.feetPerUnit=0.0
     {id:uid(),type:'structure',points:[{x:340,y:62},{x:620,y:62}],callout:'6x12 GLB flush beam'},
     {id:uid(),type:'structure',at:{x:340,y:300},callout:'6x6 post'},
   ];S.items.forEach(it=>it.level='Page 1');S.statedAreas=[{label:'Living Area',sf:1850,page:1},{label:'Garage',sf:440,page:1}];S.areasAdopted=false;recompute();};
+
+// ---------- mobile drawers ----------
+const closeDrawers=()=>document.body.classList.remove('drawer-l','drawer-r');
+$('btnDrawerL')&&($('btnDrawerL').onclick=()=>{const o=document.body.classList.contains('drawer-l');closeDrawers();if(!o)document.body.classList.add('drawer-l');});
+$('btnDrawerR')&&($('btnDrawerR').onclick=()=>{const o=document.body.classList.contains('drawer-r');closeDrawers();if(!o)document.body.classList.add('drawer-r');});
+$('drawerBack')&&($('drawerBack').onclick=closeDrawers);
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeDrawers);
+// picking a tool from the toolbar closes any open drawer so the plan is visible
+document.querySelectorAll('#toolChips .tchip').forEach(b=>b.addEventListener('click',closeDrawers));
 
 updateCalUI();renderAll();setTool('select');tryRestore();
 </script>
