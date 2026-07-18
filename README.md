@@ -5,7 +5,9 @@
 Open a plan PDF, set the scale, and trace rooms, doors, windows, plumbing,
 electrical, and structure straight onto the drawing. Yardstick tallies areas,
 lineal footage, fixture counts, and a material takeoff, then exports to Excel,
-a marked-up PDF, or DXF. It runs fully offline as a native Windows app.
+a marked-up PDF, or DXF. It runs fully offline as a native Windows app, and the
+same `app/index.html` is responsive and touch-capable for tablet/phone browsers
+(labeled toolbar, slide-over panels, tap-to-place, two-finger pan/pinch-zoom).
 
 ---
 
