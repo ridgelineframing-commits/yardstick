@@ -80,6 +80,8 @@
   details{border:1px solid var(--line);border-radius:9px;padding:5px 10px;margin-bottom:7px;background:var(--panel2)}
   summary{cursor:pointer;color:var(--muted)}
   .cal{font-size:12px}.cal .ok{color:var(--cal);font-weight:700}.cal .no{color:var(--warn);font-weight:700}
+  .scalesel{flex:1 1 128px;min-width:118px;background:#fff;border:1px solid var(--line2);border-radius:8px;padding:8px 9px;font-size:12.5px;font-weight:600;color:var(--txt);cursor:pointer}
+  .scalesel:hover{border-color:var(--primary)}
   .itemlist{overflow:visible;padding:2px 0}
   .item{padding:8px 14px;border-bottom:1px solid var(--line);cursor:pointer;font-size:12px;transition:.1s}
   .item:hover{background:var(--panel2)}
@@ -336,10 +338,35 @@
       <div class="sec">
         <h3>2 &middot; Set Scale</h3>
         <div class="row">
+          <select id="scalePreset" class="scalesel" title="Pick the printed scale of the sheet">
+            <option value="">Pick scale…</option>
+            <optgroup label="Architectural (in = 1 ft)">
+              <option value="a:0.09375">3/32" = 1'-0"</option>
+              <option value="a:0.0625">1/16" = 1'-0"</option>
+              <option value="a:0.125">1/8" = 1'-0"</option>
+              <option value="a:0.1875">3/16" = 1'-0"</option>
+              <option value="a:0.25">1/4" = 1'-0"</option>
+              <option value="a:0.375">3/8" = 1'-0"</option>
+              <option value="a:0.5">1/2" = 1'-0"</option>
+              <option value="a:0.75">3/4" = 1'-0"</option>
+              <option value="a:1">1" = 1'-0"</option>
+              <option value="a:1.5">1-1/2" = 1'-0"</option>
+              <option value="a:3">3" = 1'-0"</option>
+            </optgroup>
+            <optgroup label="Engineering (1 in = ft)">
+              <option value="e:10">1" = 10'</option>
+              <option value="e:20">1" = 20'</option>
+              <option value="e:30">1" = 30'</option>
+              <option value="e:40">1" = 40'</option>
+              <option value="e:50">1" = 50'</option>
+              <option value="e:60">1" = 60'</option>
+              <option value="e:100">1" = 100'</option>
+            </optgroup>
+          </select>
           <button class="tool cal" data-tool="calibrate" id="btnCal">Calibrate</button>
           <span id="calStatus" class="cal no">Not set</span>
         </div>
-        <div class="hint">Click two points on a known dimension &rarr; type the real length. Points show <b style="color:var(--cal)">bright green</b>; drag either endpoint later to fix. Accepts <span class="badge">10</span><span class="badge">10'6"</span><span class="badge">10-6</span></div>
+        <div class="hint">Most sheets are printed to scale — just pick the sheet's scale (e.g. <span class="badge">1/4"=1'</span>) from the drop-down. If a sheet is <b>not</b> to scale, use <b>Calibrate</b>: click two points on a known dimension &rarr; type the real length. Points show <b style="color:var(--cal)">bright green</b>; drag either endpoint later to fix. Accepts <span class="badge">10</span><span class="badge">10'6"</span><span class="badge">10-6</span></div>
       </div>
 
       <div class="sec">
@@ -526,7 +553,7 @@ const WINDOW_PRESETS=[
 const SVGNS='http://www.w3.org/2000/svg';
 
 const S={pdfDoc:null,pageNum:1,numPages:0,scale:1.4,feetPerUnit:null,
-  items:[], cal:null, draft:null, tool:'select', selId:null, selVtx:-1,
+  items:[], cal:null, scaleLabel:null, draft:null, tool:'select', selId:null, selVtx:-1,
   drag:null, suppressClick:false, mouse:null, idc:1, roomColorIdx:0, statedAreas:[], areasAdopted:false, origName:'', pdfB64:null, level:'Page 1', popId:null,
   preset:{door:{dtype:'Swing',width:3,height:6+8/12},window:{wtype:'Single Hung',width:3,height:4,tempered:false},ftype:'Toilet',etype:'Duplex Outlet'},
   annot:{color:'#e11d48',width:3.5,size:16}};
@@ -719,8 +746,12 @@ function doCalClick(u){
   }
   redraw();
 }
-function recalc(){if(S.cal){const d=Math.hypot(S.cal.p1.x-S.cal.p0.x,S.cal.p1.y-S.cal.p0.y);if(d>0)S.feetPerUnit=S.cal.knownFt/d;}updateCalUI();}
-function updateCalUI(){const el=$('calStatus');if(S.feetPerUnit){el.className='cal ok';el.textContent='Scale set ✓ ('+fmtFt(S.cal.knownFt)+' ref)';}else{el.className='cal no';el.textContent='Not set';}}
+function recalc(){if(S.cal){const d=Math.hypot(S.cal.p1.x-S.cal.p0.x,S.cal.p1.y-S.cal.p0.y);if(d>0)S.feetPerUnit=S.cal.knownFt/d;S.scaleLabel=null;const sp=$('scalePreset');if(sp)sp.value='';}updateCalUI();}
+// apply a printed architectural / engineering scale straight from the drop-down.
+// units are unscaled PDF points (1 pt = 1/72"), so feet-per-unit = feet-per-paper-inch / 72.
+function applyScalePreset(v,label){if(!v){return;}const[k,n]=v.split(':');const num=parseFloat(n);if(!isFinite(num)||num<=0)return;
+  const feetPerInch=(k==='a')?(1/num):num;S.feetPerUnit=feetPerInch/72;S.cal=null;S.selId=null;S.scaleLabel=label||null;updateCalUI();renderAll();}
+function updateCalUI(){const el=$('calStatus');if(S.feetPerUnit){el.className='cal ok';el.textContent='Scale set ✓ · '+(S.cal?fmtFt(S.cal.knownFt)+' ref':(S.scaleLabel||'manual'));}else{el.className='cal no';el.textContent='Not set';}}
 
 // ---------- auto-trace (flood fill) ----------
 // ---- raster engine: downscaled wall mask, doorway-sealing close, region detect ----
@@ -1237,7 +1268,7 @@ function fixtureAgg(){const m={};for(const it of S.items)if(it.type==='fixture')
 
 function recompute(){renderAll();autosave();}
 // ---------- job save / open / autosave ----------
-function serialize(includePdf){const o={v:3,proj:$('projName').value,origName:S.origName,feetPerUnit:S.feetPerUnit,cal:S.cal,items:S.items,statedAreas:S.statedAreas,areasAdopted:S.areasAdopted,idc:S.idc,roomColorIdx:S.roomColorIdx,numPages:S.numPages};
+function serialize(includePdf){const o={v:3,proj:$('projName').value,origName:S.origName,feetPerUnit:S.feetPerUnit,cal:S.cal,scaleLabel:S.scaleLabel,items:S.items,statedAreas:S.statedAreas,areasAdopted:S.areasAdopted,idc:S.idc,roomColorIdx:S.roomColorIdx,numPages:S.numPages};
   if(includePdf&&S.pdfB64){if(S.pdfB64.length<60*1024*1024)o.pdf={name:(S.origName||'plan')+'.pdf',b64:S.pdfB64};
     else alert('Plan PDF is too large to embed in the job file — saving drawings only (re-open the PDF alongside it).');}
   return JSON.stringify(o);}
@@ -1247,7 +1278,7 @@ function loadState(o){try{
   else applyState(o);
 }catch(e){alert('Could not read that job file.');}}
 function applyState(o){try{
-  $('projName').value=o.proj||'';S.origName=o.origName||S.origName||'';S.feetPerUnit=o.feetPerUnit||null;S.cal=o.cal||null;
+  $('projName').value=o.proj||'';S.origName=o.origName||S.origName||'';S.feetPerUnit=o.feetPerUnit||null;S.cal=o.cal||null;S.scaleLabel=o.scaleLabel||null;
   S.items=o.items||[];S.statedAreas=o.statedAreas||[];S.areasAdopted=!!o.areasAdopted;
   S.idc=o.idc||(Math.max(0,...S.items.map(i=>i.id||0))+1);S.roomColorIdx=o.roomColorIdx||0;
   if(!S.pdfDoc&&o.numPages)S.numPages=o.numPages;
@@ -1754,6 +1785,8 @@ document.querySelectorAll('.toolbtn').forEach(b=>b.addEventListener('click',clos
 // collapsible "Markup & Text" parent group + pop-out close button
 $('mkHead')&&($('mkHead').onclick=()=>$('mkGroup').classList.toggle('open'));
 $('toolPopClose')&&($('toolPopClose').onclick=()=>$('toolPop').classList.remove('show'));
+// manual "printed to scale" drop-down (keeps Calibrate for off-scale sheets)
+$('scalePreset')&&($('scalePreset').onchange=e=>{const o=e.target.selectedOptions[0];applyScalePreset(e.target.value,o?o.textContent.trim():'');});
 
 updateCalUI();renderAll();setTool('select');tryRestore();
 </script>
