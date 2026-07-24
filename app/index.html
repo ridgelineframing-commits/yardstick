@@ -314,9 +314,9 @@
     <div class="spacer"></div>
     <label class="pill">Project</label>
     <input type="text" id="projName" placeholder="Project / job name" style="width:180px">
-    <button id="btnOpen">Open PDF</button>
+    <button id="btnOpen">Open file</button>
     <button class="navbtn" id="btnDrawerR" title="Items &amp; totals" aria-label="Open items and totals">Totals</button>
-    <input type="file" id="fileInput" accept="application/pdf" style="display:none">
+    <input type="file" id="fileInput" accept="application/pdf,image/png,image/jpeg,image/webp,image/gif,image/bmp,image/svg+xml,.pdf,.png,.jpg,.jpeg,.webp,.gif,.bmp,.svg" style="display:none">
     <input type="file" id="jobInput" accept=".json,application/json" style="display:none">
   </header>
   <div id="drawerBack"></div>
@@ -439,8 +439,8 @@
         <div class="mrow"><button id="mCancel">Cancel</button><button class="prim" id="mOk">Save</button></div>
       </div></div>
       <div class="drop" id="dropHint">
-        <div class="big">Drop a plan PDF here</div>
-        <div>or tap <b>Open PDF</b> &middot; set scale &middot; auto-trace</div>
+        <div class="big">Drop a plan here — PDF or image</div>
+        <div>or tap <b>Open file</b> &middot; set scale &middot; auto-trace &nbsp;·&nbsp; <span style="opacity:.75">PDF, PNG, JPG, WebP, GIF, BMP, SVG</span></div>
       </div>
     </div>
     </div>
@@ -554,7 +554,7 @@ const SVGNS='http://www.w3.org/2000/svg';
 
 const S={pdfDoc:null,pageNum:1,numPages:0,scale:1.4,feetPerUnit:null,
   items:[], cal:null, scaleLabel:null, draft:null, tool:'select', selId:null, selVtx:-1,
-  drag:null, suppressClick:false, mouse:null, idc:1, roomColorIdx:0, statedAreas:[], areasAdopted:false, origName:'', pdfB64:null, level:'Page 1', popId:null,
+  drag:null, suppressClick:false, mouse:null, idc:1, roomColorIdx:0, statedAreas:[], areasAdopted:false, origName:'', pdfB64:null, imgSrc:null, isImage:false, level:'Page 1', popId:null,
   preset:{door:{dtype:'Swing',width:3,height:6+8/12},window:{wtype:'Single Hung',width:3,height:4,tempered:false},ftype:'Toilet',etype:'Duplex Outlet'},
   annot:{color:'#e11d48',width:3.5,size:16}};
 function pageLabels(){const n=Math.max(1,S.numPages||1);return Array.from({length:n},(_,i)=>'Page '+(i+1));}
@@ -576,9 +576,11 @@ const SF=a=>a*Math.pow(S.feetPerUnit||0,2);
 function roomColorFor(){const c=ROOMPAL[S.roomColorIdx%ROOMPAL.length];S.roomColorIdx++;return c;}
 function colorOf(it){return it.type==='room'?(it.color||'#4caf6f'):(it.color||TYPECOL[it.type]||'#334155');}
 
-// ---------- PDF ----------
+// ---------- open a plan (PDF or image) ----------
+const IMG_RE=/\.(png|jpe?g|webp|gif|bmp|svg)$/i;
+const isImageFile=f=>(f.type&&f.type.startsWith('image/'))||IMG_RE.test(f.name||'');
 $('btnOpen').onclick=()=>$('fileInput').click();
-$('fileInput').onchange=e=>{if(e.target.files[0])loadPDF(e.target.files[0]);};
+$('fileInput').onchange=e=>{if(e.target.files[0])loadFile(e.target.files[0]);e.target.value='';};
 const stage=$('stage');
 ['dragover','drop'].forEach(ev=>stage.addEventListener(ev,e=>e.preventDefault()));
 stage.addEventListener('drop',e=>{
@@ -588,15 +590,38 @@ stage.addEventListener('drop',e=>{
     else if(o.kind==='electrical')placeElectrical(u,o.val);
     else if(o.kind==='door'||o.kind==='window')placeOpening(o.kind,u,o.val);
   }catch(err){}return;}
-  const f=[...e.dataTransfer.files].find(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf');if(f)loadPDF(f);});
+  const f=[...e.dataTransfer.files].find(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf'||isImageFile(f));if(f)loadFile(f);});
+// route by type: PDFs go through pdf.js, images through a lightweight page shim
+function loadFile(file){return isImageFile(file)?loadImage(file):loadPDF(file);}
 async function loadPDF(file){const buf=await file.arrayBuffer();await loadPDFData(buf,file.name,true);}
 async function loadPDFData(buf,name,scan){
   try{S.pdfB64=b64FromBuf(buf);}catch(e){S.pdfB64=null;}
+  S.imgSrc=null;S.isImage=false;
   S.pdfDoc=await pdfjsLib.getDocument({data:new Uint8Array(buf.slice(0))}).promise;
   S.numPages=S.pdfDoc.numPages;S.pageNum=1;S.level='Page 1';
   S.origName=(name||'plan').replace(/\.pdf$/i,'');
   if(!$('projName').value)$('projName').value=S.origName;
   $('dropHint').style.display='none';await renderPage();if(scan)scanStatedAreas();}
+// wrap a loaded <img> in an object that duck-types the pdf.js page/doc API so the
+// whole render / zoom / export / save-marked-up pipeline works unchanged for rasters.
+function makeImageDoc(img){const page={
+  getViewport:({scale})=>({width:Math.max(1,Math.round(img.naturalWidth*scale)),height:Math.max(1,Math.round(img.naturalHeight*scale))}),
+  render:({canvasContext,viewport})=>{canvasContext.drawImage(img,0,0,viewport.width,viewport.height);return{promise:Promise.resolve()};},
+  getTextContent:()=>Promise.resolve({items:[]})};
+  return{numPages:1,getPage:()=>Promise.resolve(page)};}
+function loadImgEl(src){return new Promise((res,rej)=>{const img=new Image();img.onload=()=>res(img);img.onerror=()=>rej(new Error('bad image'));img.src=src;});}
+async function loadImage(file){
+  const dataURL=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});
+  await loadImageData(dataURL,file.name);}
+async function loadImageData(dataURL,name){
+  let img;try{img=await loadImgEl(dataURL);}catch(e){alert('Could not read that image file.');return;}
+  if(!img.naturalWidth||!img.naturalHeight){alert('That image has no readable size (some SVGs need explicit width/height). Try a PNG/JPG export.');return;}
+  S.pdfB64=null;S.imgSrc=dataURL;S.isImage=true;
+  S.pdfDoc=makeImageDoc(img);S.numPages=1;S.pageNum=1;S.level='Page 1';
+  S.scale=Math.min(2,Math.max(0.4,1100/img.naturalWidth))||1.4;  // fit a sane starting size
+  S.origName=(name||'image').replace(/\.[^.]+$/,'');
+  if(!$('projName').value)$('projName').value=S.origName;
+  $('dropHint').style.display='none';await renderPage();}
 function b64FromBuf(buf){const u=new Uint8Array(buf);let s='';for(let i=0;i<u.length;i+=32768)s+=String.fromCharCode.apply(null,u.subarray(i,i+32768));return btoa(s);}
 function bufFromB64(b){const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u.buffer;}
 async function renderPage(){if(!S.pdfDoc)return;const page=await S.pdfDoc.getPage(S.pageNum);const vp=page.getViewport({scale:S.scale});S.page=page;S.viewport=vp;
@@ -1271,10 +1296,13 @@ function recompute(){renderAll();autosave();}
 function serialize(includePdf){const o={v:3,proj:$('projName').value,origName:S.origName,feetPerUnit:S.feetPerUnit,cal:S.cal,scaleLabel:S.scaleLabel,items:S.items,statedAreas:S.statedAreas,areasAdopted:S.areasAdopted,idc:S.idc,roomColorIdx:S.roomColorIdx,numPages:S.numPages};
   if(includePdf&&S.pdfB64){if(S.pdfB64.length<60*1024*1024)o.pdf={name:(S.origName||'plan')+'.pdf',b64:S.pdfB64};
     else alert('Plan PDF is too large to embed in the job file — saving drawings only (re-open the PDF alongside it).');}
+  if(includePdf&&S.imgSrc){if(S.imgSrc.length<60*1024*1024)o.img={name:S.origName||'image',src:S.imgSrc};
+    else alert('Plan image is too large to embed in the job file — saving drawings only (re-open the image alongside it).');}
   return JSON.stringify(o);}
 function autosave(){try{if(S.items.length||($('projName')&&$('projName').value))localStorage.setItem('yardstick-autosave',serialize());}catch(e){}}
 function loadState(o){try{
   if(o.pdf&&o.pdf.b64){loadPDFData(bufFromB64(o.pdf.b64),o.pdf.name,false).then(()=>applyState(o)).catch(()=>applyState(o));}
+  else if(o.img&&o.img.src){loadImageData(o.img.src,o.img.name).then(()=>applyState(o)).catch(()=>applyState(o));}
   else applyState(o);
 }catch(e){alert('Could not read that job file.');}}
 function applyState(o){try{
