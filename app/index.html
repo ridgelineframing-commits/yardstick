@@ -474,6 +474,28 @@ const NOTE_CATS=['Basic','Electric','Plumbing'];
 const NOTE_COL={Basic:'#64748b',Electric:'#dc2626',Plumbing:'#2563eb'};
 const DOOR_TYPES=['Swing','Pocket','Double','Bifold','Sliding Glass','Garage Door','Other (specify)'];
 const DOOR_H=[6+8/12,8];const GAR_H=[7,8,9,10,12,14];
+// click-to-arm presets for the Door / Window tools (type + size baked in)
+const DOOR_PRESETS=[
+  {label:'Swing 3-0',dtype:'Swing',width:3,height:6+8/12},
+  {label:'Swing 2-8',dtype:'Swing',width:2+8/12,height:6+8/12},
+  {label:'Swing 2-6',dtype:'Swing',width:2.5,height:6+8/12},
+  {label:'Swing 2-4',dtype:'Swing',width:2+4/12,height:6+8/12},
+  {label:'Pocket 2-8',dtype:'Pocket',width:2+8/12,height:6+8/12},
+  {label:'Double 5-0',dtype:'Double',width:5,height:6+8/12},
+  {label:'Bifold 4-0',dtype:'Bifold',width:4,height:6+8/12},
+  {label:'Slider 6-0',dtype:'Sliding Glass',width:6,height:6+8/12},
+  {label:'Garage 16-0',dtype:'Garage Door',width:16,height:8},
+  {label:'Garage 9-0',dtype:'Garage Door',width:9,height:8},
+];
+const WINDOW_PRESETS=[
+  {label:'SH 3-0×4-0',wtype:'Single Hung',width:3,height:4},
+  {label:'SH 2-8×4-0',wtype:'Single Hung',width:2+8/12,height:4},
+  {label:'SH 3-0×5-0',wtype:'Single Hung',width:3,height:5},
+  {label:'XO 6-0×4-0',wtype:'XO Slider',width:6,height:4},
+  {label:'XO 5-0×3-0',wtype:'XO Slider',width:5,height:3},
+  {label:'Fixed 4-0×4-0',wtype:'Fixed',width:4,height:4},
+  {label:'Csmt 2-6×4-0',wtype:'Casement',width:2.5,height:4},
+];
 const SVGNS='http://www.w3.org/2000/svg';
 
 const S={pdfDoc:null,pageNum:1,numPages:0,scale:1.4,feetPerUnit:null,
@@ -510,7 +532,7 @@ stage.addEventListener('drop',e=>{
   if(d){try{const o=JSON.parse(d);const u=evtUnits(e);
     if(o.kind==='fixture')placeFixture(u,o.val);
     else if(o.kind==='electrical')placeElectrical(u,o.val);
-    else if(o.kind==='door'||o.kind==='window')placeOpening(o.kind,u);
+    else if(o.kind==='door'||o.kind==='window')placeOpening(o.kind,u,o.val);
   }catch(err){}return;}
   const f=[...e.dataTransfer.files].find(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf');if(f)loadPDF(f);});
 async function loadPDF(file){const buf=await file.arrayBuffer();await loadPDFData(buf,file.name,true);}
@@ -825,9 +847,9 @@ function dpClosed(pts,eps){if(pts.length<4)return pts;
 function perpDist(p,a,b){const dx=b[0]-a[0],dy=b[1]-a[1];const l=Math.hypot(dx,dy)||1;return Math.abs((p[0]-a[0])*dy-(p[1]-a[1])*dx)/l;}
 
 // ---------- markers ----------
-function placeOpening(kind,u){
-  if(kind==='door'){const p=S.preset.door;S.items.push({id:uid(),type:'door',at:u,width:p.width,height:p.height,dtype:p.dtype,subtype:'Interior door',level:S.level});}
-  else{const p=S.preset.window;S.items.push({id:uid(),type:'window',at:u,width:p.width,height:p.height,wtype:p.wtype,tempered:!!p.tempered,level:S.level});}
+function placeOpening(kind,u,preset){const p=preset||S.preset[kind];
+  if(kind==='door'){S.items.push({id:uid(),type:'door',at:u,width:p.width,height:p.height,dtype:p.dtype,subtype:'Interior door',level:S.level});}
+  else{S.items.push({id:uid(),type:'window',at:u,width:p.width,height:p.height,wtype:p.wtype,tempered:!!p.tempered,level:S.level});}
   recompute();}
 // contextual tool options rendered inside the active tool's accordion body
 function renderToolOpts(){const t=S.tool;const w=$('toolbarOpts');
@@ -856,18 +878,30 @@ function renderToolOpts(){const t=S.tool;const w=$('toolbarOpts');
     w.appendChild(pal);
     const tip=document.createElement('div');tip.className='paltip';tip.textContent='Click to arm, then click the plan — or drag any chip straight onto the plan.';w.appendChild(tip);}
   else if(t==='door'||t==='window'){
-    const pre=document.createElement('div');pre.className='pre';const P=S.preset[t];
-    pre.appendChild(mkSel(t==='door'?DOOR_TYPES:WINDOW_OPS,t==='door'?P.dtype:P.wtype,v=>{
-      if(v==='Other (specify)'){const c=prompt('Type:','');v=c||(t==='door'?P.dtype:P.wtype);}
-      if(t==='door'){P.dtype=v;if(/garage/i.test(v)){P.width=16;P.height=8;}}else P.wtype=v;renderToolOpts();}));
-    const lw=document.createElement('label');lw.textContent='W';pre.appendChild(lw);
-    const wIn=document.createElement('input');wIn.type='text';wIn.value=fmtFt(P.width);wIn.onchange=()=>{const f=parseFeet(wIn.value);if(isFinite(f)&&f>0)P.width=f;wIn.value=fmtFt(P.width);};pre.appendChild(wIn);
-    const lh=document.createElement('label');lh.textContent='H';pre.appendChild(lh);
-    const hIn=document.createElement('input');hIn.type='text';hIn.value=fmtFt(P.height);hIn.onchange=()=>{const f=parseFeet(hIn.value);if(isFinite(f)&&f>0)P.height=f;hIn.value=fmtFt(P.height);};pre.appendChild(hIn);
-    if(t==='window'){const tl=document.createElement('label');tl.className='tempbox';const cb=document.createElement('input');cb.type='checkbox';cb.checked=!!P.tempered;cb.onchange=()=>{P.tempered=cb.checked;};tl.appendChild(cb);tl.append(' Tempered');pre.appendChild(tl);}
-    const chip=document.createElement('div');chip.className='dropchip';chip.textContent='⤓ Drag onto the plan — or just click the plan';drag(chip,{kind:t});pre.appendChild(chip);
-    w.appendChild(pre);
-    const tip=document.createElement('div');tip.className='paltip';tip.textContent='No pop-ups: every click drops one with these presets. Fine-tune later in the Door & Window Schedule panel.';w.appendChild(tip);}
+    const presets=t==='door'?DOOR_PRESETS:WINDOW_PRESETS,cur=S.preset[t],key=t==='door'?'dtype':'wtype';
+    const cfgOf=ps=>t==='door'?{dtype:ps.dtype,width:ps.width,height:ps.height}
+                              :{wtype:ps.wtype,width:ps.width,height:ps.height,tempered:!!S.preset.window.tempered};
+    const pal=document.createElement('div');pal.className='pal';
+    presets.forEach(ps=>{const b=document.createElement('button');b.textContent=ps.label;
+      if(cur[key]===ps[key]&&Math.abs(cur.width-ps.width)<0.01&&Math.abs(cur.height-ps.height)<0.01)b.classList.add('active');
+      b.onclick=()=>{S.preset[t]=cfgOf(ps);renderToolOpts();};
+      drag(b,{kind:t,val:cfgOf(ps)});pal.appendChild(b);});
+    const other=document.createElement('button');other.textContent='Other…';
+    other.onclick=()=>{
+      if(t==='door'){const wv=prompt('Custom door width in feet (e.g. 3 or 2\'8"):',fmtFt(cur.width));if(wv==null)return;
+        const fw=parseFeet(wv);if(!(isFinite(fw)&&fw>0)){alert('Could not read that width.');return;}
+        S.preset.door={dtype:cur.dtype||'Swing',width:fw,height:cur.height||6+8/12};}
+      else{const wv=prompt('Custom window width in feet:',fmtFt(cur.width));if(wv==null)return;const fw=parseFeet(wv);if(!(isFinite(fw)&&fw>0)){alert('Could not read that width.');return;}
+        const hv=prompt('Height in feet:',fmtFt(cur.height));if(hv==null)return;const fh=parseFeet(hv);if(!(isFinite(fh)&&fh>0)){alert('Could not read that height.');return;}
+        S.preset.window={wtype:cur.wtype||'Single Hung',width:fw,height:fh,tempered:!!cur.tempered};}
+      renderToolOpts();};
+    if(cur[key]&&!presets.some(ps=>ps[key]===cur[key]&&Math.abs(ps.width-cur.width)<0.01&&Math.abs(ps.height-cur.height)<0.01))other.classList.add('active');
+    drag(other,{kind:t,val:cur});pal.appendChild(other);
+    w.appendChild(pal);
+    if(t==='window'){const tl=document.createElement('label');tl.className='tempbox';
+      const cb=document.createElement('input');cb.type='checkbox';cb.checked=!!S.preset.window.tempered;
+      cb.onchange=()=>{S.preset.window.tempered=cb.checked;renderToolOpts();};tl.appendChild(cb);tl.append(' Place as tempered');w.appendChild(tl);}
+    const tip=document.createElement('div');tip.className='paltip';tip.textContent='Click to arm, then click the plan — or drag any chip straight onto the plan. Change type, size & tempered later in the Door & Window Schedule.';w.appendChild(tip);}
   else if(t==='structure'){const tip=document.createElement('div');tip.className='paltip';tip.textContent='Click once = pinpoint an item · click-drag = highlight a beam. Then type the structural callout.';w.appendChild(tip);}}
 function mkSel(opts,cur,cb){const sel=document.createElement('select');const list=opts.slice();if(cur&&!list.includes(cur))list.unshift(cur);
   list.forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;if(o===cur)op.selected=true;sel.appendChild(op);});
