@@ -18,6 +18,12 @@ same `app/index.html` is responsive and touch-capable for tablet/phone browsers
 The browser version is published to GitHub Pages on every merge to `main`:
 **https://ridgelineframing-commits.github.io/yardstick/**
 
+It's an installable PWA: open that URL on a phone, tablet, or desktop and use
+your browser's **Install** action (an "Install app" button also appears in the
+header when the browser offers it) to add Yardstick to your home screen or
+app launcher. A service worker caches the app shell so it keeps working
+offline after the first load.
+
 (One-time setup: in **Settings → Pages**, set **Source = GitHub Actions**. The
 `pages` workflow then keeps that URL current. The desktop `.exe` is built
 separately by the `build` workflow.)
