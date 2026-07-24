@@ -213,6 +213,39 @@
   #toolbarOpts .dropchip{border:1.5px dashed var(--primary);color:var(--primary-d);background:#eef4ff;border-radius:9px;padding:8px 11px;font-weight:700;cursor:grab;text-align:center}
   #toolbarOpts .paltip{font-size:11.5px;color:var(--muted);margin:0;flex:1 1 100%;line-height:1.4}
 
+  /* ============ left-sidebar tool buttons + markup group + options popout ============ */
+  .toolbtn{display:flex;align-items:center;gap:8px;justify-content:flex-start;padding:10px 11px;border-radius:9px;
+    border:1px solid var(--line2);background:#fff;color:var(--txt);font-weight:700;font-size:12.5px;cursor:pointer;box-shadow:var(--sh);width:100%}
+  .toolbtn:hover{border-color:var(--primary);color:var(--primary-d);transform:translateY(-1px)}
+  .toolbtn .dot{width:11px;height:11px;border-radius:50%;flex:none;box-shadow:0 0 0 1.5px #00000012}
+  .toolbtn.active{background:var(--grad);border-color:var(--primary-d);color:#fff;box-shadow:0 3px 12px #10b98155}
+  .toolbtn.active .dot{box-shadow:0 0 0 1.5px #ffffff88}
+  .mgroup{border:1px solid var(--line);border-radius:10px;background:#fbfcfe;box-shadow:var(--sh);margin-top:8px;overflow:hidden}
+  .mgroup>.mghead{display:flex;align-items:center;gap:8px;padding:10px 11px;cursor:pointer;font-weight:800;font-size:11.5px;
+    letter-spacing:.4px;text-transform:uppercase;color:#33445c;user-select:none}
+  .mgroup>.mghead .chev{margin-left:auto;color:var(--faint);font-size:10px;transition:transform .15s}
+  .mgroup.open>.mghead .chev{transform:rotate(90deg)}
+  .mgroup>.mgbody{display:none;padding:8px;border-top:1px solid var(--line)}
+  .mgroup.open>.mgbody{display:block}
+  .mgroup.open>.mghead{background:var(--panel2)}
+  .mgroup.open .toolgrid{margin-bottom:0}
+  #toolPop{position:fixed;left:342px;top:66px;width:284px;max-width:calc(100vw - 24px);z-index:70;background:#fff;
+    border:1px solid var(--line2);border-radius:12px;box-shadow:var(--sh2);padding:11px 12px;display:none}
+  #toolPop.show{display:block}
+  #toolPop .tphead{display:flex;align-items:center;gap:8px;margin:-2px 0 9px}
+  #toolPop .tphead b{flex:1;font-size:13px}
+  #toolPop .tpclose{border:none;background:var(--panel2);color:var(--muted);border-radius:7px;padding:4px 9px;cursor:pointer;font-weight:700;box-shadow:none;font-size:11.5px}
+  #toolPop .tpclose:hover{color:var(--primary-d)}
+  #toolPopBody{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  #toolPopBody .pal{display:flex;flex-wrap:wrap;gap:6px}
+  #toolPopBody .pal button{padding:8px 11px;font-size:12px}
+  #toolPopBody .pal button.active{background:var(--grad);border-color:var(--primary-d);color:#fff}
+  #toolPopBody .pre{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:7px 9px}
+  #toolPopBody .pre input[type=text]{width:64px;background:#fff;border:1px solid var(--line2);border-radius:7px;padding:6px 7px}
+  #toolPopBody .dropchip{border:1.5px dashed var(--primary);color:var(--primary-d);background:#eef4ff;border-radius:9px;padding:8px 11px;font-weight:700;cursor:grab;text-align:center;flex:1 1 100%}
+  #toolPopBody .paltip{font-size:11.5px;color:var(--muted);margin:0;flex:1 1 100%;line-height:1.4}
+  @media (max-width:1024px){#toolPop{left:8px;right:8px;bottom:8px;top:auto;width:auto;max-width:none;z-index:110}}
+
   /* ============ mobile nav + drawers ============ */
   .navbtn{display:none;background:#1b2f4d;border:1px solid #2a4468;color:#dbe7f5;padding:9px 12px;
     border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex:none}
@@ -310,8 +343,31 @@
       </div>
 
       <div class="sec">
-        <h3>3 &middot; Trace</h3>
-        <div class="hint" style="display:block">Pick a tool from the <b>toolbar above the drawing</b> — Room, Door, Window, Plumbing, Electrical, Structure, Note — then tap the plan to place or trace it.</div>
+        <h3>3 &middot; Tools</h3>
+        <div class="toolgrid">
+          <button class="tool toolbtn" data-tool="select"><span class="dot" style="background:#64748b"></span>Select</button>
+          <button class="tool toolbtn" data-tool="room"><span class="dot" style="background:#4caf6f"></span>Room</button>
+          <button class="tool toolbtn" data-tool="door"><span class="dot" style="background:#475569"></span>Door</button>
+          <button class="tool toolbtn" data-tool="window"><span class="dot" style="background:#b45309"></span>Window</button>
+          <button class="tool toolbtn" data-tool="fixture"><span class="dot" style="background:#2563eb"></span>Plumbing</button>
+          <button class="tool toolbtn" data-tool="electrical"><span class="dot" style="background:#dc2626"></span>Electrical</button>
+          <button class="tool toolbtn" data-tool="structure"><span class="dot" style="background:#9333ea"></span>Structure</button>
+        </div>
+        <div class="mgroup" id="mkGroup">
+          <div class="mghead" id="mkHead">✎ Markup &amp; Text <span class="chev">▸</span></div>
+          <div class="mgbody">
+            <div class="toolgrid">
+              <button class="tool toolbtn" data-tool="draw"><span class="dot" style="background:#e11d48"></span>Draw</button>
+              <button class="tool toolbtn" data-tool="line"><span class="dot" style="background:#e11d48"></span>Line</button>
+              <button class="tool toolbtn" data-tool="arrow"><span class="dot" style="background:#e11d48"></span>Arrow</button>
+              <button class="tool toolbtn" data-tool="rect"><span class="dot" style="background:#e11d48"></span>Box</button>
+              <button class="tool toolbtn" data-tool="ellipse"><span class="dot" style="background:#e11d48"></span>Ellipse</button>
+              <button class="tool toolbtn" data-tool="polygon"><span class="dot" style="background:#e11d48"></span>Polygon</button>
+              <button class="tool toolbtn" data-tool="text"><span class="dot" style="background:#e11d48"></span>Text</button>
+              <button class="tool toolbtn" data-tool="comment"><span class="dot" style="background:#64748b"></span>Note</button>
+            </div>
+          </div>
+        </div>
         <div class="row" style="margin-top:8px">
           <button class="btn-sec" id="btnReadText">🔤 Read doors / windows / fixtures from PDF text</button>
         </div>
@@ -344,29 +400,6 @@
 
     <!-- STAGE -->
     <div class="stagewrap">
-    <div id="toolbar">
-      <div id="toolChips">
-        <button class="tool tchip" data-tool="select"><span class="dot" style="background:#64748b"></span>Select</button>
-        <button class="tool tchip" data-tool="room"><span class="dot" style="background:#4caf6f"></span>Room</button>
-        <button class="tool tchip" data-tool="door"><span class="dot" style="background:#475569"></span>Door</button>
-        <button class="tool tchip" data-tool="window"><span class="dot" style="background:#b45309"></span>Window</button>
-        <button class="tool tchip" data-tool="fixture"><span class="dot" style="background:#2563eb"></span>Plumbing</button>
-        <button class="tool tchip" data-tool="electrical"><span class="dot" style="background:#dc2626"></span>Electrical</button>
-        <button class="tool tchip" data-tool="structure"><span class="dot" style="background:#9333ea"></span>Structure</button>
-        <button class="tool tchip" data-tool="comment"><span class="dot" style="background:#64748b"></span>Note</button>
-        <span class="tdiv"></span>
-        <button class="tool tchip" data-tool="draw"><span class="dot" style="background:#e11d48"></span>Draw</button>
-        <button class="tool tchip" data-tool="line"><span class="dot" style="background:#e11d48"></span>Line</button>
-        <button class="tool tchip" data-tool="arrow"><span class="dot" style="background:#e11d48"></span>Arrow</button>
-        <button class="tool tchip" data-tool="rect"><span class="dot" style="background:#e11d48"></span>Box</button>
-        <button class="tool tchip" data-tool="ellipse"><span class="dot" style="background:#e11d48"></span>Ellipse</button>
-        <button class="tool tchip" data-tool="polygon"><span class="dot" style="background:#e11d48"></span>Polygon</button>
-        <button class="tool tchip" data-tool="text"><span class="dot" style="background:#e11d48"></span>Text</button>
-        <span class="tdiv"></span>
-        <button class="tool tchip cal" data-tool="calibrate"><span class="dot" style="background:#16a34a"></span>Set scale</button>
-      </div>
-      <div id="toolbarOpts"></div>
-    </div>
     <div class="stage" id="stage">
       <div id="stageInner">
         <canvas id="pdfCanvas" width="900" height="650"></canvas>
@@ -383,6 +416,12 @@
         <div>or tap <b>Open PDF</b> &middot; set scale &middot; auto-trace</div>
       </div>
     </div>
+    </div>
+
+    <!-- tool options pop-out -->
+    <div id="toolPop">
+      <div class="tphead"><b id="toolPopTitle"></b><button class="tpclose" id="toolPopClose">Hide</button></div>
+      <div id="toolPopBody"></div>
     </div>
 
     <!-- RIGHT -->
@@ -548,11 +587,11 @@ $('zoomOut').onclick=()=>{S.scale=Math.max(0.3,S.scale/1.25);renderPage();};
 
 // ---------- tools ----------
 document.querySelectorAll('button.tool').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
-document.querySelectorAll('.tacc .thead').forEach(th=>{const tool=th.parentElement.dataset.tool;
-  th.onclick=()=>setTool(S.tool===tool?'select':tool);});
+const MARKUP_TOOLS=['draw','line','arrow','rect','ellipse','polygon','text','comment'];
 function setTool(t){S.tool=t;hidePopover();if(t!=='room'&&t!=='cabinet'&&t!=='countertop'&&t!=='extwall'&&t!=='calibrate')S.draft=null;
   document.querySelectorAll('button.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
-  document.querySelectorAll('.tacc').forEach(a=>a.classList.toggle('active',a.dataset.tool===t));
+  // keep the Markup group open while one of its tools is active so the selection shows
+  const mg=$('mkGroup');if(mg&&MARKUP_TOOLS.includes(t))mg.classList.add('open');
   renderToolOpts();redraw();}
 
 function evtUnits(e){const r=$('overlay').getBoundingClientRect();return{x:(e.clientX-r.left)/S.scale,y:(e.clientY-r.top)/S.scale};}
@@ -839,8 +878,18 @@ function placeOpening(kind,u,preset){const p=preset||S.preset[kind];
   if(kind==='door'){S.items.push({id:uid(),type:'door',at:u,width:p.width,height:p.height,dtype:p.dtype,subtype:'Interior door',level:S.level});}
   else{S.items.push({id:uid(),type:'window',at:u,width:p.width,height:p.height,wtype:p.wtype,tempered:!!p.tempered,level:S.level});}
   recompute();}
-// contextual tool options rendered inside the active tool's accordion body
-function renderToolOpts(){const t=S.tool;const w=$('toolbarOpts');
+// contextual tool options — rendered into the pop-out window (#toolPop)
+function renderToolOpts(){
+  _buildToolOpts();
+  const w=$('toolPopBody'),pop=$('toolPop');if(!w||!pop)return;
+  const hasControls=!!w.querySelector('.pal, .pre, .tempbox');
+  if(hasControls){
+    const btn=document.querySelector('button.tool[data-tool="'+S.tool+'"]');
+    $('toolPopTitle').textContent=(btn?btn.textContent.trim():S.tool)+' options';
+    pop.classList.add('show');
+  }else pop.classList.remove('show');
+}
+function _buildToolOpts(){const t=S.tool;const w=$('toolPopBody');
   if(!w)return;w.innerHTML='';
   const tipEl=s=>{const d=document.createElement('div');d.className='paltip';d.style.marginTop='0';d.textContent=s;w.appendChild(d);};
   if(t==='select'){tipEl('Click any item on the plan to edit or delete it. Drag square handles to reshape. Del key removes the selected item.');return;}
@@ -1700,8 +1749,11 @@ $('btnDrawerL')&&($('btnDrawerL').onclick=()=>{const o=document.body.classList.c
 $('btnDrawerR')&&($('btnDrawerR').onclick=()=>{const o=document.body.classList.contains('drawer-r');closeDrawers();if(!o)document.body.classList.add('drawer-r');});
 $('drawerBack')&&($('drawerBack').onclick=closeDrawers);
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeDrawers);
-// picking a tool from the toolbar closes any open drawer so the plan is visible
-document.querySelectorAll('#toolChips .tchip').forEach(b=>b.addEventListener('click',closeDrawers));
+// picking a tool from the sidebar closes any open drawer so the plan is visible
+document.querySelectorAll('.toolbtn').forEach(b=>b.addEventListener('click',closeDrawers));
+// collapsible "Markup & Text" parent group + pop-out close button
+$('mkHead')&&($('mkHead').onclick=()=>$('mkGroup').classList.toggle('open'));
+$('toolPopClose')&&($('toolPopClose').onclick=()=>$('toolPop').classList.remove('show'));
 
 updateCalUI();renderAll();setTool('select');tryRestore();
 </script>
