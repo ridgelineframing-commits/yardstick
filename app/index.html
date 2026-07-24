@@ -47,6 +47,26 @@
   header button:hover{border-color:var(--primary);color:#fff}
   header button#btnInstall{background:var(--grad);border-color:var(--em-d);color:#fff;font-weight:700;box-shadow:0 2px 10px #10b98155}
   header button#btnInstall:hover{filter:brightness(1.06)}
+  /* centered page + zoom controls in the header */
+  .hdrpz{display:flex;align-items:center;gap:5px}
+  .hdrpz button{padding:6px 10px;min-width:34px}
+  .hdrpz .pill{color:#cdd9e8;background:#12233d;border:1px solid #2a4468;border-radius:7px;padding:5px 9px;font-size:12px;white-space:nowrap}
+  .hdrdiv{width:1px;height:20px;background:#2a4468;margin:0 5px}
+  /* "Send It" save/export menu */
+  .menuwrap{position:relative}
+  header button#btnSendIt{background:var(--grad);border-color:var(--em-d);color:#fff;font-weight:700;box-shadow:0 2px 10px #10b98155}
+  header button#btnSendIt:hover{filter:brightness(1.06)}
+  .menu{position:absolute;right:0;top:calc(100% + 7px);min-width:210px;background:#fff;border:1px solid var(--line2);border-radius:12px;
+    box-shadow:0 14px 40px #0f1c2e40;padding:8px;display:none;flex-direction:column;gap:5px;z-index:120}
+  .menuwrap.open .menu{display:flex}
+  .menu .menuhd{font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);padding:6px 8px 2px}
+  .menu button{width:100%;justify-content:flex-start;text-align:left;background:#fff;border:1px solid var(--line2);color:var(--txt)}
+  .menu button:hover{border-color:var(--primary);color:var(--primary-d);background:var(--panel2)}
+  .menu button.go{background:var(--grad);border-color:var(--em-d);color:#fff}
+  .menu button.go:hover{filter:brightness(1.05);color:#fff}
+  /* neutralize the export buttons' standalone gradients inside the tidy menu */
+  .menu button.prim,.menu button.alt{background:#fff;border-color:var(--line2);color:var(--txt);filter:none}
+  .menu button.prim:hover,.menu button.alt:hover{border-color:var(--primary);color:var(--primary-d);background:var(--panel2)}
   a.pbLink{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(180deg,#14b3a6,#0d9488);color:#fff;text-decoration:none;
     padding:7px 12px;border-radius:9px;font-size:12px;font-weight:700;border:1px solid #0d9488;box-shadow:var(--sh);transition:.13s}
   a.pbLink:hover{filter:brightness(1.08);transform:translateY(-1px)}
@@ -270,6 +290,9 @@
     header label.pill{display:none}
     header #projName{width:auto;flex:1;min-width:60px}
     header button{white-space:nowrap}
+    header{flex-wrap:wrap}
+    .hdrpz{order:10;flex:1 1 100%;justify-content:center;margin-top:2px}
+    .hdrpz+.spacer{display:none}
     .navbtn{display:inline-block}
 
     .side{position:fixed;top:0;bottom:0;left:0;width:86vw;max-width:350px;z-index:100;
@@ -318,9 +341,27 @@
     <div><div class="logo"><span class="r">YARDSTICK</span></div>
       <div class="sub">PDF Markup &amp; Plan Takeoff</div></div>
     <div class="spacer"></div>
-    <label class="pill">Project</label>
-    <input type="text" id="projName" placeholder="Project / job name" style="width:180px">
+    <div class="hdrpz" id="hdrPZ">
+      <button id="prevPg" title="Previous page">&#8592;</button><span id="pgLabel" class="pill">No PDF</span><button id="nextPg" title="Next page">&#8594;</button>
+      <span class="hdrdiv"></span>
+      <button id="zoomOut" title="Zoom out">&#8722;</button><span id="zoomLabel" class="pill">100%</span><button id="zoomIn" title="Zoom in">+</button>
+    </div>
+    <div class="spacer"></div>
+    <input type="text" id="projName" placeholder="Project / job name" style="width:160px">
     <button id="btnOpen">Open file</button>
+    <div class="menuwrap" id="sendWrap">
+      <button id="btnSendIt" title="Save &amp; export">🚀 Send It &#9662;</button>
+      <div class="menu" id="sendMenu">
+        <div class="menuhd">Export</div>
+        <button class="prim" id="btnXlsx">📊 Export Excel</button>
+        <button class="alt" id="btnPdf">📄 Schematic PDF</button>
+        <button id="btnDxf">📐 Export DXF</button>
+        <div class="menuhd">Save</div>
+        <button class="go" id="btnSavePdf" title="Burn your markup onto the original PDF pages and save (you can overwrite the original)">💾 Save marked-up PDF</button>
+        <button id="btnSaveJob" title="Download this takeoff as a job file you can re-open later">🗂 Save job file</button>
+        <button id="btnOpenJob" title="Re-open a saved Yardstick job file">📂 Open job file</button>
+      </div>
+    </div>
     <button id="btnInstall" title="Install Yardstick as an app on this device" style="display:none">⬇ Install app</button>
     <button class="navbtn" id="btnDrawerR" title="Items &amp; totals" aria-label="Open items and totals">Totals</button>
     <input type="file" id="fileInput" accept="application/pdf,image/png,image/jpeg,image/webp,image/gif,image/bmp,image/svg+xml,.pdf,.png,.jpg,.jpeg,.webp,.gif,.bmp,.svg" style="display:none">
@@ -333,17 +374,7 @@
     <div class="side">
       <button class="drawerClose" data-close>✕ &nbsp;Close</button>
       <div class="sec">
-        <h3>1 &middot; Page &amp; Zoom</h3>
-        <div class="row">
-          <button id="prevPg">&#8592;</button><span id="pgLabel" class="pill">No PDF</span><button id="nextPg">&#8594;</button>
-          <span class="spacer"></span>
-          <button id="zoomOut">&#8722;</button><span id="zoomLabel" class="pill">100%</span><button id="zoomIn">+</button>
-        </div>
-        <div class="hint">Each PDF page is its own drawing (Page 1, 2, 3…) — work is kept automatically as you flip pages, and every page lands in the exports.</div>
-      </div>
-
-      <div class="sec">
-        <h3>2 &middot; Set Scale</h3>
+        <h3>1 &middot; Set Scale</h3>
         <div class="row">
           <select id="scalePreset" class="scalesel" title="Pick the printed scale of the sheet">
             <option value="">Pick scale…</option>
@@ -377,7 +408,7 @@
       </div>
 
       <div class="sec">
-        <h3>3 &middot; Tools</h3>
+        <h3>2 &middot; Tools</h3>
         <div class="toolgrid">
           <button class="tool toolbtn" data-tool="select"><span class="dot" style="background:#64748b"></span>Select</button>
           <button class="tool toolbtn" data-tool="room"><span class="dot" style="background:#4caf6f"></span>Room</button>
@@ -425,8 +456,6 @@
       </div>
 
       <div class="footbar">
-        <button id="btnSaveJob" title="Download this takeoff as a job file you can re-open later">💾 Save job</button>
-        <button id="btnOpenJob" title="Re-open a saved Yardstick job file">📂 Open job</button>
         <button id="btnClear">Clear all</button>
         <button id="btnSample">Load demo</button>
       </div>
@@ -506,12 +535,6 @@
           <input type="number" id="wDry" value="10" title="drywall">
         </div>
       </div>
-      </div>
-      <div class="footbar">
-        <button class="go" id="btnSavePdf" title="Burn your markup onto the original PDF pages and save (you can overwrite the original)">💾 Save marked-up PDF</button>
-        <button class="prim" id="btnXlsx">Export Excel</button>
-        <button class="alt" id="btnPdf">Schematic PDF</button>
-        <button id="btnDxf">Export DXF</button>
       </div>
     </div>
   </div>
@@ -1822,6 +1845,13 @@ $('mkHead')&&($('mkHead').onclick=()=>$('mkGroup').classList.toggle('open'));
 $('toolPopClose')&&($('toolPopClose').onclick=()=>$('toolPop').classList.remove('show'));
 // manual "printed to scale" drop-down (keeps Calibrate for off-scale sheets)
 $('scalePreset')&&($('scalePreset').onchange=e=>{const o=e.target.selectedOptions[0];applyScalePreset(e.target.value,o?o.textContent.trim():'');});
+// "Send It" save/export menu: toggle, close on outside click or after choosing an action
+const sendWrap=$('sendWrap');
+if(sendWrap){
+  $('btnSendIt').onclick=e=>{e.stopPropagation();sendWrap.classList.toggle('open');};
+  $('sendMenu').addEventListener('click',()=>sendWrap.classList.remove('open'));
+  document.addEventListener('click',e=>{if(!sendWrap.contains(e.target))sendWrap.classList.remove('open');});
+}
 
 updateCalUI();renderAll();setTool('select');tryRestore();
 
