@@ -1,0 +1,17 @@
+{
+  "name": "Yardstick — PDF Markup & Plan Takeoff",
+  "short_name": "Yardstick",
+  "description": "Open a plan PDF or image, set the scale, and trace rooms, doors, windows, plumbing, electrical, and structure — then export a takeoff.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#eef2f7",
+  "theme_color": "#101a2e",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
