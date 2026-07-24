@@ -3,9 +3,11 @@
 **PDF markup & plan takeoff for residential construction — by Ridgeline.**
 
 Open a plan PDF, set the scale, and trace rooms, doors, windows, plumbing,
-electrical, and structure straight onto the drawing. Yardstick tallies areas,
-lineal footage, fixture counts, and a material takeoff, then exports to Excel,
-a marked-up PDF, or DXF. It runs fully offline as a native Windows app, and the
+electrical, and structure straight onto the drawing. Add freehand, line,
+arrow, box, ellipse, polygon, and text markup on top of the plan. Yardstick
+tallies areas, lineal footage, fixture counts, and a material takeoff, then
+exports to Excel or DXF — or saves your markup back onto the original PDF pages
+(overwriting the original if you choose). It runs fully offline as a native Windows app, and the
 same `app/index.html` is responsive and touch-capable for tablet/phone browsers
 (labeled toolbar, slide-over panels, tap-to-place, two-finger pan/pinch-zoom).
 
