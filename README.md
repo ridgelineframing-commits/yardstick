@@ -13,6 +13,15 @@ same `app/index.html` is responsive and touch-capable for tablet/phone browsers
 
 ---
 
+## Try it on the web
+
+The browser version is published to GitHub Pages on every merge to `main`:
+**https://ridgelineframing-commits.github.io/yardstick/**
+
+(One-time setup: in **Settings → Pages**, set **Source = GitHub Actions**. The
+`pages` workflow then keeps that URL current. The desktop `.exe` is built
+separately by the `build` workflow.)
+
 ## Architecture
 
 Yardstick is a **single self-contained HTML file** wrapped in a thin
