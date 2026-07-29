@@ -375,6 +375,80 @@
     header #projName{display:none}
     .historyBtns{display:none}
   }
+
+  /* Signet-inspired editor shell; Yardstick branding and palette stay intact. */
+  header{min-height:58px;padding:8px 14px;gap:10px;box-shadow:none}
+  header .sub,header .spacer{display:none}
+  header .logo{min-width:154px}
+  header #projName{width:230px!important}
+  header #btnOpen{margin-left:auto}
+  .appMenuBar{height:40px;display:flex;align-items:center;gap:2px;padding:0 10px;background:#fff;border-bottom:1px solid var(--line);flex:none;position:relative;z-index:75}
+  .menuTabs{display:flex;align-items:center;gap:1px}
+  .menuTrigger{border:0;background:transparent;box-shadow:none;border-radius:6px;padding:6px 10px;color:var(--txt);font-weight:600}
+  .menuTrigger:hover,.menuTrigger[aria-expanded="true"]{background:var(--panel2);color:var(--primary-d);transform:none}
+  .menuBarSpacer{flex:1}
+  .appMenuBar .hdrpz{gap:3px}
+  .appMenuBar .hdrpz button{padding:5px 8px;min-width:30px;box-shadow:none}
+  .appMenuBar .hdrpz .pill{padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--txt);font-weight:700}
+  .appMenuBar .hdrdiv{background:var(--line);height:18px}
+  .modeButtons{display:flex;gap:4px;margin-left:8px}
+  .modeButtons button{padding:6px 12px;box-shadow:none}
+  .appDropdown{display:none;position:absolute;top:35px;left:10px;min-width:220px;padding:6px;background:#fff;border:1px solid var(--line2);border-radius:10px;box-shadow:var(--sh2);z-index:180}
+  .appDropdown.show{display:grid}
+  .appDropdown button{display:flex;width:100%;border:0;box-shadow:none;border-radius:7px;padding:8px 10px;text-align:left;background:#fff;font-weight:500}
+  .appDropdown button:hover{background:var(--panel2);transform:none}
+  .appDropdown .menuSep{height:1px;background:var(--line);margin:5px 4px}
+  .main{background:var(--bg2)}
+  .toolRail{width:58px;flex:none;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 7px;overflow-y:auto;z-index:30}
+  .railBtn{width:44px;height:42px;display:grid;place-items:center;padding:0;border:0;background:transparent;box-shadow:none;border-radius:9px;font-size:18px;color:var(--muted);position:relative}
+  .railBtn:hover{background:var(--panel2);color:var(--primary-d);transform:none}
+  .railBtn.active{background:var(--grad)!important;color:#fff!important;box-shadow:0 4px 12px #2650e640!important}
+  .railBtn[data-label]:after{content:attr(data-label);position:fixed;left:64px;z-index:220;padding:5px 8px;border-radius:6px;background:#17243a;color:#fff;font-size:11px;font-weight:600;opacity:0;pointer-events:none;transform:translateX(-3px);transition:.12s;white-space:nowrap}
+  .railBtn[data-label]:hover:after{opacity:1;transform:none}
+  .railSep{width:26px;height:1px;background:var(--line);margin:4px 0}
+  .railGlyph{font-size:15px;font-weight:800;line-height:1}
+  .side{width:270px;background:#f9fafc}
+  .side.right{width:328px}
+  .panelTitle{height:40px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid var(--line);font-size:10.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--faint);font-weight:800;background:#fff}
+  .side:not(.right) .sec{padding:13px 14px}
+  .side:not(.right) .toolsSection .toolgrid,.side:not(.right) .toolsSection .mgroup{display:none}
+  .workflow{display:none}
+  .stage{background:#ececf1}
+  body:not(.plan-open) #stageInner{display:none}
+  body:not(.plan-open) .drop{pointer-events:auto;width:min(440px,calc(100% - 40px));height:310px;inset:50% auto auto 50%;transform:translate(-50%,-50%);border:2px dashed var(--line2);border-radius:16px;background:#fff;box-shadow:0 1px 2px #00000008}
+  body:not(.plan-open) .drop:before{content:"+";display:grid;place-items:center;width:54px;height:54px;border-radius:14px;background:var(--grad);color:#fff;font-size:27px;opacity:1;margin-bottom:18px;box-shadow:0 8px 18px #2650e638}
+  body:not(.plan-open) .drop:after{content:"PDF  ·  PNG / JPG  ·  SVG";margin-top:18px;padding:5px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--muted);font-size:10px;font-weight:700}
+  .drop .big{font-size:18px;margin-bottom:6px}
+  #toolPop{left:336px;top:108px}
+  .side.right.collapsed{width:36px}
+  .stagewrap{min-width:0}
+  @media (max-width:1024px){
+    header{flex-wrap:nowrap;padding:7px 9px}
+    header .logo{min-width:auto}
+    header #projName{display:none}
+    header #btnInstall{display:none!important}
+    .appMenuBar{padding-left:6px}
+    .menuTrigger{padding:6px 7px}
+    .menuTrigger:nth-child(n+4){display:none}
+    .toolRail{width:54px;padding-inline:5px}
+    .railBtn{width:42px}
+    .side{left:54px;max-width:330px}
+    .workflow{display:none}
+    #toolPop{left:62px;right:8px;bottom:8px;top:auto;width:auto;max-height:45vh;overflow:auto}
+    .hdrpz{position:static;transform:none;width:auto!important;margin:0!important;background:none;border:0;border-radius:0;padding:0;box-shadow:none}
+    header{padding-bottom:7px}
+  }
+  @media (max-width:560px){
+    header .logo span.r{display:none}
+    header #btnOpen{margin-left:auto}
+    header #btnSendIt{padding:8px 10px}
+    .menuTabs .menuTrigger:nth-child(n+3){display:none}
+    .appMenuBar .hdrpz #prevPg,.appMenuBar .hdrpz #nextPg,.appMenuBar .hdrpz #pgLabel{display:none}
+    .modeButtons button{padding:6px 8px}
+    .toolRail{width:50px}
+    .side{left:50px;width:calc(100vw - 50px)}
+    #toolPop{left:56px}
+  }
 </style>
 </head>
 <body>
@@ -383,13 +457,6 @@
     <button class="navbtn" id="btnDrawerL" title="Tools &amp; setup" aria-label="Open tools and setup">☰</button>
     <div><div class="logo"><span class="r">YARDSTICK</span></div>
       <div class="sub">PDF Markup &amp; Plan Takeoff</div></div>
-    <div class="spacer"></div>
-    <div class="hdrpz" id="hdrPZ">
-      <button id="prevPg" title="Previous page">&#8592;</button><span id="pgLabel" class="pill">No PDF</span><button id="nextPg" title="Next page">&#8594;</button>
-      <span class="hdrdiv"></span>
-      <button id="zoomOut" title="Zoom out">&#8722;</button><span id="zoomLabel" class="pill">100%</span><button id="zoomIn" title="Zoom in">+</button>
-    </div>
-    <div class="spacer"></div>
     <div class="historyBtns" aria-label="Edit history">
       <button id="btnUndo" title="Undo (Ctrl+Z)" aria-label="Undo" disabled>↶</button>
       <button id="btnRedo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo" disabled>↷</button>
@@ -414,6 +481,27 @@
     <input type="file" id="fileInput" accept="application/pdf,image/png,image/jpeg,image/webp,image/gif,image/bmp,image/svg+xml,.pdf,.png,.jpg,.jpeg,.webp,.gif,.bmp,.svg" style="display:none">
     <input type="file" id="jobInput" accept=".json,application/json" style="display:none">
   </header>
+  <div class="appMenuBar" role="menubar" aria-label="Application menu">
+    <div class="menuTabs">
+      <button class="menuTrigger" data-menu="file" aria-expanded="false">File</button>
+      <button class="menuTrigger" data-menu="edit" aria-expanded="false">Edit</button>
+      <button class="menuTrigger" data-menu="takeoff" aria-expanded="false">Takeoff</button>
+      <button class="menuTrigger" data-menu="markup" aria-expanded="false">Markup</button>
+      <button class="menuTrigger" data-menu="view" aria-expanded="false">View</button>
+      <button class="menuTrigger" data-menu="help" aria-expanded="false">Help</button>
+    </div>
+    <div class="menuBarSpacer"></div>
+    <div class="hdrpz" id="hdrPZ">
+      <button id="prevPg" title="Previous page" aria-label="Previous page">&#8592;</button><span id="pgLabel" class="pill">No PDF</span><button id="nextPg" title="Next page" aria-label="Next page">&#8594;</button>
+      <span class="hdrdiv"></span>
+      <button id="zoomOut" title="Zoom out" aria-label="Zoom out">&#8722;</button><span id="zoomLabel" class="pill">100%</span><button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button>
+    </div>
+    <div class="modeButtons" aria-label="Canvas mode">
+      <button class="tool active" data-tool="select" id="btnSelectMode">Select</button>
+      <button class="tool" data-tool="pan" id="btnPanMode">Pan</button>
+    </div>
+    <div class="appDropdown" id="appDropdown" role="menu"></div>
+  </div>
   <div class="workflow" id="workflow" aria-label="Takeoff workflow">
     <div class="wfstep current" id="wfOpen" data-step="1"><span>Open plan</span></div><div class="wfline"></div>
     <div class="wfstep" id="wfScale" data-step="2"><span>Confirm scale</span></div><div class="wfline"></div>
@@ -423,8 +511,27 @@
   <div id="drawerBack" aria-hidden="true"></div>
 
   <div class="main">
+    <nav class="toolRail" aria-label="Drawing tools">
+      <button class="tool railBtn active" data-tool="select" data-label="Select" aria-label="Select">&#8598;</button>
+      <button class="tool railBtn" data-tool="pan" data-label="Pan" aria-label="Pan">&#10021;</button>
+      <div class="railSep"></div>
+      <button class="tool railBtn" data-tool="room" data-label="Room" aria-label="Trace room"><span class="railGlyph">R</span></button>
+      <button class="tool railBtn" data-tool="door" data-label="Door" aria-label="Place door">&#9635;</button>
+      <button class="tool railBtn" data-tool="window" data-label="Window" aria-label="Place window">&#9638;</button>
+      <button class="tool railBtn" data-tool="fixture" data-label="Plumbing" aria-label="Place plumbing"><span class="railGlyph">P</span></button>
+      <button class="tool railBtn" data-tool="electrical" data-label="Electrical" aria-label="Place electrical">&#9889;</button>
+      <button class="tool railBtn" data-tool="structure" data-label="Structure" aria-label="Place structure"><span class="railGlyph">S</span></button>
+      <div class="railSep"></div>
+      <button class="tool railBtn" data-tool="draw" data-label="Freehand" aria-label="Freehand drawing">&#9998;</button>
+      <button class="tool railBtn" data-tool="line" data-label="Line" aria-label="Draw line">&#9585;</button>
+      <button class="tool railBtn" data-tool="arrow" data-label="Arrow" aria-label="Draw arrow">&#8599;</button>
+      <button class="tool railBtn" data-tool="rect" data-label="Box" aria-label="Draw box">&#9633;</button>
+      <button class="tool railBtn" data-tool="text" data-label="Text" aria-label="Add text"><span class="railGlyph">T</span></button>
+      <button class="tool railBtn" data-tool="comment" data-label="Note" aria-label="Add note">&#9993;</button>
+    </nav>
     <!-- LEFT -->
     <div class="side">
+      <div class="panelTitle">Plan setup</div>
       <button class="drawerClose" data-close aria-label="Close tools and setup">✕ &nbsp;Close</button>
       <div class="sec">
         <h3>1 &middot; Set Scale</h3>
@@ -460,8 +567,8 @@
         <div class="hint">Most sheets are printed to scale — just pick the sheet's scale (e.g. <span class="badge">1/4"=1'</span>) from the drop-down. If a sheet is <b>not</b> to scale, use <b>Calibrate</b>: click two points on a known dimension &rarr; type the real length. Points show <b style="color:var(--cal)">bright green</b>; drag either endpoint later to fix. Accepts <span class="badge">10</span><span class="badge">10'6"</span><span class="badge">10-6</span></div>
       </div>
 
-      <div class="sec">
-        <h3>2 &middot; Tools</h3>
+      <div class="sec toolsSection">
+        <h3>Plan actions</h3>
         <div class="toolgrid">
           <button class="tool toolbtn" data-tool="select"><span class="dot" style="background:#64748b"></span>Select</button>
           <button class="tool toolbtn" data-tool="room"><span class="dot" style="background:#4caf6f"></span>Room</button>
@@ -541,7 +648,7 @@
     </div>
 
     <!-- RIGHT -->
-    <div class="side right" id="rightPanel">
+    <div class="side right collapsed" id="rightPanel">
       <button class="drawerClose" data-close aria-label="Close items and totals">✕ &nbsp;Close</button>
       <div id="expandTab">◀ &nbsp;Items · Totals &amp; Schedules</div>
       <div id="collapseWrap"><button id="btnCollapseR" title="Collapse panel to free up space">Collapse ⇥</button></div>
@@ -697,7 +804,7 @@ async function loadPDFData(buf,name,scan){
   S.scale=Math.min(1.4,Math.max(0.25,Math.min((stageBox.clientWidth-36)/baseViewport.width,(stageBox.clientHeight-36)/baseViewport.height)))||1;
   S.origName=(name||'plan').replace(/\.pdf$/i,'');
   if(!$('projName').value)$('projName').value=S.origName;
-  $('dropHint').style.display='none';await renderPage();renderAll();if(scan)scanStatedAreas();}
+  document.body.classList.add('plan-open');$('dropHint').style.display='none';await renderPage();renderAll();if(scan)scanStatedAreas();}
 // wrap a loaded <img> in an object that duck-types the pdf.js page/doc API so the
 // whole render / zoom / export / save-marked-up pipeline works unchanged for rasters.
 function makeImageDoc(img){const page={
@@ -717,7 +824,7 @@ async function loadImageData(dataURL,name){
   S.scale=Math.min(2,Math.max(0.4,1100/img.naturalWidth))||1.4;  // fit a sane starting size
   S.origName=(name||'image').replace(/\.[^.]+$/,'');
   if(!$('projName').value)$('projName').value=S.origName;
-  $('dropHint').style.display='none';await renderPage();}
+  document.body.classList.add('plan-open');$('dropHint').style.display='none';await renderPage();}
 function b64FromBuf(buf){const u=new Uint8Array(buf);let s='';for(let i=0;i<u.length;i+=32768)s+=String.fromCharCode.apply(null,u.subarray(i,i+32768));return btoa(s);}
 function bufFromB64(b){const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u.buffer;}
 let renderGeneration=0,activeRenderTask=null;
@@ -743,6 +850,7 @@ document.querySelectorAll('button.tool').forEach(b=>b.onclick=()=>setTool(b.data
 const MARKUP_TOOLS=['draw','line','arrow','rect','ellipse','polygon','text','comment'];
 function setTool(t){S.tool=t;hidePopover();if(t!=='room'&&t!=='cabinet'&&t!=='countertop'&&t!=='extwall'&&t!=='calibrate')S.draft=null;
   document.querySelectorAll('button.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
+  if(typeof ov!=='undefined')ov.style.cursor=t==='pan'?'grab':(t==='select'?'default':'crosshair');
   // keep the Markup group open while one of its tools is active so the selection shows
   const mg=$('mkGroup');if(mg&&MARKUP_TOOLS.includes(t))mg.classList.add('open');
   renderToolOpts();redraw();}
@@ -796,6 +904,7 @@ ov.addEventListener('pointercancel',e=>{_ptrs.delete(e.pointerId);if(_ptrs.size<
 
 function onDown(e){
   const u=evtUnits(e);S.mouse=u;
+  if(S.tool==='pan'){S.drag={kind:'pan',clientX:e.clientX,clientY:e.clientY,scrollLeft:stage.scrollLeft,scrollTop:stage.scrollTop};ov.style.cursor='grabbing';return;}
   if(S.tool==='structure'){S.drag={kind:'struct',a:u,b:u};return;}
   if(S.tool==='draw'){S.drag={kind:'draw',pts:[u]};return;}
   if(DRAG_TOOLS.includes(S.tool)){S.drag={kind:'shape',shape:S.tool,a:u,b:u};return;}
@@ -810,7 +919,8 @@ function onDown(e){
 }
 function onMove(e){S.mouse=evtUnits(e);
   if(S.drag){const u=S.mouse;
-    if(S.drag.kind==='vtx')S.drag.target.points[S.drag.vi]={x:u.x,y:u.y};
+    if(S.drag.kind==='pan'){stage.scrollLeft=S.drag.scrollLeft-(e.clientX-S.drag.clientX);stage.scrollTop=S.drag.scrollTop-(e.clientY-S.drag.clientY);}
+    else if(S.drag.kind==='vtx')S.drag.target.points[S.drag.vi]={x:u.x,y:u.y};
     else if(S.drag.kind==='mk')S.drag.target.at={x:u.x,y:u.y};
     else if(S.drag.kind==='edge'){const dx=u.x-S.drag.start.x,dy=u.y-S.drag.start.y;S.drag.target.points[S.drag.i]={x:S.drag.o0.x+dx,y:S.drag.o0.y+dy};S.drag.target.points[S.drag.j]={x:S.drag.o1.x+dx,y:S.drag.o1.y+dy};}
     else if(S.drag.kind==='cal'){const mov=S.drag.vi===0?S.cal.p0:S.cal.p1,fix=S.drag.vi===0?S.cal.p1:S.cal.p0;mov.x=u.x;mov.y=u.y;if(Math.abs(mov.x-fix.x)>=Math.abs(mov.y-fix.y))mov.y=fix.y;else mov.x=fix.x;recalc();}
@@ -820,6 +930,7 @@ function onMove(e){S.mouse=evtUnits(e);
     S.suppressClick=true;redraw();return;}
   if(S.draft)redraw();}
 function onUp(){if(S.drag){const d=S.drag;S.drag=null;
+  if(d.kind==='pan'){ov.style.cursor='grab';S.suppressClick=true;setTimeout(()=>S.suppressClick=false,30);return;}
   if(d.kind==='draw'){S.suppressClick=true;setTimeout(()=>S.suppressClick=false,30);
     if(d.pts.length>1)S.items.push({id:uid(),type:'draw',points:dedupe(d.pts),color:S.annot.color,width:S.annot.width,level:S.level});
     recompute();return;}
@@ -1059,7 +1170,7 @@ function renderToolOpts(){
   const hasControls=!!w.querySelector('.pal, .pre, .tempbox');
   if(hasControls){
     const btn=document.querySelector('button.tool[data-tool="'+S.tool+'"]');
-    $('toolPopTitle').textContent=(btn?btn.textContent.trim():S.tool)+' options';
+    $('toolPopTitle').textContent=(btn?(btn.dataset.label||btn.getAttribute('aria-label')||btn.textContent.trim()):S.tool)+' options';
     pop.classList.add('show');
   }else pop.classList.remove('show');
 }
@@ -1566,7 +1677,7 @@ function runQa(){
   const result=QaEngine.review({feetPerUnit:S.feetPerUnit,items:S.items,statedAreas:S.statedAreas});
   renderQa(result);showToast('QA review complete.','success');
 }
-function renderAll(){trackHistory();renderList();renderInspector();renderTotals();renderLegend();renderPlumb();renderElec();renderCmts();renderSchedule();renderStated();updateWorkflow();redraw();}
+function renderAll(){document.body.classList.toggle('plan-open',!!(S.pdfDoc||S.items.length));trackHistory();renderList();renderInspector();renderTotals();renderLegend();renderPlumb();renderElec();renderCmts();renderSchedule();renderStated();updateWorkflow();redraw();}
 function renderCmts(){const wrap=$('cmtSummary');if(!wrap)return;const cs=S.items.filter(i=>i.type==='comment');
   wrap.replaceChildren();if(!cs.length){const hint=document.createElement('div');hint.className='hint';hint.textContent='Drop notes anywhere with the Comment tool, then tag them Electric, Plumbing, or Basic.';wrap.appendChild(hint);return;}
   const table=document.createElement('table');table.className='tot';const body=document.createElement('tbody');
@@ -1972,7 +2083,7 @@ function safe(s){return s.replace(/[^\w\-]+/g,'_').slice(0,60)||'Plan';}
 function validate(){if(!S.feetPerUnit){alert('Set the scale first (Calibrate).');return false;}if(!S.items.length){alert('Trace at least one item.');return false;}return true;}
 
 // ---------- demo ----------
-$('btnSample').onclick=()=>{$('dropHint').style.display='none';S.feetPerUnit=0.05;S.cal={p0:{x:60,y:40},p1:{x:260,y:40},knownFt:10};updateCalUI();S.roomColorIdx=0;
+$('btnSample').onclick=()=>{document.body.classList.add('plan-open');$('dropHint').style.display='none';S.feetPerUnit=0.05;S.cal={p0:{x:60,y:40},p1:{x:260,y:40},knownFt:10};updateCalUI();S.roomColorIdx=0;
   S.items=[
     {id:uid(),type:'room',name:'Kitchen',ceiling:9,floor:'Laminate',notes:'',color:roomColorFor(),points:[{x:60,y:60},{x:340,y:60},{x:340,y:240},{x:60,y:240}]},
     {id:uid(),type:'room',name:'Living',ceiling:9,floor:'Hardwood',notes:'',color:roomColorFor(),points:[{x:340,y:60},{x:620,y:60},{x:620,y:300},{x:340,y:300}]},
@@ -2025,7 +2136,55 @@ if(sendWrap){
   document.addEventListener('click',e=>{if(!sendWrap.contains(e.target))sendWrap.classList.remove('open');});
 }
 
-$('btnSendIt').textContent='Export & Save ▾';
+// Desktop editor menu bar. Commands delegate to the same controls and tool
+// handlers used elsewhere, so this is a clearer route—not a parallel workflow.
+const appDropdown=$('appDropdown');
+const appMenus={
+  file:[['Open plan…','click','btnOpen'],['Open job file…','click','btnOpenJob'],['Save job file','click','btnSaveJob'],'sep',['Export & save…','click','btnSendIt']],
+  edit:[['Undo','click','btnUndo'],['Redo','click','btnRedo'],'sep',['Clear takeoff…','click','btnClear']],
+  takeoff:[['Set or calibrate scale','scale'],['Read PDF labels','click','btnReadText'],['Detect visible rooms','click','btnAutoAll'],['Run QA review','click','btnQaReview']],
+  markup:[['Freehand','tool','draw'],['Line','tool','line'],['Arrow','tool','arrow'],['Box','tool','rect'],['Ellipse','tool','ellipse'],['Polygon','tool','polygon'],['Text','tool','text'],['Note','tool','comment']],
+  view:[['Previous page','click','prevPg'],['Next page','click','nextPg'],'sep',['Zoom out','click','zoomOut'],['Zoom in','click','zoomIn'],['Items & totals','panel','right']],
+  help:[['Show tool guidance','help'],['Run QA review','click','btnQaReview']]
+};
+function closeAppMenu(){
+  appDropdown.classList.remove('show');appDropdown.replaceChildren();
+  document.querySelectorAll('.menuTrigger').forEach(b=>b.setAttribute('aria-expanded','false'));
+}
+function runAppMenuAction(action,value){
+  closeAppMenu();
+  if(action==='click'){const target=$(value);if(target)target.click();}
+  else if(action==='tool')setTool(value);
+  else if(action==='scale'){
+    if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-l');updateDrawerA11y();}
+    $('scalePreset').focus();
+  }else if(action==='panel'){
+    const panel=$('rightPanel');panel.classList.remove('collapsed');
+    if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-r');updateDrawerA11y();}
+  }else if(action==='help'){
+    const section=document.querySelector('.toolsSection');if(section)section.classList.toggle('helpOpen');
+    showToast('Choose a tool from the rail. Its presets open beside the plan.','success');
+  }
+}
+document.querySelectorAll('.menuTrigger').forEach(trigger=>trigger.addEventListener('click',event=>{
+  event.stopPropagation();const menu=trigger.dataset.menu,wasOpen=trigger.getAttribute('aria-expanded')==='true';closeAppMenu();if(wasOpen)return;
+  trigger.setAttribute('aria-expanded','true');appDropdown.style.left=Math.max(6,trigger.offsetLeft)+'px';
+  (appMenus[menu]||[]).forEach(entry=>{
+    if(entry==='sep'){const sep=document.createElement('div');sep.className='menuSep';appDropdown.appendChild(sep);return;}
+    const button=document.createElement('button');button.type='button';button.setAttribute('role','menuitem');button.textContent=entry[0];
+    button.onclick=()=>runAppMenuAction(entry[1],entry[2]);appDropdown.appendChild(button);
+  });
+  appDropdown.classList.add('show');const first=appDropdown.querySelector('button');if(first)first.focus();
+}));
+appDropdown.addEventListener('keydown',event=>{
+  const buttons=[...appDropdown.querySelectorAll('button')],index=buttons.indexOf(document.activeElement);
+  if(event.key==='ArrowDown'){event.preventDefault();buttons[(index+1)%buttons.length].focus();}
+  if(event.key==='ArrowUp'){event.preventDefault();buttons[(index-1+buttons.length)%buttons.length].focus();}
+  if(event.key==='Escape'){event.preventDefault();closeAppMenu();}
+});
+document.addEventListener('click',event=>{if(!event.target.closest('.appMenuBar'))closeAppMenu();});
+
+$('btnSendIt').textContent='Export ▾';
 $('btnReadText').textContent='Read PDF labels';
 ['btnXlsx','btnPdf','btnDxf','btnSavePdf','btnSaveJob'].forEach(id=>$(id).addEventListener('click',()=>{if(S.items.length&&S.feetPerUnit){UI.exported=true;updateWorkflow();}}));
 updateCalUI();renderAll();setTool('select');tryRestore();

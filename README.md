@@ -9,9 +9,12 @@ a marked-up PDF. The Windows app and installed PWA work offline.
 
 ## What is new in 1.1
 
-- Guided Open → Scale → Review → Export workflow.
-- Undo/redo, selected-item inspector, clearer mobile controls, keyboard focus
-  treatment, accessible drawers and dialogs, and non-blocking status messages.
+- Signet-inspired desktop-editor shell with application menus, a persistent
+  vertical tool rail, contextual presets, dedicated Select/Pan modes, and a
+  focused empty-plan state—without changing Yardstick’s logo or color palette.
+- Undo/redo, selected-item inspector, responsive bottom-sheet tool presets,
+  keyboard focus treatment, accessible drawers and dialogs, and non-blocking
+  status messages.
 - A local QA Copilot that finds missing scale, invalid opening sizes, duplicate
   points, naming problems, area outliers, and traced-versus-stated discrepancies.
   Findings never modify a takeoff without an explicit user action.
