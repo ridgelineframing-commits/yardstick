@@ -21,10 +21,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Validate offline generation
-        run: |
-          node --check update-src.js
-          node update-src.js
+      - name: Install dependencies
+        run: npm ci
+      - name: Test app and offline bundle
+        run: npm run verify
+      - name: Type-check agent
+        run: npm run agent:check
 
   # Real deliverable: the signed-off .exe installer.
   windows:

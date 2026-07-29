@@ -1,120 +1,70 @@
 # Yardstick
 
-**PDF markup & plan takeoff for residential construction — by Ridgeline.**
+PDF takeoff and plan markup for residential construction, by Ridgeline.
 
-Open a plan PDF, set the scale, and trace rooms, doors, windows, plumbing,
-electrical, and structure straight onto the drawing. Add freehand, line,
-arrow, box, ellipse, polygon, and text markup on top of the plan. Yardstick
-tallies areas, lineal footage, fixture counts, and a material takeoff, then
-exports to Excel or DXF — or saves your markup back onto the original PDF pages
-(overwriting the original if you choose). It runs fully offline as a native Windows app, and the
-same `app/index.html` is responsive and touch-capable for tablet/phone browsers
-(labeled toolbar, slide-over panels, tap-to-place, two-finger pan/pinch-zoom).
+Open a plan PDF, set its scale, and trace rooms, openings, fixtures, electrical,
+and structural items directly over the drawing. Yardstick totals quantities and
+areas, compares traced areas with plan-stated areas, and exports Excel, DXF, or
+a marked-up PDF. The Windows app and installed PWA work offline.
 
----
+## What is new in 1.1
 
-## Try it on the web
+- Guided Open → Scale → Review → Export workflow.
+- Undo/redo, selected-item inspector, clearer mobile controls, keyboard focus
+  treatment, accessible drawers and dialogs, and non-blocking status messages.
+- A local QA Copilot that finds missing scale, invalid opening sizes, duplicate
+  points, naming problems, area outliers, and traced-versus-stated discrepancies.
+  Findings never modify a takeoff without an explicit user action.
+- Safer imported-job normalization, corrected feet/inches parsing, render-race
+  cancellation, automatic PDF fit, and a restrictive desktop content policy.
+- Modular, tested core and QA logic plus an optional Cloudflare Agent endpoint
+  for project-scoped review history.
 
-The browser version is published to GitHub Pages on every merge to `main`:
-**https://ridgelineframing-commits.github.io/yardstick/**
+## Web app
 
-It's an installable PWA: open that URL on a phone, tablet, or desktop and use
-your browser's **Install** action (an "Install app" button also appears in the
-header when the browser offers it) to add Yardstick to your home screen or
-app launcher. A service worker caches the app shell so it keeps working
-offline after the first load.
+The GitHub Pages workflow publishes the generated offline bundle from `src/`.
+After the first visit, its service worker keeps the app shell available offline:
 
-(One-time setup: in **Settings → Pages**, set **Source = GitHub Actions**. The
-`pages` workflow then keeps that URL current. The desktop `.exe` is built
-separately by the `build` workflow.)
+https://ridgelineframing-commits.github.io/yardstick/
 
-## Architecture
-
-Yardstick is a **single self-contained HTML file** wrapped in a thin
-[Tauri v2](https://tauri.app) desktop shell. There is no framework, bundler, or
-backend — the app is plain HTML/CSS/JS driving an SVG overlay on a canvas.
-
-```
-┌─────────────────────────────────────────────────────────┐
-│  Tauri shell (src-tauri/)  — native WebView + NSIS setup  │
-│  ┌─────────────────────────────────────────────────────┐  │
-│  │  app/index.html  — the entire app (source of truth)  │  │
-│  │  src/index.html  — generated: app/ vendored offline  │  │
-│  │  src/vendor/     — pdf.js · xlsx · jsPDF (offline)    │  │
-│  └─────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────┘
-```
+## Project layout
 
 | Path | Role |
-|------|------|
-| `app/index.html` | **The source of truth** — the whole application (UI, calibration, tracing, auto room-detect, PDF text scan, exporters). Loads pdf.js / xlsx / jsPDF from CDNs, so it also runs as a plain web page. |
-| `src/index.html` | Generated from `app/index.html` by `update-src.js`; not tracked in git. |
-| `src/vendor/` | Bundled third-party libs so the desktop app works with no internet: `pdf.min.js` + `pdf.worker.min.js` (render plans), `xlsx.bundle.js` (Excel export), `jspdf.umd.min.js` (PDF export). |
-| `src-tauri/` | Tauri config, Rust entry point (`main.rs` — just opens the WebView), icons, and the NSIS bundle target. |
-| `update-src.js` | Generates `src/index.html` from `app/index.html`, rewriting CDN `<script>` URLs to the offline `vendor/` copies. |
+| --- | --- |
+| `app/index.html` | Main application UI and drawing engine. |
+| `app/core.js` | Parsing, formatting, cloning, and imported-job normalization. |
+| `app/qa-agent.js` | Deterministic, local QA review and safe proposals. |
+| `src/` | Generated offline bundle; do not edit directly. |
+| `src-tauri/` | Tauri v2 Windows shell and installer configuration. |
+| `agent/` | Optional Cloudflare Agent API for durable review history. |
+| `tests/` | Node tests for core behavior, QA, syntax, and bundle integrity. |
+| `update-src.js` | Builds `src/` and rewrites third-party scripts to vendored copies. |
 
-### Source of truth
+## Develop and verify
 
-Edit the app in **`app/index.html`** — it is the single tracked source.
-`update-src.js` regenerates `src/index.html` from it (swapping CDN script tags
-for the local `vendor/` copies), and Tauri runs that automatically via
-`beforeDevCommand` / `beforeBuildCommand`, so `npm run dev` and `npm run build`
-always pick up your changes. `src/index.html` is a build artifact and is
-git-ignored — never edit it directly.
-
----
-
-## Develop
-
-```bash
+```powershell
 npm install
-npm run dev            # opens the app in a native window (hot-reloads on save)
+npm run verify
+npm run agent:check
+npm run dev
 ```
+
+`npm run verify` generates the offline bundle and runs the tests. The application
+does not send plans to the optional agent: only a structured takeoff snapshot is
+accepted. Before exposing that endpoint publicly, configure authentication and
+the allowed origin described in `agent/README.md`.
 
 ## Build the Windows installer
 
-Requires Node.js, Rust, and the MSVC C++ Build Tools. See
-[`README-BUILD.md`](README-BUILD.md) for the full one-time setup.
+Install Node.js, Rust, and the Microsoft C++ Build Tools, then run:
 
-```bash
-npm run build          # regenerates src/index.html, then packages the .exe
+```powershell
+npm run build
 ```
 
-`tauri build` runs `update-src.js` first (via `beforeBuildCommand`), so there is
-no separate sync step. The installer lands at:
+The installer is written to:
 
-```
-src-tauri/target/release/bundle/nsis/Yardstick_<version>_x64-setup.exe
-```
+`src-tauri/target/release/bundle/nsis/Yardstick_<version>_x64-setup.exe`
 
-That single `.exe` installs Yardstick (taskbar + Start-menu entry, ruler icon)
-and runs offline.
-
-To cut a release, bump `version` in `package.json` (the single source of truth —
-`src-tauri/tauri.conf.json` reads it) before building.
-
----
-
-## Recommendations
-
-Ideas for further development, roughly in priority order:
-
-1. ~~**Bring the app source in-repo.**~~ ✅ Done — `app/index.html` is the tracked
-   source; `src/index.html` is generated by `update-src.js` and git-ignored.
-2. ~~**CI to build the installer.**~~ ✅ Done —
-   [`.github/workflows/build.yml`](.github/workflows/build.yml) builds the `.exe`
-   on a Windows runner for every push/PR (uploaded as an artifact) and attaches
-   it to any `v*` tagged release.
-3. ~~**Single-source the version.**~~ ✅ Done — `package.json` is canonical;
-   `tauri.conf.json` reads it via `"version": "../package.json"`.
-4. **Code signing.** An Authenticode certificate clears the Windows SmartScreen
-   "unknown publisher" warning for customers. Runbook (cert options, Tauri
-   config, CI secret wiring) in [`docs/SIGNING.md`](docs/SIGNING.md); needs a
-   purchased certificate to activate.
-5. ~~**Trim unused Rust deps.**~~ ✅ Done — removed `serde` / `serde_json` from
-   `src-tauri/Cargo.toml` (unused by `main.rs`); verified with `cargo check`.
-6. **Auto-update + licensing.** Tauri's updater plugin plus a license-key check
-   (e.g. Lemon Squeezy) is the standard indie-app distribution path.
-   Implementation plan (keys, config, CI, in-app gate) in
-   [`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md); needs a storefront + signing
-   keys to activate.
+`package.json` is the version source of truth. Code signing is still recommended
+before public distribution; see `docs/SIGNING.md`.

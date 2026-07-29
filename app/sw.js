@@ -1,13 +1,19 @@
 /* Yardstick service worker — offline app shell + runtime caching.
    Bump CACHE when the shell changes so old caches are cleaned up on activate. */
-const CACHE = 'yardstick-v1';
+const CACHE = 'yardstick-v2';
 const CORE = [
   './',
   './index.html',
+  './core.js',
+  './qa-agent.js',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
-  './icon-maskable-512.png'
+  './icon-maskable-512.png',
+  './vendor/pdf.min.js',
+  './vendor/pdf.worker.min.js',
+  './vendor/xlsx.bundle.js',
+  './vendor/jspdf.umd.min.js'
 ];
 
 self.addEventListener('install', e => {
