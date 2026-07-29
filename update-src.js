@@ -20,6 +20,15 @@ const SRC = process.argv[2]
   ? path.resolve(process.argv[2])
   : path.join(__dirname, 'app', 'index.html');
 const OUT = path.join(__dirname, 'src', 'index.html');
+const COPY_ASSETS = [
+  'core.js',
+  'qa-agent.js',
+  'sw.js',
+  'manifest.webmanifest',
+  'icon-192.png',
+  'icon-512.png',
+  'icon-maskable-512.png',
+];
 
 // CDN URL -> local vendored copy. Applied to every occurrence.
 const REWRITES = [
@@ -58,4 +67,12 @@ if (leftover) {
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html);
+for (const asset of COPY_ASSETS) {
+  const from = path.join(__dirname, 'app', asset);
+  if (!fs.existsSync(from)) {
+    console.error(`Required app asset is missing: app/${asset}`);
+    process.exit(1);
+  }
+  fs.copyFileSync(from, path.join(__dirname, 'src', asset));
+}
 console.log(`✓ src/index.html generated from ${path.relative(process.cwd(), SRC)} (offline-ready).`);

@@ -13,3 +13,13 @@ dist/
 
 # Generated from app/index.html by update-src.js (canonical source is app/)
 /src/index.html
+/src/core.js
+/src/qa-agent.js
+/src/sw.js
+/src/manifest.webmanifest
+/src/icon-192.png
+/src/icon-512.png
+/src/icon-maskable-512.png
+/tmp/
+/worker-configuration.d.ts
+/.wrangler/

@@ -1,8 +1,7 @@
 name: pages
 
-# Publish the web version of Yardstick (app/index.html, which loads pdf.js /
-# xlsx / jsPDF from CDNs) to GitHub Pages on every merge to main, so there's a
-# always-current URL to open in a browser.
+# Publish the generated offline-ready web bundle to GitHub Pages on every
+# merge to main.
 
 on:
   push:
@@ -26,12 +25,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+      - name: Generate offline web bundle
+        run: npm run verify
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Upload site (the web app)
+      - name: Upload offline-ready web app
         uses: actions/upload-pages-artifact@v3
         with:
-          path: app
+          path: src
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

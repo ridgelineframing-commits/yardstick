@@ -1,0 +1,24 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "yardstick-takeoff-agent",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "TakeoffQaAgent",
+        "class_name": "TakeoffQaAgent"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["TakeoffQaAgent"]
+    }
+  ],
+  "vars": {
+    "ALLOWED_ORIGIN": "https://ridgelineframing-commits.github.io"
+  }
+}
