@@ -449,6 +449,73 @@
     .side{left:50px;width:calc(100vw - 50px)}
     #toolPop{left:56px}
   }
+
+  /* Word-style command ribbon */
+  #fileInput,#jobInput{display:none!important;visibility:hidden!important;position:absolute!important;width:0!important;height:0!important;overflow:hidden!important}
+  header{min-height:46px;height:46px;padding:6px 14px;position:relative}
+  header .logo{min-width:auto}
+  header #projName{position:absolute;left:50%;transform:translateX(-50%);width:min(390px,42vw)!important;text-align:center}
+  header .historyBtns,header #btnOpen,header #sendWrap,header #btnInstall{display:none!important}
+  .appMenuBar{height:34px;padding:0 12px;display:block;z-index:90}
+  .ribbonTabs{height:33px;display:flex;align-items:flex-end;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .ribbonTabs::-webkit-scrollbar{display:none}
+  .ribbonTab{height:32px;border:0;border-radius:0;background:transparent;box-shadow:none;padding:7px 12px 6px;font-weight:600;color:var(--txt);white-space:nowrap}
+  .ribbonTab:hover{background:var(--panel2);transform:none}
+  .ribbonTab.active,.ribbonTab[aria-selected="true"]{color:var(--primary-d);box-shadow:inset 0 -3px 0 var(--primary);background:#f8faff}
+  .ribbonTab[aria-expanded="true"]{background:var(--panel2);color:var(--primary-d)}
+  .appDropdown{top:32px}
+  .ribbon{height:92px;flex:none;display:flex;align-items:stretch;background:#fff;border-bottom:1px solid var(--line2);box-shadow:0 2px 7px #1f2a3712;overflow-x:auto;overflow-y:hidden;position:relative;z-index:70}
+  .ribbonPanel{display:none;align-items:stretch;min-width:max-content}
+  .ribbonPanel.active{display:flex}
+  .ribbonGroup{min-width:max-content;display:flex;flex-direction:column;justify-content:space-between;padding:6px 9px 3px;border-right:1px solid var(--line)}
+  .ribbonCommands{display:flex;align-items:flex-start;gap:4px;min-height:60px}
+  .ribbonCommands.compact{gap:2px}
+  .ribbonCmd{width:66px;min-height:58px;padding:5px 4px 4px;border:0;border-radius:7px;background:transparent;box-shadow:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--txt);font-size:10.5px;line-height:1.15;text-align:center}
+  .ribbonCmd:hover{background:var(--panel2);color:var(--primary-d);transform:none}
+  .ribbonCmd.active{background:#e9efff!important;color:var(--primary-d)!important;box-shadow:inset 0 0 0 1px #b9c8fa!important}
+  .ribbonIcon{height:27px;min-width:30px;display:grid;place-items:center;font-size:21px;font-weight:700;line-height:1;color:inherit}
+  .ribbonCommands.compact .ribbonCmd{width:58px}
+  .ribbonCommands.compact .ribbonIcon{font-size:16px}
+  .ribbonGroupLabel{text-align:center;font-size:9.5px;color:var(--faint);line-height:14px;white-space:nowrap}
+  .ribbon .hdrpz{display:flex;align-items:center;gap:3px;min-height:58px}
+  .ribbon .hdrpz button{min-width:30px;padding:6px 8px;box-shadow:none}
+  .ribbon .hdrpz .pill{padding:6px 8px;background:var(--panel2);border:1px solid var(--line);border-radius:7px;color:var(--txt);font-weight:700;white-space:nowrap}
+  .ribbon .hdrdiv{background:var(--line);height:22px}
+  .ribbonContextHost{display:flex;align-items:stretch;min-width:0}
+  .ribbonContextHost:empty{display:none}
+  .ribbonContextHost #toolPop{position:static;inset:auto;width:auto;max-width:min(720px,55vw);height:100%;margin:0;border:0;border-right:1px solid var(--line);border-radius:0;box-shadow:none;padding:6px 10px;background:#fbfcff;overflow:auto}
+  .ribbonContextHost #toolPop.show{display:flex;flex-direction:column}
+  .ribbonContextHost #toolPop .tphead{margin:0 0 4px}
+  .ribbonContextHost #toolPop .tpclose{display:none}
+  .ribbonContextHost #toolPopBody{flex-wrap:nowrap;align-items:center}
+  .ribbonContextHost #toolPopBody .paltip{display:none}
+  .ribbonContextHost #toolPopBody .pal{flex-wrap:nowrap}
+  .ribbonContextHost #toolPopBody .pre{flex-wrap:nowrap}
+  .toolRail{display:none!important}
+  .side{width:240px}
+  .side:not(.right) .toolsSection{display:none}
+  #toolPop{left:auto;top:auto}
+  @media (max-width:1024px){
+    header{height:44px;min-height:44px}
+    header #projName{display:block;position:static;transform:none;flex:1;width:auto!important;text-align:left}
+    .appMenuBar{height:34px;padding:0 6px}
+    .ribbonTab{padding-inline:10px}
+    .ribbonTab:nth-child(n+6){display:block}
+    .ribbon{height:88px}
+    .side{left:0;max-width:330px}
+    .ribbonContextHost #toolPop{position:static;inset:auto;width:auto;max-width:70vw;height:100%;border-radius:0;overflow:auto}
+  }
+  @media (max-width:560px){
+    header #projName{display:none}
+    header .logo span.r{display:none}
+    .ribbonTab{padding-inline:9px}
+    .ribbon{height:84px}
+    .ribbonGroup{padding-inline:5px}
+    .ribbonCmd{width:58px;min-height:54px}
+    .ribbonIcon{height:24px;font-size:18px}
+    .ribbonContextHost #toolPop{max-width:78vw}
+    .side{left:0;width:92vw}
+  }
 </style>
 </head>
 <body>
@@ -481,26 +548,112 @@
     <input type="file" id="fileInput" accept="application/pdf,image/png,image/jpeg,image/webp,image/gif,image/bmp,image/svg+xml,.pdf,.png,.jpg,.jpeg,.webp,.gif,.bmp,.svg" style="display:none">
     <input type="file" id="jobInput" accept=".json,application/json" style="display:none">
   </header>
-  <div class="appMenuBar" role="menubar" aria-label="Application menu">
-    <div class="menuTabs">
-      <button class="menuTrigger" data-menu="file" aria-expanded="false">File</button>
-      <button class="menuTrigger" data-menu="edit" aria-expanded="false">Edit</button>
-      <button class="menuTrigger" data-menu="takeoff" aria-expanded="false">Takeoff</button>
-      <button class="menuTrigger" data-menu="markup" aria-expanded="false">Markup</button>
-      <button class="menuTrigger" data-menu="view" aria-expanded="false">View</button>
-      <button class="menuTrigger" data-menu="help" aria-expanded="false">Help</button>
-    </div>
-    <div class="menuBarSpacer"></div>
-    <div class="hdrpz" id="hdrPZ">
-      <button id="prevPg" title="Previous page" aria-label="Previous page">&#8592;</button><span id="pgLabel" class="pill">No PDF</span><button id="nextPg" title="Next page" aria-label="Next page">&#8594;</button>
-      <span class="hdrdiv"></span>
-      <button id="zoomOut" title="Zoom out" aria-label="Zoom out">&#8722;</button><span id="zoomLabel" class="pill">100%</span><button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button>
-    </div>
-    <div class="modeButtons" aria-label="Canvas mode">
-      <button class="tool active" data-tool="select" id="btnSelectMode">Select</button>
-      <button class="tool" data-tool="pan" id="btnPanMode">Pan</button>
+  <div class="appMenuBar" aria-label="Application ribbon">
+    <div class="ribbonTabs" role="tablist" aria-label="Command tabs">
+      <button class="menuTrigger ribbonTab" data-menu="file" aria-expanded="false">File</button>
+      <button class="ribbonTab active" data-ribbon="home" role="tab" aria-selected="true">Home</button>
+      <button class="ribbonTab" data-ribbon="takeoff" role="tab" aria-selected="false">Takeoff</button>
+      <button class="ribbonTab" data-ribbon="draw" role="tab" aria-selected="false">Draw</button>
+      <button class="ribbonTab" data-ribbon="view" role="tab" aria-selected="false">View</button>
+      <button class="menuTrigger ribbonTab" data-menu="help" aria-expanded="false">Help</button>
     </div>
     <div class="appDropdown" id="appDropdown" role="menu"></div>
+  </div>
+  <div class="ribbon" id="commandRibbon">
+    <div class="ribbonPanel active" data-panel="home" role="tabpanel">
+      <div class="ribbonGroup">
+        <div class="ribbonCommands">
+          <button class="ribbonCmd" data-click="btnOpen"><span class="ribbonIcon">&#128194;</span><span>Open</span></button>
+          <button class="ribbonCmd" data-click="btnSaveJob"><span class="ribbonIcon">&#128190;</span><span>Save job</span></button>
+        </div><div class="ribbonGroupLabel">File</div>
+      </div>
+      <div class="ribbonGroup">
+        <div class="ribbonCommands compact">
+          <button class="ribbonCmd" data-click="btnUndo" aria-label="Undo"><span class="ribbonIcon">&#8630;</span><span>Undo</span></button>
+          <button class="ribbonCmd" data-click="btnRedo" aria-label="Redo"><span class="ribbonIcon">&#8631;</span><span>Redo</span></button>
+          <button class="ribbonCmd" data-click="btnClear"><span class="ribbonIcon">&#10005;</span><span>Clear</span></button>
+        </div><div class="ribbonGroupLabel">Edit</div>
+      </div>
+      <div class="ribbonGroup">
+        <div class="ribbonCommands">
+          <button class="tool ribbonCmd active" data-tool="select"><span class="ribbonIcon">&#8598;</span><span>Select</span></button>
+          <button class="tool ribbonCmd" data-tool="pan"><span class="ribbonIcon">&#10021;</span><span>Pan</span></button>
+        </div><div class="ribbonGroupLabel">Mode</div>
+      </div>
+      <div class="ribbonGroup">
+        <div class="hdrpz" id="hdrPZ">
+          <button id="prevPg" title="Previous page" aria-label="Previous page">&#8592;</button><span id="pgLabel" class="pill">No PDF</span><button id="nextPg" title="Next page" aria-label="Next page">&#8594;</button>
+          <span class="hdrdiv"></span>
+          <button id="zoomOut" title="Zoom out" aria-label="Zoom out">&#8722;</button><span id="zoomLabel" class="pill">100%</span><button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button>
+        </div><div class="ribbonGroupLabel">Page &amp; Zoom</div>
+      </div>
+      <div class="ribbonGroup">
+        <div class="ribbonCommands compact">
+          <button class="ribbonCmd" data-click="btnXlsx"><span class="ribbonIcon">XLS</span><span>Excel</span></button>
+          <button class="ribbonCmd" data-click="btnSavePdf"><span class="ribbonIcon">PDF</span><span>Marked PDF</span></button>
+        </div><div class="ribbonGroupLabel">Output</div>
+      </div>
+    </div>
+    <div class="ribbonPanel" data-panel="takeoff" role="tabpanel">
+      <div class="ribbonGroup">
+        <div class="ribbonCommands">
+          <button class="ribbonCmd" data-ribbon-action="scale"><span class="ribbonIcon">&#8737;</span><span>Set scale</span></button>
+          <button class="tool ribbonCmd" data-tool="calibrate"><span class="ribbonIcon">&#8596;</span><span>Calibrate</span></button>
+        </div><div class="ribbonGroupLabel">Scale</div>
+      </div>
+      <div class="ribbonGroup">
+        <div class="ribbonCommands">
+          <button class="tool ribbonCmd" data-tool="room"><span class="ribbonIcon">R</span><span>Room</span></button>
+          <button class="tool ribbonCmd" data-tool="door"><span class="ribbonIcon">&#9635;</span><span>Door</span></button>
+          <button class="tool ribbonCmd" data-tool="window"><span class="ribbonIcon">&#9638;</span><span>Window</span></button>
+        </div><div class="ribbonGroupLabel">Plan</div>
+      </div>
+      <div class="ribbonGroup">
+        <div class="ribbonCommands">
+          <button class="tool ribbonCmd" data-tool="fixture"><span class="ribbonIcon">P</span><span>Plumbing</span></button>
+          <button class="tool ribbonCmd" data-tool="electrical"><span class="ribbonIcon">&#9889;</span><span>Electrical</span></button>
+          <button class="tool ribbonCmd" data-tool="structure"><span class="ribbonIcon">S</span><span>Structure</span></button>
+        </div><div class="ribbonGroupLabel">Systems</div>
+      </div>
+      <div class="ribbonGroup">
+        <div class="ribbonCommands compact">
+          <button class="ribbonCmd" data-click="btnReadText"><span class="ribbonIcon">AI</span><span>Read labels</span></button>
+          <button class="ribbonCmd" data-click="btnAutoAll"><span class="ribbonIcon">&#10024;</span><span>Detect rooms</span></button>
+          <button class="ribbonCmd" data-click="btnQaReview"><span class="ribbonIcon">&#10003;</span><span>QA review</span></button>
+        </div><div class="ribbonGroupLabel">Automate</div>
+      </div>
+    </div>
+    <div class="ribbonPanel" data-panel="draw" role="tabpanel">
+      <div class="ribbonGroup">
+        <div class="ribbonCommands">
+          <button class="tool ribbonCmd" data-tool="draw"><span class="ribbonIcon">&#9998;</span><span>Freehand</span></button>
+          <button class="tool ribbonCmd" data-tool="line"><span class="ribbonIcon">&#9585;</span><span>Line</span></button>
+          <button class="tool ribbonCmd" data-tool="arrow"><span class="ribbonIcon">&#8599;</span><span>Arrow</span></button>
+          <button class="tool ribbonCmd" data-tool="rect"><span class="ribbonIcon">&#9633;</span><span>Box</span></button>
+          <button class="tool ribbonCmd" data-tool="ellipse"><span class="ribbonIcon">&#9711;</span><span>Ellipse</span></button>
+          <button class="tool ribbonCmd" data-tool="polygon"><span class="ribbonIcon">&#11040;</span><span>Polygon</span></button>
+          <button class="tool ribbonCmd" data-tool="text"><span class="ribbonIcon">T</span><span>Text</span></button>
+          <button class="tool ribbonCmd" data-tool="comment"><span class="ribbonIcon">&#9993;</span><span>Note</span></button>
+        </div><div class="ribbonGroupLabel">Drawing tools</div>
+      </div>
+    </div>
+    <div class="ribbonPanel" data-panel="view" role="tabpanel">
+      <div class="ribbonGroup">
+        <div class="ribbonCommands compact">
+          <button class="ribbonCmd" data-click="prevPg"><span class="ribbonIcon">&#8592;</span><span>Previous</span></button>
+          <button class="ribbonCmd" data-click="nextPg"><span class="ribbonIcon">&#8594;</span><span>Next</span></button>
+          <button class="ribbonCmd" data-click="zoomOut"><span class="ribbonIcon">&#8722;</span><span>Zoom out</span></button>
+          <button class="ribbonCmd" data-click="zoomIn"><span class="ribbonIcon">+</span><span>Zoom in</span></button>
+        </div><div class="ribbonGroupLabel">Document</div>
+      </div>
+      <div class="ribbonGroup">
+        <div class="ribbonCommands">
+          <button class="ribbonCmd" data-ribbon-action="left-panel"><span class="ribbonIcon">&#9776;</span><span>Plan setup</span></button>
+          <button class="ribbonCmd" data-ribbon-action="right-panel"><span class="ribbonIcon">&#9638;</span><span>Items &amp; totals</span></button>
+        </div><div class="ribbonGroupLabel">Panels</div>
+      </div>
+    </div>
+    <div class="ribbonContextHost" id="ribbonContextHost"></div>
   </div>
   <div class="workflow" id="workflow" aria-label="Takeoff workflow">
     <div class="wfstep current" id="wfOpen" data-step="1"><span>Open plan</span></div><div class="wfline"></div>
@@ -511,24 +664,6 @@
   <div id="drawerBack" aria-hidden="true"></div>
 
   <div class="main">
-    <nav class="toolRail" aria-label="Drawing tools">
-      <button class="tool railBtn active" data-tool="select" data-label="Select" aria-label="Select">&#8598;</button>
-      <button class="tool railBtn" data-tool="pan" data-label="Pan" aria-label="Pan">&#10021;</button>
-      <div class="railSep"></div>
-      <button class="tool railBtn" data-tool="room" data-label="Room" aria-label="Trace room"><span class="railGlyph">R</span></button>
-      <button class="tool railBtn" data-tool="door" data-label="Door" aria-label="Place door">&#9635;</button>
-      <button class="tool railBtn" data-tool="window" data-label="Window" aria-label="Place window">&#9638;</button>
-      <button class="tool railBtn" data-tool="fixture" data-label="Plumbing" aria-label="Place plumbing"><span class="railGlyph">P</span></button>
-      <button class="tool railBtn" data-tool="electrical" data-label="Electrical" aria-label="Place electrical">&#9889;</button>
-      <button class="tool railBtn" data-tool="structure" data-label="Structure" aria-label="Place structure"><span class="railGlyph">S</span></button>
-      <div class="railSep"></div>
-      <button class="tool railBtn" data-tool="draw" data-label="Freehand" aria-label="Freehand drawing">&#9998;</button>
-      <button class="tool railBtn" data-tool="line" data-label="Line" aria-label="Draw line">&#9585;</button>
-      <button class="tool railBtn" data-tool="arrow" data-label="Arrow" aria-label="Draw arrow">&#8599;</button>
-      <button class="tool railBtn" data-tool="rect" data-label="Box" aria-label="Draw box">&#9633;</button>
-      <button class="tool railBtn" data-tool="text" data-label="Text" aria-label="Add text"><span class="railGlyph">T</span></button>
-      <button class="tool railBtn" data-tool="comment" data-label="Note" aria-label="Add note">&#9993;</button>
-    </nav>
     <!-- LEFT -->
     <div class="side">
       <div class="panelTitle">Plan setup</div>
@@ -1632,6 +1767,8 @@ function elecRows(){return S.items.filter(i=>i.type==='electrical').map(it=>{let
 const History={current:null,undo:[],redo:[],restoring:false};
 function updateHistoryButtons(){
   $('btnUndo').disabled=!History.undo.length;$('btnRedo').disabled=!History.redo.length;
+  document.querySelectorAll('[data-click="btnUndo"]').forEach(button=>button.disabled=$('btnUndo').disabled);
+  document.querySelectorAll('[data-click="btnRedo"]').forEach(button=>button.disabled=$('btnRedo').disabled);
 }
 function trackHistory(){
   if(History.restoring)return;const next=serialize(false);
@@ -2140,7 +2277,18 @@ if(sendWrap){
 // handlers used elsewhere, so this is a clearer route—not a parallel workflow.
 const appDropdown=$('appDropdown');
 const appMenus={
-  file:[['Open plan…','click','btnOpen'],['Open job file…','click','btnOpenJob'],['Save job file','click','btnSaveJob'],'sep',['Export & save…','click','btnSendIt']],
+  file:[
+    ['Open plan…','click','btnOpen'],
+    ['Open job file…','click','btnOpenJob'],
+    ['Save job file','click','btnSaveJob'],
+    'sep',
+    ['Export Excel','click','btnXlsx'],
+    ['Schematic PDF','click','btnPdf'],
+    ['Export DXF','click','btnDxf'],
+    ['Save marked-up PDF','click','btnSavePdf'],
+    'sep',
+    ['Install app','click','btnInstall']
+  ],
   edit:[['Undo','click','btnUndo'],['Redo','click','btnRedo'],'sep',['Clear takeoff…','click','btnClear']],
   takeoff:[['Set or calibrate scale','scale'],['Read PDF labels','click','btnReadText'],['Detect visible rooms','click','btnAutoAll'],['Run QA review','click','btnQaReview']],
   markup:[['Freehand','tool','draw'],['Line','tool','line'],['Arrow','tool','arrow'],['Box','tool','rect'],['Ellipse','tool','ellipse'],['Polygon','tool','polygon'],['Text','tool','text'],['Note','tool','comment']],
@@ -2163,7 +2311,7 @@ function runAppMenuAction(action,value){
     if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-r');updateDrawerA11y();}
   }else if(action==='help'){
     const section=document.querySelector('.toolsSection');if(section)section.classList.toggle('helpOpen');
-    showToast('Choose a tool from the rail. Its presets open beside the plan.','success');
+    showToast('Choose a ribbon tab, then pick a command. Tool presets appear at the right side of the ribbon.','success');
   }
 }
 document.querySelectorAll('.menuTrigger').forEach(trigger=>trigger.addEventListener('click',event=>{
@@ -2183,6 +2331,34 @@ appDropdown.addEventListener('keydown',event=>{
   if(event.key==='Escape'){event.preventDefault();closeAppMenu();}
 });
 document.addEventListener('click',event=>{if(!event.target.closest('.appMenuBar'))closeAppMenu();});
+
+function showRibbon(name){
+  document.querySelectorAll('.ribbonPanel').forEach(panel=>panel.classList.toggle('active',panel.dataset.panel===name));
+  document.querySelectorAll('[data-ribbon]').forEach(tab=>{
+    const active=tab.dataset.ribbon===name;
+    tab.classList.toggle('active',active);
+    tab.setAttribute('aria-selected',String(active));
+  });
+  closeAppMenu();
+}
+document.querySelectorAll('[data-ribbon]').forEach(tab=>tab.addEventListener('click',()=>showRibbon(tab.dataset.ribbon)));
+document.querySelectorAll('.ribbon [data-click]').forEach(button=>button.addEventListener('click',()=>{
+  const target=$(button.dataset.click);if(target)target.click();
+}));
+document.querySelectorAll('[data-ribbon-action]').forEach(button=>button.addEventListener('click',()=>{
+  const action=button.dataset.ribbonAction;
+  if(action==='scale'){
+    if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-l');updateDrawerA11y();}
+    $('scalePreset').focus();
+  }else if(action==='left-panel'){
+    if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-l');updateDrawerA11y();}
+  }else if(action==='right-panel'){
+    $('rightPanel').classList.remove('collapsed');
+    if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-r');updateDrawerA11y();}
+  }
+}));
+const ribbonContextHost=$('ribbonContextHost');
+if(ribbonContextHost&&$('toolPop'))ribbonContextHost.appendChild($('toolPop'));
 
 $('btnSendIt').textContent='Export ▾';
 $('btnReadText').textContent='Read PDF labels';

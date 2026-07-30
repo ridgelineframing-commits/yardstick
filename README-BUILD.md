@@ -22,7 +22,7 @@ npm run build
 The build command regenerates the offline `src/` bundle before Tauri compiles
 the installer. The versioned result is:
 
-`src-tauri\target\release\bundle\nsis\Yardstick_1.1.0_x64-setup.exe`
+`src-tauri\target\release\bundle\nsis\Yardstick_1.2.0_x64-setup.exe`
 
 For a quick native development run, use `npm run dev`.
 

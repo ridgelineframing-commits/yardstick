@@ -7,11 +7,12 @@ and structural items directly over the drawing. Yardstick totals quantities and
 areas, compares traced areas with plan-stated areas, and exports Excel, DXF, or
 a marked-up PDF. The Windows app and installed PWA work offline.
 
-## What is new in 1.1
+## What is new in 1.2
 
-- Signet-inspired desktop-editor shell with application menus, a persistent
-  vertical tool rail, contextual presets, dedicated Select/Pan modes, and a
-  focused empty-plan state—without changing Yardstick’s logo or color palette.
+- Word-style Home, Takeoff, Draw, and View ribbon tabs replace the vertical tool
+  rail, while contextual presets stay beside the active command. File and export
+  actions are consolidated into the ribbon and File menu without changing
+  Yardstick’s logo or color palette.
 - Undo/redo, selected-item inspector, responsive bottom-sheet tool presets,
   keyboard focus treatment, accessible drawers and dialogs, and non-blocking
   status messages.
