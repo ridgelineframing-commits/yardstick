@@ -18,3 +18,19 @@ test("the generated app has no CDN runtime dependencies", () => {
     assert.ok(fs.existsSync(path.join(__dirname, "..", "src", asset)), `${asset} is missing`);
   }
 });
+
+test("desktop HTML5 plan drops are enabled and handled across the app", () => {
+  const config = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "src-tauri", "tauri.conf.json"), "utf8"));
+  const html = fs.readFileSync(path.join(__dirname, "..", "app", "index.html"), "utf8");
+  assert.equal(config.app.windows[0].dragDropEnabled, false);
+  assert.match(html, /document\.addEventListener\('drop',/);
+  assert.match(html, /function droppedPlanFile\(dt\)/);
+});
+
+test("beta wall workflow is present in the canonical shell", () => {
+  const html = fs.readFileSync(path.join(__dirname, "..", "app", "index.html"), "utf8");
+  assert.match(html, />Beta Features</);
+  assert.match(html, /data-tool="exterior"/);
+  assert.match(html, /data-tool="interior"/);
+  assert.match(html, /id="btnBuildRooms"/);
+});

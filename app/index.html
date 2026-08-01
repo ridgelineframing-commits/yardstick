@@ -519,32 +519,38 @@
 
   /* Yardstick 1.3: compact two-row editor header */
   #btnDrawerL,.side:not(.right){display:none!important}
-  .appMenuBar{height:34px}
-  .ribbon{height:40px;min-height:40px;align-items:stretch;box-shadow:0 1px 4px #1f2a3710}
+  .appMenuBar{height:34px;display:flex;align-items:center}
+  .ribbonTabs{flex:0 1 auto;min-width:0}
+  .ribbon{height:44px;min-height:44px;align-items:stretch;box-shadow:0 1px 4px #1f2a3710;overflow-x:auto;overflow-y:hidden}
   .ribbonPanel[data-panel="home"]{display:flex!important}
-  .ribbonPanel{height:39px;align-items:stretch}
-  .ribbonGroup{height:39px;flex-direction:row;align-items:center;padding:2px 4px}
-  .ribbonCommands,.ribbonCommands.compact{min-height:0;height:35px;align-items:center;gap:1px}
-  .ribbonCmd,.ribbonCommands.compact .ribbonCmd{width:34px;min-height:34px;height:34px;padding:3px;border-radius:6px;gap:0}
-  .ribbonCmd>span:last-child{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-  .ribbonIcon,.ribbonCommands.compact .ribbonIcon{height:26px;min-width:26px;font-size:17px}
-  .ribbonSvg{width:21px;height:21px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ribbonPanel[data-panel="home"]>.ribbonGroup:nth-child(3){order:5}
+  .ribbonPanel[data-panel="home"]>.ribbonGroup:nth-child(4){order:3}
+  .ribbonPanel[data-panel="home"]>.ribbonGroup:nth-child(5){order:4}
+  .ribbonPanel{height:43px;align-items:stretch}
+  .ribbonGroup{height:43px;flex-direction:row;align-items:center;padding:2px 3px}
+  .ribbonCommands,.ribbonCommands.compact{min-height:0;height:39px;align-items:center;gap:1px}
+  .ribbonCmd,.ribbonCommands.compact .ribbonCmd{width:auto;min-width:44px;min-height:36px;height:36px;padding:3px 6px;border-radius:5px;gap:2px;flex-direction:row}
+  .ribbonCmd>span:last-child{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:nowrap;border:0;font-size:10px;font-weight:650;line-height:1}
+  .ribbonIcon,.ribbonCommands.compact .ribbonIcon{height:22px;min-width:20px;font-size:15px;display:grid;place-items:center}
+  .ribbonSvg{width:19px;height:19px;display:block;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}
   .ribbonGroupLabel{display:none}
   .ribbon .hdrpz{min-height:0;height:35px;gap:2px}
   .ribbon .hdrpz button{min-width:28px;height:30px;padding:4px 7px}
   .ribbon .hdrpz .pill{padding:5px 7px;font-size:10.5px}
-  .quickScale{display:none;align-items:center;height:35px;padding:0 4px;gap:4px;border-right:1px solid var(--line)}
+  .menuScale{height:34px;display:flex;flex:none;align-items:center;gap:4px;margin-left:4px;padding-left:8px;border-left:1px solid var(--line)}
+  .menuScale>span{font-size:10px;font-weight:750;color:#4b5a6e;text-transform:uppercase;letter-spacing:.04em}
+  .quickScale{display:flex;align-items:center;height:32px;padding:0;gap:3px}
   .quickScale.open{display:flex}
   .quickScale .row{margin:0;flex-wrap:nowrap;gap:4px}
-  .quickScale .scalesel{min-width:132px;width:148px;flex:none;padding:5px 7px;font-size:11px}
-  .quickScale #btnCal{width:32px;height:30px;padding:4px;font-size:0}
-  .quickScale #btnCal:before{content:"↔";font-size:16px}
-  .quickScale #calStatus{max-width:105px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}
+  .quickScale .scalesel{min-width:126px;width:142px;flex:none;padding:4px 6px;font-size:10.5px;height:28px}
+  .quickScale #btnCal{width:auto;height:28px;padding:3px 6px;font-size:10px}
+  .quickScale #btnCal:before{content:""}
+  .quickScale #calStatus{max-width:88px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9.5px}
   .autoTuneHost{display:flex;align-items:center;height:35px}
   .autoTuneHost details.beta{margin:0;padding:3px 7px;border-style:solid;white-space:nowrap;max-height:34px;overflow:auto}
   .autoTuneHost details.beta summary{font-size:10.5px;font-weight:700}
-  .ribbonContextHost{height:39px}
-  .ribbonContextHost #toolPop{height:39px;padding:3px 7px;flex-direction:row!important;align-items:center}
+  .ribbonContextHost{height:43px}
+  .ribbonContextHost #toolPop{height:43px;padding:3px 7px;flex-direction:row!important;align-items:center}
   .ribbonContextHost #toolPop .tphead{display:none}
   .ribbonContextHost #toolPopBody,.ribbonContextHost #toolPopBody .pal,.ribbonContextHost #toolPopBody .pre{height:32px;flex-wrap:nowrap}
   .ribbonContextHost #toolPopBody .pal button{height:30px;padding:4px 8px;font-size:10.5px}
@@ -552,17 +558,21 @@
   .presetIconBtn svg{width:24px;height:24px;display:block;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
   .presetIconBtn svg text{fill:currentColor;stroke:none;font:700 6px system-ui;text-anchor:middle}
   .stagewrap{flex:1;min-width:0}
+  .wallAction{position:relative}
+  .wallAction .ribbonIcon{color:#334155}
+  .dropActive #stage{outline:3px solid #2563eb;outline-offset:-3px;background:#dbeafe}
   @media (max-width:1024px){
-    .ribbon{height:40px}
+    .ribbon{height:44px}
     .quickScale #calStatus{display:none}
     .quickScale .scalesel{width:126px;min-width:126px}
   }
   @media (max-width:560px){
-    .ribbon{height:40px}
+    .ribbon{height:44px}
     .ribbonGroup{padding-inline:2px}
-    .ribbonCmd,.ribbonCommands.compact .ribbonCmd{width:32px;min-height:32px;height:32px}
-    .quickScale{display:none}
-    .quickScale.open{display:flex;min-width:max-content}
+    .ribbonCmd,.ribbonCommands.compact .ribbonCmd{min-width:40px;min-height:34px;height:34px;padding-inline:4px}
+    .ribbonCmd>span:last-child{font-size:9px}
+    .menuScale>span,.quickScale #calStatus{display:none}
+    .quickScale{display:flex;min-width:max-content}
   }
 </style>
 </head>
@@ -602,29 +612,31 @@
       <button class="ribbonTab" data-ribbon="takeoff" role="tab" aria-selected="false">Plan Tools</button>
       <button class="ribbonTab" data-ribbon="draw" role="tab" aria-selected="false">Draw</button>
       <button class="ribbonTab" data-ribbon="view" role="tab" aria-selected="false">View</button>
+      <button class="ribbonTab" data-ribbon="beta" role="tab" aria-selected="false">Beta Features</button>
       <button class="menuTrigger ribbonTab" data-menu="help" aria-expanded="false">Help</button>
     </div>
+    <div class="menuScale"><span>Scale</span><div class="quickScale" id="scaleHost" aria-label="Plan scale"></div></div>
     <div class="appDropdown" id="appDropdown" role="menu"></div>
   </div>
   <div class="ribbon" id="commandRibbon">
     <div class="ribbonPanel active" data-panel="home" aria-label="Quick tools">
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="ribbonCmd" data-click="btnOpen" title="Open plan"><span class="ribbonIcon">&#128194;</span><span>Open</span></button>
-          <button class="ribbonCmd" data-click="btnSaveJob" title="Save job"><span class="ribbonIcon">&#128190;</span><span>Save job</span></button>
+          <button class="ribbonCmd" data-click="btnOpen" title="Open plan"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M3.5 6.5h6l2 2h9v9.5h-17z"/><path d="M3.5 9h17"/></svg></span><span>Open</span></button>
+          <button class="ribbonCmd" data-click="btnSaveJob" title="Save job"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 4h12l2 2v14H5z"/><path d="M8 4v6h8V4M8 16h8"/></svg></span><span>Save</span></button>
         </div><div class="ribbonGroupLabel">File</div>
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="btnUndo" aria-label="Undo" title="Undo"><span class="ribbonIcon">&#8630;</span><span>Undo</span></button>
-          <button class="ribbonCmd" data-click="btnRedo" aria-label="Redo" title="Redo"><span class="ribbonIcon">&#8631;</span><span>Redo</span></button>
-          <button class="ribbonCmd" data-click="btnClear" title="Clear takeoff"><span class="ribbonIcon">&#10005;</span><span>Clear</span></button>
+          <button class="ribbonCmd" data-click="btnUndo" aria-label="Undo" title="Undo"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M9 8 4 12l5 4M5 12h8a6 6 0 0 1 6 6"/></svg></span><span>Undo</span></button>
+          <button class="ribbonCmd" data-click="btnRedo" aria-label="Redo" title="Redo"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m15 8 5 4-5 4M19 12h-8a6 6 0 0 0-6 6"/></svg></span><span>Redo</span></button>
+          <button class="ribbonCmd" data-click="btnClear" title="Clear takeoff"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17"/></svg></span><span>Clear</span></button>
         </div><div class="ribbonGroupLabel">Edit</div>
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="tool ribbonCmd active" data-tool="select" title="Select"><span class="ribbonIcon">&#8598;</span><span>Select</span></button>
-          <button class="tool ribbonCmd" data-tool="pan" title="Pan"><span class="ribbonIcon">&#10021;</span><span>Pan</span></button>
+          <button class="tool ribbonCmd active" data-tool="select" title="Select"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M6 3.5 18 13l-6 .8-3.2 5.3z"/></svg></span><span>Select</span></button>
+          <button class="tool ribbonCmd" data-tool="pan" title="Pan"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3 9 6M12 3l3 3M21 12l-3-3M21 12l-3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3"/></svg></span><span>Pan</span></button>
         </div><div class="ribbonGroupLabel">Mode</div>
       </div>
       <div class="ribbonGroup">
@@ -636,71 +648,68 @@
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="btnXlsx" title="Export Excel"><span class="ribbonIcon">XLS</span><span>Excel</span></button>
-          <button class="ribbonCmd" data-click="btnSavePdf" title="Save marked-up PDF"><span class="ribbonIcon">PDF</span><span>Marked PDF</span></button>
+          <button class="ribbonCmd" data-click="btnXlsx" title="Export Excel"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/><path d="m12.5 13.5 4 4m0-4-4 4"/></svg></span><span>Excel</span></button>
+          <button class="ribbonCmd" data-click="btnSavePdf" title="Save marked-up PDF"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6zM14 3.5V8h4"/><path d="M8.5 15.5h7M8.5 12.5h5"/></svg></span><span>PDF</span></button>
         </div><div class="ribbonGroupLabel">Output</div>
       </div>
-      <div class="quickScale" id="scaleHost" aria-label="Plan scale"></div>
     </div>
     <div class="ribbonPanel" data-panel="takeoff" role="tabpanel">
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="ribbonCmd" data-ribbon-action="scale" title="Set plan scale"><span class="ribbonIcon">&#8737;</span><span>Set scale</span></button>
-          <button class="tool ribbonCmd" data-tool="calibrate" title="Calibrate from a known dimension"><span class="ribbonIcon">&#8596;</span><span>Calibrate</span></button>
-        </div><div class="ribbonGroupLabel">Scale</div>
-      </div>
-      <div class="ribbonGroup">
-        <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="btnReadText" title="Read plan labels"><span class="ribbonIcon">AI</span><span>Read labels</span></button>
-          <button class="ribbonCmd" data-click="btnAutoAll" title="Detect rooms across the full page locally"><span class="ribbonIcon">&#10024;</span><span>Detect rooms</span></button>
-          <button class="ribbonCmd" data-click="btnQaReview" title="Run takeoff QA"><span class="ribbonIcon">&#10003;</span><span>QA review</span></button>
-        </div><div class="ribbonGroupLabel">Automate</div>
-      </div>
-      <div class="ribbonGroup">
-        <div class="ribbonCommands">
-          <button class="tool ribbonCmd" data-tool="room" title="Trace a room"><span class="ribbonIcon">R</span><span>Room</span></button>
-          <button class="tool ribbonCmd" data-tool="door" title="Place doors"><span class="ribbonIcon">&#9635;</span><span>Door</span></button>
-          <button class="tool ribbonCmd" data-tool="window" title="Place windows"><span class="ribbonIcon">&#9638;</span><span>Window</span></button>
+          <button class="tool ribbonCmd" data-tool="room" title="Trace a room"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 18V6h7v5h9v7z"/></svg></span><span>Room</span></button>
+          <button class="tool ribbonCmd" data-tool="door" title="Place doors"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 20V4h10v16M5 20h14"/><path d="M15 20A10 10 0 0 0 5 10"/></svg></span><span>Door</span></button>
+          <button class="tool ribbonCmd" data-tool="window" title="Place windows"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM12 5v14M4 12h16"/></svg></span><span>Window</span></button>
         </div><div class="ribbonGroupLabel">Plan</div>
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands">
           <button class="tool ribbonCmd" data-tool="fixture" title="Place plumbing fixtures"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h11a4 4 0 0 1 4 4v1h-4v-1H9v5H5v-5a4 4 0 0 1 4-4"/><path d="M9 10V6h6M12 6V3M9 3h6"/><path d="M19 18c0 1.4-1 2.5-2.2 2.5S14.5 19.4 14.5 18c0-1.1 1.5-3 2.3-4 .7 1 2.2 2.9 2.2 4Z"/></svg></span><span>Plumbing</span></button>
           <button class="tool ribbonCmd" data-tool="electrical" title="Place electrical devices"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 8v5M15 8v5M8 17h8"/></svg></span><span>Electrical</span></button>
-          <button class="tool ribbonCmd" data-tool="structure" title="Add structural callouts"><span class="ribbonIcon">S</span><span>Structure</span></button>
+          <button class="tool ribbonCmd" data-tool="structure" title="Add structural callouts"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 6h16v4H4zM7 10v8M17 10v8M4 18h16"/></svg></span><span>Structure</span></button>
+          <button class="ribbonCmd" data-click="btnQaReview" title="Run takeoff QA"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7"/></svg></span><span>QA</span></button>
         </div><div class="ribbonGroupLabel">Systems</div>
       </div>
-      <div class="autoTuneHost" id="autoTuneHost"></div>
     </div>
     <div class="ribbonPanel" data-panel="draw" role="tabpanel">
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="tool ribbonCmd" data-tool="draw" title="Freehand"><span class="ribbonIcon">&#9998;</span><span>Freehand</span></button>
-          <button class="tool ribbonCmd" data-tool="line" title="Line"><span class="ribbonIcon">&#9585;</span><span>Line</span></button>
-          <button class="tool ribbonCmd" data-tool="arrow" title="Arrow"><span class="ribbonIcon">&#8599;</span><span>Arrow</span></button>
-          <button class="tool ribbonCmd" data-tool="rect" title="Box"><span class="ribbonIcon">&#9633;</span><span>Box</span></button>
-          <button class="tool ribbonCmd" data-tool="ellipse" title="Ellipse"><span class="ribbonIcon">&#9711;</span><span>Ellipse</span></button>
-          <button class="tool ribbonCmd" data-tool="polygon" title="Polygon"><span class="ribbonIcon">&#11040;</span><span>Polygon</span></button>
-          <button class="tool ribbonCmd" data-tool="text" title="Text"><span class="ribbonIcon">T</span><span>Text</span></button>
-          <button class="tool ribbonCmd" data-tool="comment" title="Note"><span class="ribbonIcon">&#9993;</span><span>Note</span></button>
+          <button class="tool ribbonCmd" data-tool="draw" title="Freehand"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m4 19 3.5-.8L19 6.7 16.3 4 4.8 15.5zM14.7 5.6l2.7 2.7"/></svg></span><span>Freehand</span></button>
+          <button class="tool ribbonCmd" data-tool="line" title="Line"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 19 19 5"/><circle cx="5" cy="19" r="1.5"/><circle cx="19" cy="5" r="1.5"/></svg></span><span>Line</span></button>
+          <button class="tool ribbonCmd" data-tool="arrow" title="Arrow"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 19 19 5M12 5h7v7"/></svg></span><span>Arrow</span></button>
+          <button class="tool ribbonCmd" data-tool="rect" title="Box"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14"/></svg></span><span>Box</span></button>
+          <button class="tool ribbonCmd" data-tool="ellipse" title="Ellipse"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8" ry="6"/></svg></span><span>Ellipse</span></button>
+          <button class="tool ribbonCmd" data-tool="polygon" title="Polygon"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m12 3 8 6-3 10H7L4 9z"/></svg></span><span>Polygon</span></button>
+          <button class="tool ribbonCmd" data-tool="text" title="Text"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 5h14M12 5v14M8 19h8"/></svg></span><span>Text</span></button>
+          <button class="tool ribbonCmd" data-tool="comment" title="Note"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5zM16 4v4h3M8 12h8M8 16h6"/></svg></span><span>Note</span></button>
         </div><div class="ribbonGroupLabel">Drawing tools</div>
       </div>
     </div>
     <div class="ribbonPanel" data-panel="view" role="tabpanel">
       <div class="ribbonGroup">
         <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="prevPg" title="Previous page"><span class="ribbonIcon">&#8592;</span><span>Previous</span></button>
-          <button class="ribbonCmd" data-click="nextPg" title="Next page"><span class="ribbonIcon">&#8594;</span><span>Next</span></button>
-          <button class="ribbonCmd" data-click="zoomOut" title="Zoom out"><span class="ribbonIcon">&#8722;</span><span>Zoom out</span></button>
-          <button class="ribbonCmd" data-click="zoomIn" title="Zoom in"><span class="ribbonIcon">+</span><span>Zoom in</span></button>
+          <button class="ribbonCmd" data-click="prevPg" title="Previous page"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></span><span>Previous</span></button>
+          <button class="ribbonCmd" data-click="nextPg" title="Next page"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></span><span>Next</span></button>
+          <button class="ribbonCmd" data-click="zoomOut" title="Zoom out"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M7.5 10.5h6"/></svg></span><span>Zoom out</span></button>
+          <button class="ribbonCmd" data-click="zoomIn" title="Zoom in"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M7.5 10.5h6M10.5 7.5v6"/></svg></span><span>Zoom in</span></button>
         </div><div class="ribbonGroupLabel">Document</div>
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="ribbonCmd" data-ribbon-action="scale" title="Plan scale"><span class="ribbonIcon">&#8737;</span><span>Plan scale</span></button>
-          <button class="ribbonCmd" data-ribbon-action="right-panel" title="Items and totals"><span class="ribbonIcon">&#9638;</span><span>Items &amp; totals</span></button>
+          <button class="ribbonCmd" data-ribbon-action="right-panel" title="Items and totals"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M9 9v11"/></svg></span><span>Items &amp; totals</span></button>
         </div><div class="ribbonGroupLabel">Panels</div>
       </div>
+    </div>
+    <div class="ribbonPanel" data-panel="beta" role="tabpanel">
+      <div class="ribbonGroup"><div class="ribbonCommands">
+        <button class="tool ribbonCmd wallAction" data-tool="exterior" title="Trace the closed exterior building boundary"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M3.5 18.5 5 7l7-4 7 4 1.5 11.5z"/><circle cx="5" cy="7" r="1.2"/><circle cx="12" cy="3" r="1.2"/><circle cx="19" cy="7" r="1.2"/></svg></span><span>Exterior</span></button>
+        <button class="tool ribbonCmd wallAction" data-tool="interior" title="Draw connected interior wall segments"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 19V5h7v7h9M11 12v7"/><circle cx="4" cy="19" r="1.2"/><circle cx="20" cy="12" r="1.2"/></svg></span><span>Interior</span></button>
+        <button class="ribbonCmd wallAction" id="btnBuildRooms" title="Create rooms from the exterior and interior wall layout"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM12 4v9M12 13h8M4 13h8"/><path d="m16 16 2 2 3-4"/></svg></span><span>Build rooms</span></button>
+      </div></div>
+      <div class="ribbonGroup"><div class="ribbonCommands">
+        <button class="ribbonCmd" data-click="btnReadText" title="Read plan labels"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 5h16M4 10h11M4 15h14M4 20h9"/></svg></span><span>Read labels</span></button>
+        <button class="ribbonCmd" data-click="btnAutoAll" title="Experimental raster room detection"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 19V5h14v14zM5 12h7V5M12 12v7M12 15h7"/><path d="M3 3h4M3 3v4M21 3h-4M21 3v4"/></svg></span><span>Auto rooms</span></button>
+      </div></div>
+      <div class="autoTuneHost" id="autoTuneHost"></div>
     </div>
     <div class="ribbonContextHost" id="ribbonContextHost"></div>
   </div>
@@ -900,7 +909,7 @@ if(!Core||!QaEngine)throw new Error('Yardstick core modules failed to load.');
 const { jsPDF } = window.jspdf;
 
 const ROOMPAL=['#4caf6f','#3c9ae8','#e8843c','#c46be0','#e0b341','#46c2b6','#e06b8b','#8bbf3c','#b07be0','#5f8ff0','#e0795b','#3cc6e8'];
-const TYPECOL={cabinet:'#ff9d3c',countertop:'#c46be0',door:'#475569',window:'#b45309',fixture:'#2563eb',electrical:'#dc2626',comment:'#64748b',extwall:'#334155',structure:'#9333ea'};
+const TYPECOL={cabinet:'#ff9d3c',countertop:'#c46be0',door:'#475569',window:'#b45309',fixture:'#2563eb',electrical:'#dc2626',comment:'#64748b',extwall:'#334155',exterior:'#0f3d5e',interior:'#52606d',structure:'#9333ea'};
 const ANNOT_COLORS=['#e11d48','#ea580c','#f59e0b','#16a34a','#2563eb','#9333ea','#111827','#ffffff'];
 const ANNOT_TYPES=['draw','line','arrow','rect','ellipse','polygon','text']; // free markup (not takeoff)
 const DRAG_TOOLS=['draw','line','arrow','rect','ellipse'];                    // press-drag-release markup
@@ -940,7 +949,7 @@ const S={pdfDoc:null,pageNum:1,numPages:0,scale:1.4,feetPerUnit:null,
   items:[], cal:null, scaleLabel:null, draft:null, tool:'select', selId:null, selVtx:-1,
   drag:null, suppressClick:false, mouse:null, idc:1, roomColorIdx:0, statedAreas:[], areasAdopted:false, origName:'', pdfB64:null, imgSrc:null, isImage:false, level:'Page 1', popId:null,
   preset:{door:{dtype:'Swing',width:3,height:6+8/12},window:{wtype:'Single Hung',width:3,height:4,tempered:false},ftype:'Toilet',etype:'Duplex Outlet'},
-  annot:{color:'#e11d48',width:3.5,size:16}};
+  annot:{color:'#e11d48',width:3.5,size:16},wallContinuation:null};
 function pageLabels(){const n=Math.max(1,S.numPages||1);return Array.from({length:n},(_,i)=>'Page '+(i+1));}
 
 const $=id=>document.getElementById(id);
@@ -967,15 +976,28 @@ const isImageFile=f=>(f.type&&f.type.startsWith('image/'))||IMG_RE.test(f.name||
 $('btnOpen').onclick=()=>$('fileInput').click();
 $('fileInput').onchange=e=>{const file=e.target.files[0];if(file)loadFile(file).catch(err=>showToast('Could not open that plan: '+(err.message||'unknown PDF error'),'error'));e.target.value='';};
 const stage=$('stage');
-['dragover','drop'].forEach(ev=>stage.addEventListener(ev,e=>e.preventDefault()));
-stage.addEventListener('drop',e=>{
+function droppedPlanFile(dt){
+  const files=[...(dt&&dt.files||[])];
+  if(dt&&dt.items)for(const item of dt.items){const file=item.kind==='file'&&item.getAsFile();if(file&&!files.includes(file))files.push(file);}
+  return files.find(file=>/\.pdf$/i.test(file.name||'')||file.type==='application/pdf'||isImageFile(file));
+}
+function handlePlanDrop(e){
+  e.preventDefault();e.stopPropagation();document.body.classList.remove('dropActive');
   const d=e.dataTransfer.getData('text/yardstick');
   if(d){try{const o=JSON.parse(d);const u=evtUnits(e);
     if(o.kind==='fixture')placeFixture(u,o.val);
     else if(o.kind==='electrical')placeElectrical(u,o.val);
     else if(o.kind==='door'||o.kind==='window')placeOpening(o.kind,u,o.val);
   }catch(err){}return;}
-  const f=[...e.dataTransfer.files].find(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf'||isImageFile(f));if(f)loadFile(f).catch(err=>showToast('Could not open that plan: '+(err.message||'unknown PDF error'),'error'));});
+  const file=droppedPlanFile(e.dataTransfer);
+  if(file)loadFile(file).catch(err=>showToast('Could not open that plan: '+(err.message||'unknown PDF error'),'error'));
+  else showToast('Drop a PDF or supported plan image.','warning');
+}
+let fileDragDepth=0;
+document.addEventListener('dragenter',e=>{const types=[...(e.dataTransfer&&e.dataTransfer.types||[])];if(types.includes('Files')){e.preventDefault();fileDragDepth++;document.body.classList.add('dropActive');}});
+document.addEventListener('dragover',e=>{if(e.dataTransfer&&([...(e.dataTransfer.types||[])].includes('Files')||e.dataTransfer.getData('text/yardstick'))){e.preventDefault();e.dataTransfer.dropEffect='copy';}});
+document.addEventListener('dragleave',()=>{if(--fileDragDepth<=0){fileDragDepth=0;document.body.classList.remove('dropActive');}});
+document.addEventListener('drop',e=>{fileDragDepth=0;handlePlanDrop(e);});
 // route by type: PDFs go through pdf.js, images through a lightweight page shim
 function loadFile(file){return isImageFile(file)?loadImage(file):loadPDF(file);}
 async function loadPDF(file){const buf=await file.arrayBuffer();await loadPDFData(buf,file.name,true);}
@@ -1032,7 +1054,8 @@ $('zoomOut').onclick=()=>{S.scale=Math.max(0.3,S.scale/1.25);renderPage();};
 // ---------- tools ----------
 document.querySelectorAll('button.tool').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
 const MARKUP_TOOLS=['draw','line','arrow','rect','ellipse','polygon','text','comment'];
-function setTool(t){S.tool=t;hidePopover();if(t!=='room'&&t!=='cabinet'&&t!=='countertop'&&t!=='extwall'&&t!=='calibrate')S.draft=null;
+function setTool(t){S.tool=t;hidePopover();if(t!=='room'&&t!=='cabinet'&&t!=='countertop'&&t!=='extwall'&&t!=='exterior'&&t!=='calibrate')S.draft=null;
+  if(t!=='interior')S.wallContinuation=null;
   document.querySelectorAll('button.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));
   if(typeof ov!=='undefined')ov.style.cursor=t==='pan'?'grab':(t==='select'?'default':'crosshair');
   // keep the Markup group open while one of its tools is active so the selection shows
@@ -1040,6 +1063,18 @@ function setTool(t){S.tool=t;hidePopover();if(t!=='room'&&t!=='cabinet'&&t!=='co
   renderToolOpts();redraw();}
 
 function evtUnits(e){const r=$('overlay').getBoundingClientRect();return{x:(e.clientX-r.left)/S.scale,y:(e.clientY-r.top)/S.scale};}
+const WALL_ANGLES=[0,22.5,33,45,67.5,90,112.5,135,147,157.5,180,202.5,213,225,247.5,270,292.5,315,327,337.5];
+function snapWallAngle(a,b){const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);if(len<.01)return{x:a.x,y:a.y};
+  const deg=(Math.atan2(dy,dx)*180/Math.PI+360)%360;let best=WALL_ANGLES[0],delta=Infinity;
+  for(const candidate of WALL_ANGLES){const d=Math.min(Math.abs(candidate-deg),360-Math.abs(candidate-deg));if(d<delta){delta=d;best=candidate;}}
+  const rad=best*Math.PI/180;return{x:a.x+Math.cos(rad)*len,y:a.y+Math.sin(rad)*len};}
+function closestOnSegment(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,l2=dx*dx+dy*dy;if(!l2)return{x:a.x,y:a.y};const t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/l2));return{x:a.x+t*dx,y:a.y+t*dy};}
+function snapWallJoin(p,excludeId){let best=p,bestD=12/S.scale;
+  for(const it of S.items){if(it.id===excludeId||(it.level||S.level)!==S.level||!['exterior','interior'].includes(it.type)||!it.points)continue;
+    const n=it.type==='exterior'?it.points.length:it.points.length-1;
+    for(let i=0;i<n;i++){const q=closestOnSegment(p,it.points[i],it.points[(i+1)%it.points.length]),d=Math.hypot(q.x-p.x,q.y-p.y);if(d<bestD){bestD=d;best=q;}}}
+  return best;}
+function wallContinueControl(it){const a=it.points[0],b=it.points[it.points.length-1],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1,d=17/S.scale;return{x:b.x+dx/len*d,y:b.y+dy/len*d};}
 const ov=$('overlay');
 // Unified pointer input: works for mouse, pen, and touch. One finger drives the
 // active tool (tap = place/select, drag = move a handle); two fingers pan + pinch-zoom.
@@ -1088,7 +1123,14 @@ ov.addEventListener('pointercancel',e=>{_ptrs.delete(e.pointerId);if(_ptrs.size<
 
 function onDown(e){
   const u=evtUnits(e);S.mouse=u;
+  const selectedWall=S.items.find(it=>it.id===S.selId&&it.type==='interior');
+  if(selectedWall&&(S.tool==='interior'||S.tool==='select')){
+    const end=selectedWall.points[selectedWall.points.length-1],control=wallContinueControl(selectedWall);
+    if(Math.hypot(u.x-control.x,u.y-control.y)<10/S.scale){setTool('interior');S.wallContinuation={x:end.x,y:end.y};S.suppressClick=true;redraw();return;}
+    if(Math.hypot(u.x-end.x,u.y-end.y)<9/S.scale){S.drag={kind:'wallvtx',target:selectedWall,vi:selectedWall.points.length-1,fix:selectedWall.points[selectedWall.points.length-2]};return;}
+  }
   if(S.tool==='pan'){S.drag={kind:'pan',clientX:e.clientX,clientY:e.clientY,scrollLeft:stage.scrollLeft,scrollTop:stage.scrollTop};ov.style.cursor='grabbing';return;}
+  if(S.tool==='interior'){const a=S.wallContinuation?{...S.wallContinuation}:snapWallJoin(u);S.wallContinuation=null;S.drag={kind:'intwall',a,b:a};return;}
   if(S.tool==='structure'){S.drag={kind:'struct',a:u,b:u};return;}
   if(S.tool==='draw'){S.drag={kind:'draw',pts:[u]};return;}
   if(DRAG_TOOLS.includes(S.tool)){S.drag={kind:'shape',shape:S.tool,a:u,b:u};return;}
@@ -1109,6 +1151,8 @@ function onMove(e){S.mouse=evtUnits(e);
     else if(S.drag.kind==='edge'){const dx=u.x-S.drag.start.x,dy=u.y-S.drag.start.y;S.drag.target.points[S.drag.i]={x:S.drag.o0.x+dx,y:S.drag.o0.y+dy};S.drag.target.points[S.drag.j]={x:S.drag.o1.x+dx,y:S.drag.o1.y+dy};}
     else if(S.drag.kind==='cal'){const mov=S.drag.vi===0?S.cal.p0:S.cal.p1,fix=S.drag.vi===0?S.cal.p1:S.cal.p0;mov.x=u.x;mov.y=u.y;if(Math.abs(mov.x-fix.x)>=Math.abs(mov.y-fix.y))mov.y=fix.y;else mov.x=fix.x;recalc();}
     else if(S.drag.kind==='struct')S.drag.b={x:u.x,y:u.y};
+    else if(S.drag.kind==='intwall')S.drag.b=snapWallAngle(S.drag.a,u);
+    else if(S.drag.kind==='wallvtx')S.drag.target.points[S.drag.vi]=snapWallAngle(S.drag.fix,u);
     else if(S.drag.kind==='draw')S.drag.pts.push({x:u.x,y:u.y});
     else if(S.drag.kind==='shape')S.drag.b={x:u.x,y:u.y};
     S.suppressClick=true;redraw();return;}
@@ -1122,6 +1166,10 @@ function onUp(){if(S.drag){const d=S.drag;S.drag=null;
     if(Math.hypot(d.b.x-d.a.x,d.b.y-d.a.y)>3/S.scale)
       S.items.push({id:uid(),type:d.shape,points:[{x:d.a.x,y:d.a.y},{x:d.b.x,y:d.b.y}],color:S.annot.color,width:S.annot.width,level:S.level});
     recompute();return;}
+  if(d.kind==='intwall'){S.suppressClick=true;setTimeout(()=>S.suppressClick=false,30);
+    d.a=snapWallJoin(d.a);d.b=snapWallJoin(d.b);
+    if(Math.hypot(d.b.x-d.a.x,d.b.y-d.a.y)>4/S.scale){const it={id:uid(),type:'interior',name:'Interior wall '+(S.items.filter(i=>i.type==='interior').length+1),points:[d.a,d.b],level:S.level};S.items.push(it);S.selId=it.id;}
+    recompute();return;}
   if(d.kind==='struct'){S.suppressClick=true;setTimeout(()=>S.suppressClick=false,30);
     const dist=Math.hypot(d.b.x-d.a.x,d.b.y-d.a.y);
     const it=dist>8/S.scale
@@ -1129,16 +1177,17 @@ function onUp(){if(S.drag){const d=S.drag;S.drag=null;
       :{id:uid(),type:'structure',at:{x:d.a.x,y:d.a.y},callout:'',level:S.level};
     structDialog(it,ok=>{if(ok){S.items.push(it);recompute();}else redraw();});
     return;}
+  if(d.kind==='wallvtx'){d.target.points[d.vi]=snapWallJoin(d.target.points[d.vi],d.target.id);S.selId=d.target.id;}
   recompute();setTimeout(()=>S.suppressClick=false,30);}}
 function onClick(e){
   if(S.suppressClick){S.suppressClick=false;return;}
   const u=evtUnits(e);
   if(S.tool==='calibrate'){doCalClick(u);return;}
   if(S.tool==='autoroom'){autoTrace(u);return;}
-  if(S.tool==='room'||S.tool==='cabinet'||S.tool==='countertop'||S.tool==='extwall'||S.tool==='polygon'){if(!S.draft)S.draft={type:S.tool,points:[]};
-    const pts=S.draft.points,minPts=(S.tool==='room'||S.tool==='polygon')?3:2;
+  if(S.tool==='room'||S.tool==='cabinet'||S.tool==='countertop'||S.tool==='extwall'||S.tool==='exterior'||S.tool==='polygon'){if(!S.draft)S.draft={type:S.tool,points:[]};
+    const pts=S.draft.points,minPts=(S.tool==='room'||S.tool==='polygon'||S.tool==='exterior')?3:2;
     if(pts.length>=minPts){const fp=pts[0];if(Math.hypot((u.x-fp.x)*S.scale,(u.y-fp.y)*S.scale)<12){finishDraft();return;}}
-    pts.push(u);redraw();return;}
+    pts.push(pts.length&&S.tool==='exterior'?snapWallAngle(pts[pts.length-1],u):u);redraw();return;}
   if(S.tool==='text'){placeText(u);return;}
   if(S.tool==='door'||S.tool==='window'){openingDialog(S.tool,u);return;}
   if(S.tool==='fixture'){placeFixture(u);return;}
@@ -1147,7 +1196,7 @@ function onClick(e){
   if(S.tool==='select')selectAt(u);
 }
 function onDbl(e){e.preventDefault();
-  if(S.tool==='room'||S.tool==='cabinet'||S.tool==='countertop'||S.tool==='extwall'||S.tool==='polygon'){finishDraft();return;}
+  if(S.tool==='room'||S.tool==='cabinet'||S.tool==='countertop'||S.tool==='extwall'||S.tool==='exterior'||S.tool==='polygon'){finishDraft();return;}
   if(S.tool==='select'){const u=evtUnits(e);const sel=S.items.find(i=>i.id===S.selId);
     if(sel&&sel.points){const ei=nearestEdge(u,sel.points,sel.type==='room');if(ei>=0){sel.points.splice(ei+1,0,{x:u.x,y:u.y});recompute();}}}
 }
@@ -1209,7 +1258,38 @@ function regionToRoom(mask,w,h,ds,imageScale=S.scale){let pts=maskToPolygon(mask
   const mx=+$('maxCorners').value||20;pts=capCorners(pts,mx);pts=orthogonalize(pts);pts=capCorners(pts,mx);
   return pts.map(p=>({x:p[0]*ds/imageScale,y:p[1]*ds/imageScale}));}
 function defaultCeil(){const rs=S.items.filter(i=>i.type==='room');return rs.length?rs[rs.length-1].ceiling:9;}
-function addRoom(ptsU,name,askDialog){const r={id:uid(),type:'room',name:name||('Room '+(S.items.filter(i=>i.type==='room').length+1)),points:ptsU,ceiling:defaultCeil(),floor:'Laminate',notes:'',color:roomColorFor(),level:S.level};S.items.push(r);if(askDialog)roomDialog(r);return r;}
+function addRoom(ptsU,name,askDialog){const previous=[...S.items].reverse().find(i=>i.type==='room');const r={id:uid(),type:'room',name:name||('Room '+(S.items.filter(i=>i.type==='room').length+1)),points:ptsU,ceiling:defaultCeil(),floor:previous?previous.floor:'Laminate',notes:'',color:roomColorFor(),level:S.level};S.items.push(r);if(askDialog)roomDialog(r);return r;}
+
+function buildRoomsFromWalls(){
+  const exterior=[...S.items].reverse().find(it=>it.type==='exterior'&&(it.level||S.level)===S.level);
+  if(!exterior||!exterior.points||exterior.points.length<3){showToast('Trace and finish the exterior boundary first.','warning');setTool('exterior');return;}
+  const walls=S.items.filter(it=>it.type==='interior'&&(it.level||S.level)===S.level&&it.points&&it.points.length>1);
+  const xs=exterior.points.map(p=>p.x),ys=exterior.points.map(p=>p.y),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+  const span=Math.max(maxX-minX,maxY-minY)||1,raster=Math.max(.75,Math.min(3,1100/span)),margin=18;
+  const w=Math.ceil((maxX-minX)*raster)+margin*2,h=Math.ceil((maxY-minY)*raster)+margin*2;
+  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d',{willReadFrequently:true});
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.strokeStyle='#000';ctx.lineWidth=7;ctx.lineCap='square';ctx.lineJoin='miter';
+  const px=p=>({x:(p.x-minX)*raster+margin,y:(p.y-minY)*raster+margin});
+  const stroke=(points,closed)=>{ctx.beginPath();const first=px(points[0]);ctx.moveTo(first.x,first.y);for(let i=1;i<points.length;i++){const q=px(points[i]);ctx.lineTo(q.x,q.y);}if(closed)ctx.closePath();ctx.stroke();};
+  stroke(exterior.points,true);walls.forEach(it=>stroke(it.points,false));
+  const data=ctx.getImageData(0,0,w,h).data,open=new Uint8Array(w*h);for(let i=0;i<w*h;i++)open[i]=data[i*4]>100?1:0;
+  const seen=new Uint8Array(w*h),regions=[];
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){const start=x+y*w;if(!open[start]||seen[start])continue;
+    const stack=[start],cells=[];seen[start]=1;let touches=false;
+    while(stack.length){const q=stack.pop(),qx=q%w,qy=(q/w)|0;cells.push(q);if(qx===0||qy===0||qx===w-1||qy===h-1)touches=true;
+      for(const [nx,ny] of [[qx-1,qy],[qx+1,qy],[qx,qy-1],[qx,qy+1]]){if(nx<0||ny<0||nx>=w||ny>=h)continue;const np=nx+ny*w;if(open[np]&&!seen[np]){seen[np]=1;stack.push(np);}}}
+    if(!touches)regions.push(cells);
+  }
+  const minCells=S.feetPerUnit?Math.max(80,12/Math.pow(S.feetPerUnit/raster,2)):160;
+  const rooms=[];for(const cells of regions){if(cells.length<minCells)continue;const mask=new Uint8Array(w*h);cells.forEach(q=>mask[q]=1);let outline=maskToPolygon(mask,w,h);if(!outline||outline.length<3)continue;
+    outline=dpClosed(outline,2.2);const points=outline.map(p=>({x:minX+(p[0]-margin)/raster,y:minY+(p[1]-margin)/raster}));const c=centroid(points);
+    if(!pip(c,exterior.points))continue;rooms.push({points,c,area:shoel(points)});
+  }
+  rooms.sort((a,b)=>Math.abs(a.c.y-b.c.y)>12?(a.c.y-b.c.y):(a.c.x-b.c.x));
+  S.items=S.items.filter(it=>!(it.type==='room'&&it.source==='wall-layout'&&(it.level||S.level)===S.level));
+  const existingCount=S.items.filter(it=>it.type==='room').length;rooms.forEach((room,index)=>{const item=addRoom(room.points,'Room '+(existingCount+index+1));item.source='wall-layout';});
+  recompute();showToast(rooms.length?('Created '+rooms.length+' room'+(rooms.length===1?'':'s')+' from the wall layout. Review names and flooring before export.'):'No enclosed rooms found. Make sure each interior wall joins another wall or the exterior boundary.',rooms.length?'success':'warning');
+}
 
 function autoTrace(u){if(!S.pageImg){alert('Open a PDF first.');return;}
   const{open,w,h,ds}=openMask();const sx=Math.round(u.x*S.scale/ds),sy=Math.round(u.y*S.scale/ds);
@@ -1500,6 +1580,11 @@ function structDialog(it,cb){let tx;
 // ---------- draft finish ----------
 function finishDraft(){if(!S.draft)return;const d=S.draft;let pts=dedupe(d.points);
   if(d.type==='room'&&pts.length>=3){addRoom(pts,null,true);}
+  else if(d.type==='exterior'&&pts.length>=3){
+    const prior=S.items.find(it=>it.type==='exterior'&&(it.level||S.level)===S.level);
+    if(prior){prior.points=pts;prior.name='Exterior boundary';S.selId=prior.id;showToast('Exterior boundary updated.','success');}
+    else{const item={id:uid(),type:'exterior',name:'Exterior boundary',points:pts,level:S.level};S.items.push(item);S.selId=item.id;}
+  }
   else if(d.type==='polygon'&&pts.length>=3)
     S.items.push({id:uid(),type:'polygon',points:pts,color:S.annot.color,width:S.annot.width,level:S.level});
   else if((d.type==='cabinet'||d.type==='countertop'||d.type==='extwall')&&pts.length>=2)
@@ -1547,6 +1632,7 @@ function selectAt(u){let best=null;
   if(!best)for(const it of S.items){if((it.level||S.level)!==S.level)continue;if(!it.points)continue;
     if(it.type==='rect'||it.type==='ellipse'){if(nearBox(u,it.points)){best=it;break;}continue;}
     if((it.type==='room'||it.type==='polygon')&&pip(u,it.points)){best=it;break;}
+    if(it.type==='exterior'&&nearestEdge(u,it.points,true)>=0){best=it;break;}
     for(let i=0;i<it.points.length-1;i++)if(distSeg(u,it.points[i],it.points[i+1])<8/S.scale){best=it;break;}
     if(best)break;}
   if(!best&&S.cal&&hitVertex(u,[S.cal.p0,S.cal.p1])>=0){S.selId='cal';hidePopover();renderAll();return;}
@@ -1580,6 +1666,7 @@ function redraw(){const ov=$('overlay');while(ov.firstChild)ov.removeChild(ov.fi
   if(S.cal)drawCal(ov,S.selId==='cal');
   if(S.draft)drawDraft(ov,S.draft);
   if(S.drag&&S.drag.kind==='struct')ov.appendChild(E('line',{x1:S.drag.a.x*S.scale,y1:S.drag.a.y*S.scale,x2:S.drag.b.x*S.scale,y2:S.drag.b.y*S.scale,stroke:TYPECOL.structure,'stroke-width':8,'stroke-opacity':.5,'stroke-linecap':'round'}));
+  if(S.drag&&S.drag.kind==='intwall'){const a=P(S.drag.a),b=P(S.drag.b);ov.appendChild(E('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'#fff','stroke-width':8,'stroke-opacity':.8,'stroke-linecap':'square'}));ov.appendChild(E('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:TYPECOL.interior,'stroke-width':2.2,'stroke-dasharray':'6 3'}));}
   if(S.drag&&S.drag.kind==='draw')drawAnnot(ov,{type:'draw',points:S.drag.pts,color:S.annot.color,width:S.annot.width},false,S.annot.color);
   if(S.drag&&S.drag.kind==='shape')drawAnnot(ov,{type:S.drag.shape,points:[S.drag.a,S.drag.b],color:S.annot.color,width:S.annot.width},false,S.annot.color);
   positionPopover();}
@@ -1590,6 +1677,18 @@ function drawItem(ov,it,sel){const col=colorOf(it);
       '#dfe7ee',11);
     if(sel&&S.feetPerUnit)edgeDims(ov,it.points,true);
     if(sel)handles(ov,it.points,true);}
+  else if(it.type==='exterior'){const pts=it.points.map(P),points=pts.map(p=>p.x+','+p.y).join(' ');
+    ov.appendChild(E('polygon',{points,fill:'none',stroke:'#fff','stroke-width':sel?10:8,'stroke-linejoin':'miter','stroke-opacity':.92}));
+    ov.appendChild(E('polygon',{points,fill:'none',stroke:col,'stroke-width':sel?3:2.2,'stroke-linejoin':'miter'}));
+    if(S.feetPerUnit){const c=P(centroid(it.points));label(ov,c.x,c.y-10,'Exterior '+FT(peri(it.points,true)).toFixed(1)+' lf',col,10);}
+    if(sel){edgeDims(ov,it.points,true);handles(ov,it.points,true);}}
+  else if(it.type==='interior'){const a=P(it.points[0]),b=P(it.points[it.points.length-1]);
+    ov.appendChild(E('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'#fff','stroke-width':sel?10:8,'stroke-linecap':'square','stroke-opacity':.92}));
+    ov.appendChild(E('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:col,'stroke-width':sel?3:2.2,'stroke-linecap':'square'}));
+    if(S.feetPerUnit)label(ov,(a.x+b.x)/2,(a.y+b.y)/2-8,FT(peri(it.points,false)).toFixed(1)+' lf',col,9);
+    if(sel){const ep=b;ov.appendChild(E('rect',{x:ep.x-5,y:ep.y-5,width:10,height:10,fill:'#fff',stroke:col,'stroke-width':2}));
+      const cp=P(wallContinueControl(it));ov.appendChild(E('rect',{x:cp.x-7,y:cp.y-7,width:14,height:14,rx:2,fill:'#fff',stroke:col,'stroke-width':2}));
+      ov.appendChild(E('line',{x1:cp.x-3.5,y1:cp.y,x2:cp.x+3.5,y2:cp.y,stroke:col,'stroke-width':1.8}));ov.appendChild(E('line',{x1:cp.x,y1:cp.y-3.5,x2:cp.x,y2:cp.y+3.5,stroke:col,'stroke-width':1.8}));}}
   else if(it.type==='structure'&&it.points){const a=P(it.points[0]),b=P(it.points[1]);
     ov.appendChild(E('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:col,'stroke-width':sel?13:10,'stroke-opacity':.3,'stroke-linecap':'round'}));
     ov.appendChild(E('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:col,'stroke-width':sel?2.6:1.8}));
@@ -1718,10 +1817,11 @@ function drawCal(ov,sel){const a=P(S.cal.p0),b=P(S.cal.p1);ov.appendChild(E('lin
     ov.appendChild(E('line',{x1:p.x,y1:p.y-10,x2:p.x,y2:p.y+10,stroke:'#00e676','stroke-width':1}));});
   const m=P({x:(S.cal.p0.x+S.cal.p1.x)/2,y:(S.cal.p0.y+S.cal.p1.y)/2});label(ov,m.x,m.y-8,fmtFt(S.cal.knownFt),'#00e676',12);}
 function drawDraft(ov,d){const col=(d.type==='cal'||d.type==='room')?'#00e676':(d.type==='polygon'?S.annot.color:(TYPECOL[d.type]||'#fff'));
-  let live=d.points.map(P);if(S.mouse)live=live.concat([P(S.mouse)]);
+  const pointer=S.mouse&&d.type==='exterior'&&d.points.length?snapWallAngle(d.points[d.points.length-1],S.mouse):S.mouse;
+  let live=d.points.map(P);if(pointer)live=live.concat([P(pointer)]);
   if(live.length){ov.appendChild(E('polyline',{points:live.map(p=>p.x+','+p.y).join(' '),fill:'none',stroke:col,'stroke-width':2,'stroke-dasharray':'5 4'}));
     live.forEach((p,i)=>ov.appendChild(E('circle',{cx:p.x,cy:p.y,r:d.type==='cal'?6:3,fill:col,stroke:d.type==='cal'?'#fff':'none','stroke-width':2})));}
-  if(S.feetPerUnit&&d.points.length&&S.mouse){const last=d.points[d.points.length-1];const m=P({x:(last.x+S.mouse.x)/2,y:(last.y+S.mouse.y)/2});label(ov,m.x,m.y-6,fmtFt(FT(Math.hypot(S.mouse.x-last.x,S.mouse.y-last.y))),'#fff',11);}}
+  if(S.feetPerUnit&&d.points.length&&pointer){const last=d.points[d.points.length-1];const m=P({x:(last.x+pointer.x)/2,y:(last.y+pointer.y)/2});label(ov,m.x,m.y-6,fmtFt(FT(Math.hypot(pointer.x-last.x,pointer.y-last.y))),'#fff',11);}}
 function edgeDims(ov,pts,closed){const n=closed?pts.length:pts.length-1;for(let i=0;i<n;i++){const a=pts[i],b=pts[(i+1)%pts.length];const m=P({x:(a.x+b.x)/2,y:(a.y+b.y)/2});label(ov,m.x,m.y,fmtFt(FT(Math.hypot(b.x-a.x,b.y-a.y))),'#aebccb',9);}}
 function label(ov,x,y,t,col,sz){const e=E('text',{x,y,fill:col||'#fff','font-size':sz||12,'font-family':'system-ui','text-anchor':'middle','paint-order':'stroke',stroke:'#0b0e12','stroke-width':3,'stroke-linejoin':'round'});e.textContent=t;ov.appendChild(e);}
 function labelL(ov,x,y,t,col,sz){const e=E('text',{x,y,fill:col||'#fff','font-size':sz||12,'font-family':'system-ui','text-anchor':'start','paint-order':'stroke',stroke:'#ffffff','stroke-width':3,'stroke-linejoin':'round'});e.textContent=t;ov.appendChild(e);}
@@ -1730,14 +1830,16 @@ function labelL(ov,x,y,t,col,sz){const e=E('text',{x,y,fill:col||'#fff','font-si
 function roomM(r){const areaSF=SF(shoel(r.points)),periLF=FT(peri(r.points,true)),wallSF=periLF*r.ceiling;
   let openLF=0,doors=0;for(const it of S.items)if(it.type==='door'&&it.at&&(it.level||'')===(r.level||'')&&pip(it.at,r.points)){openLF+=it.width;doors++;}
   return{areaSF,periLF,wallSF,ceilSF:areaSF,baseLF:Math.max(0,periLF-openLF),doors};}
-function agg(){const A={floorSF:0,ceilSF:0,wallSF:0,baseLF:0,cabLF:0,ctopLF:0,extLF:0,doors:0,cased:0,bifold:0,windows:0,rooms:0,doorCaseLF:0,winCaseLF:0,byFloor:{}};
+function agg(){const A={floorSF:0,ceilSF:0,wallSF:0,baseLF:0,cabLF:0,ctopLF:0,extLF:0,intLF:0,wallBoardSF:0,doors:0,cased:0,bifold:0,windows:0,rooms:0,doorCaseLF:0,winCaseLF:0,byFloor:{}};
   for(const it of S.items){if(it.type==='room'){const m=roomM(it);A.rooms++;A.floorSF+=m.areaSF;A.ceilSF+=m.ceilSF;A.wallSF+=m.wallSF;A.baseLF+=m.baseLF;A.byFloor[it.floor]=(A.byFloor[it.floor]||0)+m.areaSF;}
     else if(it.type==='cabinet')A.cabLF+=FT(peri(it.points,false));
     else if(it.type==='countertop')A.ctopLF+=FT(peri(it.points,false));
     else if(it.type==='extwall')A.extLF+=FT(peri(it.points,false));
+    else if(it.type==='exterior')A.extLF+=FT(peri(it.points,true));
+    else if(it.type==='interior')A.intLF+=FT(peri(it.points,false));
     else if(it.type==='door'){if(it.subtype==='Cased opening')A.cased++;else if(it.subtype==='Bifold/closet')A.bifold++;else A.doors++;A.doorCaseLF+=(it.subtype==='Cased opening'?2:1)*(2*6.83+it.width);}
     else if(it.type==='window'){A.windows++;A.winCaseLF+=2*(it.width+(it.height||4));}}
-  return A;}
+  A.wallBoardSF=(A.extLF+2*A.intLF)*defaultCeil();return A;}
 function fixtureAgg(){const m={};for(const it of S.items)if(it.type==='fixture'){if(!m[it.ftype])m[it.ftype]={qty:0,locs:{}};m[it.ftype].qty++;let loc='';for(const r of S.items)if(r.type==='room'&&(r.level||'')===(it.level||'')&&pip(it.at,r.points)){loc=r.name;break;}if(loc)m[it.ftype].locs[loc]=(m[it.ftype].locs[loc]||0)+1;}return m;}
 
 function recompute(){renderAll();autosave();}
@@ -1902,9 +2004,9 @@ function renderCmts(){const wrap=$('cmtSummary');if(!wrap)return;const cs=S.item
   table.appendChild(body);wrap.appendChild(table);}
 function renderTotals(){const A=agg(),tb=$('totals').querySelector('tbody');tb.innerHTML='';
   if(!S.feetPerUnit){tb.innerHTML='<tr><td colspan=2 style="color:var(--warn)">Calibrate to see quantities</td></tr>';return;}
-  [['Rooms',A.rooms],['Floor area',A.floorSF.toFixed(0)+' sf'],['Wall area',A.wallSF.toFixed(0)+' sf'],['Ceiling area',A.ceilSF.toFixed(0)+' sf'],
+  [['Rooms',A.rooms],['Floor area',A.floorSF.toFixed(0)+' sf'],['Room wall area',A.wallSF.toFixed(0)+' sf'],['Ceiling area',A.ceilSF.toFixed(0)+' sf'],
    ['Baseboard/trim',A.baseLF.toFixed(1)+' lf'],['Interior doors',A.doors],['Cased openings',A.cased],['Bifold/closet',A.bifold],
-   ['Windows',A.windows],['Cabinets',A.cabLF.toFixed(1)+' lf'],['Countertop',A.ctopLF.toFixed(1)+' lf'],['Ext. wall',A.extLF.toFixed(1)+' lf']]
+   ['Windows',A.windows],['Cabinets',A.cabLF.toFixed(1)+' lf'],['Countertop',A.ctopLF.toFixed(1)+' lf'],['Exterior wall',A.extLF.toFixed(1)+' lf'],['Interior wall',A.intLF.toFixed(1)+' lf'],['Wall board @ '+defaultCeil()+"'",A.wallBoardSF.toFixed(0)+' sf']]
    .forEach(r=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td>`;tb.appendChild(tr);});}
 function renderLegend(){const wrap=$('legend');wrap.innerHTML='';
   const rooms=S.items.filter(i=>i.type==='room'&&(i.level||S.level)===S.level);
@@ -1914,13 +2016,13 @@ function renderLegend(){const wrap=$('legend');wrap.innerHTML='';
     const floor=document.createElement('span');floor.className='tag';floor.textContent=r.floor||'';
     d.append(swatch,name,floor);if(m){const area=document.createElement('span');area.className='pill';area.textContent=m.areaSF.toFixed(0)+' sf';d.appendChild(area);}
     d.onclick=()=>{S.selId=r.id;renderAll();};wrap.appendChild(d);});
-  [['door','Doors / openings'],['window','Windows'],['fixture','Plumbing fixtures'],['electrical','Electrical devices'],['structure','Structural callouts'],['extwall','Exterior wall'],['comment','Comments / notes']].forEach(([t,lbl])=>{
+  [['exterior','Exterior boundary'],['interior','Interior walls'],['door','Doors / openings'],['window','Windows'],['fixture','Plumbing fixtures'],['electrical','Electrical devices'],['structure','Structural callouts'],['extwall','Legacy exterior wall'],['comment','Comments / notes']].forEach(([t,lbl])=>{
     if(S.items.some(i=>i.type===t&&(i.level||S.level)===S.level)){const d=document.createElement('div');d.className='legrow';d.innerHTML=`<span class="sw" style="background:${TYPECOL[t]}"></span><span style="flex:1">${lbl}</span>`;wrap.appendChild(d);}});
   if(!rooms.length&&!S.items.length)wrap.innerHTML='<div class="hint">Traced areas appear here, color-coded.</div>';}
 function renderPlumb(){const wrap=$('plmbSummary');if(!wrap)return;renderAggregateTable(wrap,fixtureAgg(),'Use the Plumbing tool to place fixtures; they tally here with location.');}
 const UI={grp:{},lastQa:null,exported:false};
-const ITEM_GROUPS=[['room','Rooms'],['door','Doors'],['window','Windows'],['fixture','Plumbing'],['electrical','Electrical'],['structure','Structure'],['comment','Comments'],['markup','Markup & text'],['other','Cabinets / counters / ext wall']];
-const grpOf=t=>(t==='cabinet'||t==='countertop'||t==='extwall')?'other':(ANNOT_TYPES.includes(t)?'markup':t);
+const ITEM_GROUPS=[['room','Rooms'],['walls','Wall layout'],['door','Doors'],['window','Windows'],['fixture','Plumbing'],['electrical','Electrical'],['structure','Structure'],['comment','Comments'],['markup','Markup & text'],['other','Cabinets / counters / ext wall']];
+const grpOf=t=>(t==='exterior'||t==='interior')?'walls':((t==='cabinet'||t==='countertop'||t==='extwall')?'other':(ANNOT_TYPES.includes(t)?'markup':t));
 function renderList(){const wrap=$('itemList');if(!wrap)return;wrap.innerHTML='';
   const _vis=S.items.filter(i=>(i.level||S.level)===S.level);
   $('itemCount').textContent=_vis.length?`(${_vis.length} on ${S.level})`:'';
@@ -1940,7 +2042,8 @@ function renderList(){const wrap=$('itemList');if(!wrap)return;wrap.innerHTML=''
 function itemRow(it,detailed){const div=document.createElement('div');div.className='item'+(it.id===S.selId?' sel':'');
     const col=colorOf(it);let metric='';
     if(it.type==='room'&&S.feetPerUnit){const m=roomM(it);metric=`${m.areaSF.toFixed(0)} sf · base ${m.baseLF.toFixed(1)} lf · clg ${fmtFt(it.ceiling)}`;}
-    else if((it.type==='cabinet'||it.type==='countertop'||it.type==='extwall')&&S.feetPerUnit)metric=FT(peri(it.points,false)).toFixed(1)+' lf';
+    else if((it.type==='cabinet'||it.type==='countertop'||it.type==='extwall'||it.type==='interior')&&S.feetPerUnit)metric=FT(peri(it.points,false)).toFixed(1)+' lf';
+    else if(it.type==='exterior'&&S.feetPerUnit)metric=FT(peri(it.points,true)).toFixed(1)+' lf · closed boundary';
     else if(it.type==='fixture')metric=it.ftype;
     else if(it.type==='electrical')metric=it.etype;
     else if(it.type==='comment')metric=(it.cat||'Basic')+' note';
@@ -2000,6 +2103,7 @@ $('btnUndo').onclick=undo;$('btnRedo').onclick=redo;$('btnQaReview').onclick=run
 $('projName').onchange=renderAll;
 ['wFloor','wTrim','wPaint','wDry'].forEach(id=>$(id).onchange=renderAll);
 $('btnAutoAll').onclick=()=>autoDetectRooms().catch(err=>showToast('Room detection could not finish: '+(err.message||err),'error'));
+$('btnBuildRooms').onclick=buildRoomsFromWalls;
 $('btnReadText').onclick=readCallouts;
 // help toggles: tuck each left-panel hint behind a ? on its section title
 document.querySelectorAll('.side:not(.right) .sec').forEach(sec=>{const h=sec.querySelector('h3'),hint=sec.querySelector('.hint');if(!h||!hint)return;
@@ -2106,9 +2210,9 @@ $('btnXlsx').onclick=()=>{if(!validate())return;const proj=$('projName').value||
   // master print-ready sheet
   {const rows=[],kinds=[];brandRows(rows,kinds);
    mkSection(rows,kinds,'SUMMARY',['Metric','Value','Unit'],[
-     ['Rooms',A.rooms,''],['Floor area',+A.floorSF.toFixed(0),'SF'],['Wall area',+A.wallSF.toFixed(0),'SF'],['Ceiling area',+A.ceilSF.toFixed(0),'SF'],
+     ['Rooms',A.rooms,''],['Floor area',+A.floorSF.toFixed(0),'SF'],['Room wall area',+A.wallSF.toFixed(0),'SF'],['Ceiling area',+A.ceilSF.toFixed(0),'SF'],
      ['Baseboard / trim',+A.baseLF.toFixed(1),'LF'],['Interior doors',A.doors,'EA'],['Cased openings',A.cased,'EA'],['Bifold / closet',A.bifold,'EA'],
-     ['Windows',A.windows,'EA'],['Cabinets',+A.cabLF.toFixed(1),'LF'],['Countertop',+A.ctopLF.toFixed(1),'LF'],['Ext. wall (traced)',+A.extLF.toFixed(1),'LF'],
+     ['Windows',A.windows,'EA'],['Cabinets',+A.cabLF.toFixed(1),'LF'],['Countertop',+A.ctopLF.toFixed(1),'LF'],['Exterior wall',+A.extLF.toFixed(1),'LF'],['Interior wall',+A.intLF.toFixed(1),'LF'],['Wall board @ '+defaultCeil()+"'",+A.wallBoardSF.toFixed(0),'SF'],
      ['Plumbing fixtures',S.items.filter(i=>i.type==='fixture').length,'EA'],['Electrical devices',S.items.filter(i=>i.type==='electrical').length,'EA']]);
    mkSection(rows,kinds,'ROOM / AREA SCHEDULE',['Page','Room','Flooring','Notes','Floor SF','Ceiling SF','Wall SF','Base LF','Doors','Clg Ht'],roomRows);
    mkSection(rows,kinds,'DOOR & WINDOW SCHEDULE',['Page','Mark','Category','Type','Tempered','Width','Height','Qty'],dwRows);
@@ -2204,6 +2308,7 @@ function drawPdfPage(doc,pg){
     const pts=r.points.map(f);for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length];doc.line(a.x,a.y,b.x,b.y);}
     doc.setFontSize(6);doc.setTextColor(90);for(let i=0;i<r.points.length;i++){const A2=r.points[i],B=r.points[(i+1)%r.points.length];const m=f({x:(A2.x+B.x)/2,y:(A2.y+B.y)/2});doc.text(fmtFt(FT(Math.hypot(B.x-A2.x,B.y-A2.y))),m.x,m.y);}
     const cc=f(centroid(r.points)),m=roomM(r);doc.setFontSize(9);doc.setTextColor(20);doc.text(r.name,cc.x,cc.y,{align:'center'});doc.setFontSize(7);doc.setTextColor(90);doc.text(`${m.areaSF.toFixed(0)} sf · ${r.floor}`,cc.x,cc.y+10,{align:'center'});});
+  items.filter(i=>i.type==='exterior'||i.type==='interior').forEach(it=>{const c=hex(TYPECOL[it.type]);doc.setDrawColor(c[0],c[1],c[2]);doc.setLineWidth(it.type==='exterior'?2.3:1.7);const pts=it.points.map(f),n=it.type==='exterior'?pts.length:pts.length-1;for(let i=0;i<n;i++){const a=pts[i],b=pts[(i+1)%pts.length];doc.line(a.x,a.y,b.x,b.y);}});
   items.filter(i=>i.type==='cabinet'||i.type==='countertop'||i.type==='extwall').forEach(it=>{const c=hex(TYPECOL[it.type]);doc.setDrawColor(c[0],c[1],c[2]);doc.setLineWidth(it.type==='extwall'?1.8:2.4);const pts=it.points.map(f);for(let i=0;i<pts.length-1;i++)doc.line(pts[i].x,pts[i].y,pts[i+1].x,pts[i+1].y);});
   items.filter(i=>i.type==='structure'&&i.points).forEach(it=>{const a=f(it.points[0]),b=f(it.points[1]);
     doc.setDrawColor(147,51,234);doc.setLineWidth(3);doc.line(a.x,a.y,b.x,b.y);
@@ -2228,7 +2333,7 @@ function drawPdfPage(doc,pg){
   doc.setFontSize(8);doc.setTextColor(60);doc.text(pg+'   ·   '+new Date().toLocaleDateString()+'   ·   NOT TO SCALE — verify in field',mL+10,PH-mB+48);
   pdfLogo(doc,mL+300,PH-mB+24);
   const A=agg();doc.setFontSize(7);doc.setTextColor(90);
-  doc.text(`Rooms ${A.rooms} | Floor ${A.floorSF.toFixed(0)} sf | Trim ${A.baseLF.toFixed(0)} lf | Doors ${A.doors} | Win ${A.windows}`,mL+300,PH-mB+56);}
+  doc.text(`Rooms ${A.rooms} | Floor ${A.floorSF.toFixed(0)} sf | Ext ${A.extLF.toFixed(0)} lf | Int ${A.intLF.toFixed(0)} lf | Wall board ${A.wallBoardSF.toFixed(0)} sf`,mL+300,PH-mB+56);}
 
 $('btnDxf').onclick=()=>{if(!validate())return;const bb=bbox();if(!bb){alert('Nothing traced.');return;}
   const X=p=>+(FT(p.x)).toFixed(4),Y=p=>+(-FT(p.y)).toFixed(4);let H=0x100;const hd=()=>(H++).toString(16).toUpperCase();let e=[];
@@ -2241,11 +2346,13 @@ $('btnDxf').onclick=()=>{if(!validate())return;const bb=bbox();if(!bb){alert('No
     else if(it.type==='cabinet')e=e.concat(lw(it.points,false,'A-CABS'));
     else if(it.type==='countertop')e=e.concat(lw(it.points,false,'A-CTOP'));
     else if(it.type==='extwall')e=e.concat(lw(it.points,false,'A-XWALL'));
+    else if(it.type==='exterior')e=e.concat(lw(it.points,true,'A-EXTWALL'));
+    else if(it.type==='interior')e=e.concat(lw(it.points,false,'A-INTWALL'));
     else if(it.type==='structure'){if(it.points){e=e.concat(lw(it.points,false,'A-STRUCT'));e=e.concat(tx({x:(it.points[0].x+it.points[1].x)/2,y:(it.points[0].y+it.points[1].y)/2},0.5,it.callout||'Structure','A-STRUCT'));}else{e=e.concat(ci(it.at,0.5,'A-STRUCT'));e=e.concat(tx(it.at,0.5,it.callout||'Structure','A-STRUCT'));}}
     else if(it.type==='door')e=e.concat(ci(it.at,it.width/2,'A-DOOR'));
     else if(it.type==='window')e=e.concat(ci(it.at,it.width/2,'A-WIND'));
     else if(it.type==='fixture'){e=e.concat(ci(it.at,0.4,'A-PLMB'));e=e.concat(tx({x:it.at.x,y:it.at.y},0.4,it.ftype,'A-PLMB'));}});
-  const tables=['0','TABLE','2','LAYER','70','10'].concat(lay('0',7),lay('A-ROOM',7),lay('A-CABS',30),lay('A-CTOP',211),lay('A-DOOR',5),lay('A-WIND',2),lay('A-PLMB',6),lay('A-XWALL',8),lay('A-STRUCT',200),lay('A-TEXT',8),['0','ENDTAB']);
+  const tables=['0','TABLE','2','LAYER','70','12'].concat(lay('0',7),lay('A-ROOM',7),lay('A-CABS',30),lay('A-CTOP',211),lay('A-DOOR',5),lay('A-WIND',2),lay('A-PLMB',6),lay('A-XWALL',8),lay('A-EXTWALL',8),lay('A-INTWALL',9),lay('A-STRUCT',200),lay('A-TEXT',8),['0','ENDTAB']);
   const dxf=['0','SECTION','2','HEADER','9','$ACADVER','1','AC1015','9','$INSUNITS','70','2','0','ENDSEC','0','SECTION','2','TABLES'].concat(tables,['0','ENDSEC','0','SECTION','2','ENTITIES'],e,['0','ENDSEC','0','EOF']).join('\n');
   dl(new Blob([dxf],{type:'application/dxf'}),exName('dxf'));};
 // ---- Save the marked-up plan: burn all annotations onto the original PDF pages ----
@@ -2280,6 +2387,9 @@ function drawMarkedPdfSchedule(doc,pageLabel,pageW){
   collect('fixture','PLUMBING',it=>it.ftype||'Fixture');
   collect('electrical','ELECTRICAL',it=>it.etype||'Device');
   collect('structure','STRUCTURE',it=>it.callout||'Structure');
+  const ext=items.find(it=>it.type==='exterior'),ints=items.filter(it=>it.type==='interior');
+  if(ext&&S.feetPerUnit)rows.push(['EXTERIOR WALL',FT(peri(ext.points,true)).toFixed(1)+' lf']);
+  if(ints.length&&S.feetPerUnit)rows.push(['INTERIOR WALL',FT(ints.reduce((sum,it)=>sum+peri(it.points,false),0)).toFixed(1)+' lf']);
   const markupCount=items.filter(it=>ANNOT_TYPES.includes(it.type)||it.type==='comment').length;if(markupCount)rows.push(['MARKUP',markupCount+' annotation'+(markupCount===1?'':'s')]);
   if(!rows.length)rows.push(['PAGE','No Yardstick markings']);
   const visible=rows.slice(0,pageW<900?15:22),w=Math.min(pageW<900?220:292,pageW-36),rowH=11,h=31+visible.length*rowH+17,x=pageW-w-18,y=18;
@@ -2465,6 +2575,7 @@ function showRibbon(name){
   });
   if(name==='draw')setTool(closing?'select':'draw');
   else if(name==='view')setTool('select');
+  else if(name==='beta'&&!closing)setTool('select');
   else if(name==='takeoff'&&(closing||MARKUP_TOOLS.includes(S.tool)))setTool('select');
   closeAppMenu();
 }

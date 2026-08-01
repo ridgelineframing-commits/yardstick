@@ -7,7 +7,7 @@
 
   const ITEM_TYPES = new Set([
     "room", "door", "window", "fixture", "electrical", "structure",
-    "cabinet", "countertop", "extwall", "comment", "draw", "line",
+    "cabinet", "countertop", "extwall", "exterior", "interior", "comment", "draw", "line",
     "arrow", "rect", "ellipse", "polygon", "text"
   ]);
 
@@ -78,7 +78,7 @@
 
     if (raw.at && isPoint(raw.at)) item.at = { x: Number(raw.at.x), y: Number(raw.at.y) };
     if (raw.points) {
-      const minimum = raw.type === "room" || raw.type === "polygon" ? 3 : 2;
+      const minimum = raw.type === "room" || raw.type === "polygon" || raw.type === "exterior" ? 3 : 2;
       const points = cleanPoints(raw.points, minimum);
       if (!points) return null;
       item.points = points;
@@ -92,7 +92,7 @@
     });
 
     ["name", "floor", "notes", "ftype", "etype", "dtype", "wtype", "subtype",
-      "callout", "text", "cat", "code"].forEach(key => {
+      "callout", "text", "cat", "code", "source"].forEach(key => {
       if (raw[key] != null) item[key] = cleanString(raw[key], "", key === "notes" ? 4000 : 300);
     });
 

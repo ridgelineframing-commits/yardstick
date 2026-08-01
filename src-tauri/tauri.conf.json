@@ -14,7 +14,8 @@
         "title": "Yardstick — PDF Markup & Plan Takeoff",
         "width": 1440,
         "height": 900,
-        "resizable": true
+        "resizable": true,
+        "dragDropEnabled": false
       }
     ],
     "security": {
