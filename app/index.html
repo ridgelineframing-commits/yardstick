@@ -516,6 +516,54 @@
     .ribbonContextHost #toolPop{max-width:78vw}
     .side{left:0;width:92vw}
   }
+
+  /* Yardstick 1.3: compact two-row editor header */
+  #btnDrawerL,.side:not(.right){display:none!important}
+  .appMenuBar{height:34px}
+  .ribbon{height:40px;min-height:40px;align-items:stretch;box-shadow:0 1px 4px #1f2a3710}
+  .ribbonPanel[data-panel="home"]{display:flex!important}
+  .ribbonPanel{height:39px;align-items:stretch}
+  .ribbonGroup{height:39px;flex-direction:row;align-items:center;padding:2px 4px}
+  .ribbonCommands,.ribbonCommands.compact{min-height:0;height:35px;align-items:center;gap:1px}
+  .ribbonCmd,.ribbonCommands.compact .ribbonCmd{width:34px;min-height:34px;height:34px;padding:3px;border-radius:6px;gap:0}
+  .ribbonCmd>span:last-child{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .ribbonIcon,.ribbonCommands.compact .ribbonIcon{height:26px;min-width:26px;font-size:17px}
+  .ribbonSvg{width:21px;height:21px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ribbonGroupLabel{display:none}
+  .ribbon .hdrpz{min-height:0;height:35px;gap:2px}
+  .ribbon .hdrpz button{min-width:28px;height:30px;padding:4px 7px}
+  .ribbon .hdrpz .pill{padding:5px 7px;font-size:10.5px}
+  .quickScale{display:none;align-items:center;height:35px;padding:0 4px;gap:4px;border-right:1px solid var(--line)}
+  .quickScale.open{display:flex}
+  .quickScale .row{margin:0;flex-wrap:nowrap;gap:4px}
+  .quickScale .scalesel{min-width:132px;width:148px;flex:none;padding:5px 7px;font-size:11px}
+  .quickScale #btnCal{width:32px;height:30px;padding:4px;font-size:0}
+  .quickScale #btnCal:before{content:"↔";font-size:16px}
+  .quickScale #calStatus{max-width:105px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}
+  .autoTuneHost{display:flex;align-items:center;height:35px}
+  .autoTuneHost details.beta{margin:0;padding:3px 7px;border-style:solid;white-space:nowrap;max-height:34px;overflow:auto}
+  .autoTuneHost details.beta summary{font-size:10.5px;font-weight:700}
+  .ribbonContextHost{height:39px}
+  .ribbonContextHost #toolPop{height:39px;padding:3px 7px;flex-direction:row!important;align-items:center}
+  .ribbonContextHost #toolPop .tphead{display:none}
+  .ribbonContextHost #toolPopBody,.ribbonContextHost #toolPopBody .pal,.ribbonContextHost #toolPopBody .pre{height:32px;flex-wrap:nowrap}
+  .ribbonContextHost #toolPopBody .pal button{height:30px;padding:4px 8px;font-size:10.5px}
+  .ribbonContextHost #toolPopBody .pal button.presetIconBtn{width:32px;min-width:32px;padding:2px;display:grid;place-items:center}
+  .presetIconBtn svg{width:24px;height:24px;display:block;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .presetIconBtn svg text{fill:currentColor;stroke:none;font:700 6px system-ui;text-anchor:middle}
+  .stagewrap{flex:1;min-width:0}
+  @media (max-width:1024px){
+    .ribbon{height:40px}
+    .quickScale #calStatus{display:none}
+    .quickScale .scalesel{width:126px;min-width:126px}
+  }
+  @media (max-width:560px){
+    .ribbon{height:40px}
+    .ribbonGroup{padding-inline:2px}
+    .ribbonCmd,.ribbonCommands.compact .ribbonCmd{width:32px;min-height:32px;height:32px}
+    .quickScale{display:none}
+    .quickScale.open{display:flex;min-width:max-content}
+  }
 </style>
 </head>
 <body>
@@ -551,8 +599,7 @@
   <div class="appMenuBar" aria-label="Application ribbon">
     <div class="ribbonTabs" role="tablist" aria-label="Command tabs">
       <button class="menuTrigger ribbonTab" data-menu="file" aria-expanded="false">File</button>
-      <button class="ribbonTab active" data-ribbon="home" role="tab" aria-selected="true">Home</button>
-      <button class="ribbonTab" data-ribbon="takeoff" role="tab" aria-selected="false">Takeoff</button>
+      <button class="ribbonTab" data-ribbon="takeoff" role="tab" aria-selected="false">Plan Tools</button>
       <button class="ribbonTab" data-ribbon="draw" role="tab" aria-selected="false">Draw</button>
       <button class="ribbonTab" data-ribbon="view" role="tab" aria-selected="false">View</button>
       <button class="menuTrigger ribbonTab" data-menu="help" aria-expanded="false">Help</button>
@@ -560,24 +607,24 @@
     <div class="appDropdown" id="appDropdown" role="menu"></div>
   </div>
   <div class="ribbon" id="commandRibbon">
-    <div class="ribbonPanel active" data-panel="home" role="tabpanel">
+    <div class="ribbonPanel active" data-panel="home" aria-label="Quick tools">
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="ribbonCmd" data-click="btnOpen"><span class="ribbonIcon">&#128194;</span><span>Open</span></button>
-          <button class="ribbonCmd" data-click="btnSaveJob"><span class="ribbonIcon">&#128190;</span><span>Save job</span></button>
+          <button class="ribbonCmd" data-click="btnOpen" title="Open plan"><span class="ribbonIcon">&#128194;</span><span>Open</span></button>
+          <button class="ribbonCmd" data-click="btnSaveJob" title="Save job"><span class="ribbonIcon">&#128190;</span><span>Save job</span></button>
         </div><div class="ribbonGroupLabel">File</div>
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="btnUndo" aria-label="Undo"><span class="ribbonIcon">&#8630;</span><span>Undo</span></button>
-          <button class="ribbonCmd" data-click="btnRedo" aria-label="Redo"><span class="ribbonIcon">&#8631;</span><span>Redo</span></button>
-          <button class="ribbonCmd" data-click="btnClear"><span class="ribbonIcon">&#10005;</span><span>Clear</span></button>
+          <button class="ribbonCmd" data-click="btnUndo" aria-label="Undo" title="Undo"><span class="ribbonIcon">&#8630;</span><span>Undo</span></button>
+          <button class="ribbonCmd" data-click="btnRedo" aria-label="Redo" title="Redo"><span class="ribbonIcon">&#8631;</span><span>Redo</span></button>
+          <button class="ribbonCmd" data-click="btnClear" title="Clear takeoff"><span class="ribbonIcon">&#10005;</span><span>Clear</span></button>
         </div><div class="ribbonGroupLabel">Edit</div>
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="tool ribbonCmd active" data-tool="select"><span class="ribbonIcon">&#8598;</span><span>Select</span></button>
-          <button class="tool ribbonCmd" data-tool="pan"><span class="ribbonIcon">&#10021;</span><span>Pan</span></button>
+          <button class="tool ribbonCmd active" data-tool="select" title="Select"><span class="ribbonIcon">&#8598;</span><span>Select</span></button>
+          <button class="tool ribbonCmd" data-tool="pan" title="Pan"><span class="ribbonIcon">&#10021;</span><span>Pan</span></button>
         </div><div class="ribbonGroupLabel">Mode</div>
       </div>
       <div class="ribbonGroup">
@@ -589,67 +636,69 @@
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="btnXlsx"><span class="ribbonIcon">XLS</span><span>Excel</span></button>
-          <button class="ribbonCmd" data-click="btnSavePdf"><span class="ribbonIcon">PDF</span><span>Marked PDF</span></button>
+          <button class="ribbonCmd" data-click="btnXlsx" title="Export Excel"><span class="ribbonIcon">XLS</span><span>Excel</span></button>
+          <button class="ribbonCmd" data-click="btnSavePdf" title="Save marked-up PDF"><span class="ribbonIcon">PDF</span><span>Marked PDF</span></button>
         </div><div class="ribbonGroupLabel">Output</div>
       </div>
+      <div class="quickScale" id="scaleHost" aria-label="Plan scale"></div>
     </div>
     <div class="ribbonPanel" data-panel="takeoff" role="tabpanel">
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="ribbonCmd" data-ribbon-action="scale"><span class="ribbonIcon">&#8737;</span><span>Set scale</span></button>
-          <button class="tool ribbonCmd" data-tool="calibrate"><span class="ribbonIcon">&#8596;</span><span>Calibrate</span></button>
+          <button class="ribbonCmd" data-ribbon-action="scale" title="Set plan scale"><span class="ribbonIcon">&#8737;</span><span>Set scale</span></button>
+          <button class="tool ribbonCmd" data-tool="calibrate" title="Calibrate from a known dimension"><span class="ribbonIcon">&#8596;</span><span>Calibrate</span></button>
         </div><div class="ribbonGroupLabel">Scale</div>
       </div>
       <div class="ribbonGroup">
+        <div class="ribbonCommands compact">
+          <button class="ribbonCmd" data-click="btnReadText" title="Read plan labels"><span class="ribbonIcon">AI</span><span>Read labels</span></button>
+          <button class="ribbonCmd" data-click="btnAutoAll" title="Detect rooms across the full page locally"><span class="ribbonIcon">&#10024;</span><span>Detect rooms</span></button>
+          <button class="ribbonCmd" data-click="btnQaReview" title="Run takeoff QA"><span class="ribbonIcon">&#10003;</span><span>QA review</span></button>
+        </div><div class="ribbonGroupLabel">Automate</div>
+      </div>
+      <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="tool ribbonCmd" data-tool="room"><span class="ribbonIcon">R</span><span>Room</span></button>
-          <button class="tool ribbonCmd" data-tool="door"><span class="ribbonIcon">&#9635;</span><span>Door</span></button>
-          <button class="tool ribbonCmd" data-tool="window"><span class="ribbonIcon">&#9638;</span><span>Window</span></button>
+          <button class="tool ribbonCmd" data-tool="room" title="Trace a room"><span class="ribbonIcon">R</span><span>Room</span></button>
+          <button class="tool ribbonCmd" data-tool="door" title="Place doors"><span class="ribbonIcon">&#9635;</span><span>Door</span></button>
+          <button class="tool ribbonCmd" data-tool="window" title="Place windows"><span class="ribbonIcon">&#9638;</span><span>Window</span></button>
         </div><div class="ribbonGroupLabel">Plan</div>
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="tool ribbonCmd" data-tool="fixture"><span class="ribbonIcon">P</span><span>Plumbing</span></button>
-          <button class="tool ribbonCmd" data-tool="electrical"><span class="ribbonIcon">&#9889;</span><span>Electrical</span></button>
-          <button class="tool ribbonCmd" data-tool="structure"><span class="ribbonIcon">S</span><span>Structure</span></button>
+          <button class="tool ribbonCmd" data-tool="fixture" title="Place plumbing fixtures"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h11a4 4 0 0 1 4 4v1h-4v-1H9v5H5v-5a4 4 0 0 1 4-4"/><path d="M9 10V6h6M12 6V3M9 3h6"/><path d="M19 18c0 1.4-1 2.5-2.2 2.5S14.5 19.4 14.5 18c0-1.1 1.5-3 2.3-4 .7 1 2.2 2.9 2.2 4Z"/></svg></span><span>Plumbing</span></button>
+          <button class="tool ribbonCmd" data-tool="electrical" title="Place electrical devices"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 8v5M15 8v5M8 17h8"/></svg></span><span>Electrical</span></button>
+          <button class="tool ribbonCmd" data-tool="structure" title="Add structural callouts"><span class="ribbonIcon">S</span><span>Structure</span></button>
         </div><div class="ribbonGroupLabel">Systems</div>
       </div>
-      <div class="ribbonGroup">
-        <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="btnReadText"><span class="ribbonIcon">AI</span><span>Read labels</span></button>
-          <button class="ribbonCmd" data-click="btnAutoAll"><span class="ribbonIcon">&#10024;</span><span>Detect rooms</span></button>
-          <button class="ribbonCmd" data-click="btnQaReview"><span class="ribbonIcon">&#10003;</span><span>QA review</span></button>
-        </div><div class="ribbonGroupLabel">Automate</div>
-      </div>
+      <div class="autoTuneHost" id="autoTuneHost"></div>
     </div>
     <div class="ribbonPanel" data-panel="draw" role="tabpanel">
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="tool ribbonCmd" data-tool="draw"><span class="ribbonIcon">&#9998;</span><span>Freehand</span></button>
-          <button class="tool ribbonCmd" data-tool="line"><span class="ribbonIcon">&#9585;</span><span>Line</span></button>
-          <button class="tool ribbonCmd" data-tool="arrow"><span class="ribbonIcon">&#8599;</span><span>Arrow</span></button>
-          <button class="tool ribbonCmd" data-tool="rect"><span class="ribbonIcon">&#9633;</span><span>Box</span></button>
-          <button class="tool ribbonCmd" data-tool="ellipse"><span class="ribbonIcon">&#9711;</span><span>Ellipse</span></button>
-          <button class="tool ribbonCmd" data-tool="polygon"><span class="ribbonIcon">&#11040;</span><span>Polygon</span></button>
-          <button class="tool ribbonCmd" data-tool="text"><span class="ribbonIcon">T</span><span>Text</span></button>
-          <button class="tool ribbonCmd" data-tool="comment"><span class="ribbonIcon">&#9993;</span><span>Note</span></button>
+          <button class="tool ribbonCmd" data-tool="draw" title="Freehand"><span class="ribbonIcon">&#9998;</span><span>Freehand</span></button>
+          <button class="tool ribbonCmd" data-tool="line" title="Line"><span class="ribbonIcon">&#9585;</span><span>Line</span></button>
+          <button class="tool ribbonCmd" data-tool="arrow" title="Arrow"><span class="ribbonIcon">&#8599;</span><span>Arrow</span></button>
+          <button class="tool ribbonCmd" data-tool="rect" title="Box"><span class="ribbonIcon">&#9633;</span><span>Box</span></button>
+          <button class="tool ribbonCmd" data-tool="ellipse" title="Ellipse"><span class="ribbonIcon">&#9711;</span><span>Ellipse</span></button>
+          <button class="tool ribbonCmd" data-tool="polygon" title="Polygon"><span class="ribbonIcon">&#11040;</span><span>Polygon</span></button>
+          <button class="tool ribbonCmd" data-tool="text" title="Text"><span class="ribbonIcon">T</span><span>Text</span></button>
+          <button class="tool ribbonCmd" data-tool="comment" title="Note"><span class="ribbonIcon">&#9993;</span><span>Note</span></button>
         </div><div class="ribbonGroupLabel">Drawing tools</div>
       </div>
     </div>
     <div class="ribbonPanel" data-panel="view" role="tabpanel">
       <div class="ribbonGroup">
         <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="prevPg"><span class="ribbonIcon">&#8592;</span><span>Previous</span></button>
-          <button class="ribbonCmd" data-click="nextPg"><span class="ribbonIcon">&#8594;</span><span>Next</span></button>
-          <button class="ribbonCmd" data-click="zoomOut"><span class="ribbonIcon">&#8722;</span><span>Zoom out</span></button>
-          <button class="ribbonCmd" data-click="zoomIn"><span class="ribbonIcon">+</span><span>Zoom in</span></button>
+          <button class="ribbonCmd" data-click="prevPg" title="Previous page"><span class="ribbonIcon">&#8592;</span><span>Previous</span></button>
+          <button class="ribbonCmd" data-click="nextPg" title="Next page"><span class="ribbonIcon">&#8594;</span><span>Next</span></button>
+          <button class="ribbonCmd" data-click="zoomOut" title="Zoom out"><span class="ribbonIcon">&#8722;</span><span>Zoom out</span></button>
+          <button class="ribbonCmd" data-click="zoomIn" title="Zoom in"><span class="ribbonIcon">+</span><span>Zoom in</span></button>
         </div><div class="ribbonGroupLabel">Document</div>
       </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="ribbonCmd" data-ribbon-action="left-panel"><span class="ribbonIcon">&#9776;</span><span>Plan setup</span></button>
-          <button class="ribbonCmd" data-ribbon-action="right-panel"><span class="ribbonIcon">&#9638;</span><span>Items &amp; totals</span></button>
+          <button class="ribbonCmd" data-ribbon-action="scale" title="Plan scale"><span class="ribbonIcon">&#8737;</span><span>Plan scale</span></button>
+          <button class="ribbonCmd" data-ribbon-action="right-panel" title="Items and totals"><span class="ribbonIcon">&#9638;</span><span>Items &amp; totals</span></button>
         </div><div class="ribbonGroupLabel">Panels</div>
       </div>
     </div>
@@ -734,7 +783,7 @@
         <details class="beta">
           <summary class="pill" style="cursor:pointer">⚡ Auto room-detect (beta — still being tuned)</summary>
           <div class="row" style="margin-top:6px">
-            <button id="btnAutoAll" class="btn-sec" style="width:auto">Detect rooms (visible)</button>
+            <button id="btnAutoAll" class="btn-sec" style="width:auto">Detect rooms (full page)</button>
             <button class="tool btn-sec" data-tool="autoroom" id="btnAuto" style="width:auto">One room</button>
           </div>
           <div class="row"><label>Wall darkness</label><input type="range" id="wallSens" min="30" max="200" value="80"></div>
@@ -1091,7 +1140,7 @@ function onClick(e){
     if(pts.length>=minPts){const fp=pts[0];if(Math.hypot((u.x-fp.x)*S.scale,(u.y-fp.y)*S.scale)<12){finishDraft();return;}}
     pts.push(u);redraw();return;}
   if(S.tool==='text'){placeText(u);return;}
-  if(S.tool==='door'||S.tool==='window'){placeOpening(S.tool,u);return;}
+  if(S.tool==='door'||S.tool==='window'){openingDialog(S.tool,u);return;}
   if(S.tool==='fixture'){placeFixture(u);return;}
   if(S.tool==='electrical'){placeElectrical(u);return;}
   if(S.tool==='comment'){placeComment(u);return;}
@@ -1127,9 +1176,9 @@ function updateCalUI(){const el=$('calStatus');if(S.feetPerUnit){el.className='c
 
 // ---------- auto-trace (flood fill) ----------
 // ---- raster engine: downscaled wall mask, doorway-sealing close, region detect ----
-function wallMask(){const img=S.pageImg,fw=img.width,fh=img.height,d=img.data;
+function wallMask(img=S.pageImg,threshold=+$('wallSens').value){const fw=img.width,fh=img.height,d=img.data;
   const ds=Math.max(1,Math.ceil(Math.max(fw,fh)/1000));const w=Math.ceil(fw/ds),h=Math.ceil(fh/ds);
-  const thr=+$('wallSens').value,W=new Uint8Array(w*h);
+  const thr=threshold,W=new Uint8Array(w*h);
   for(let y=0;y<h;y++)for(let x=0;x<w;x++){let mn=255;
     for(let yy=y*ds;yy<Math.min(fh,y*ds+ds);yy++)for(let xx=x*ds;xx<Math.min(fw,x*ds+ds);xx++){const i=(yy*fw+xx)*4;const L=d[i]*0.299+d[i+1]*0.587+d[i+2]*0.114;if(L<mn)mn=L;}
     W[y*w+x]=mn<thr?1:0;}
@@ -1143,9 +1192,9 @@ function erode(M,w,h,r){const T=new Uint8Array(w*h),O=new Uint8Array(w*h);
   for(let x=0;x<w;x++)for(let y=0;y<h;y++){let v=1;for(let k=-r;k<=r;k++){const yy=y+k;if(yy<0||yy>=h)continue;if(!T[yy*w+x]){v=0;break;}}O[y*w+x]=v;}
   return O;}
 function closeMask(M,w,h,r){return r<=0?M:erode(dilate(M,w,h,r),w,h,r);}
-function bridgeR(ds){const ft=+$('bridgeFt').value||0;if(ft<=0)return 0;
-  if(S.feetPerUnit){const pxF=S.scale/S.feetPerUnit;return Math.max(2,Math.round((ft/2)*pxF/ds)+2);}return 8;}
-function openMask(){const{W,w,h,ds}=wallMask();const Wc=closeMask(W,w,h,bridgeR(ds));const open=new Uint8Array(w*h);for(let i=0;i<w*h;i++)open[i]=Wc[i]?0:1;return{open,w,h,ds};}
+function bridgeR(ds,imageScale=S.scale){const ft=+$('bridgeFt').value||0;if(ft<=0)return 0;
+  if(S.feetPerUnit){const pxF=imageScale/S.feetPerUnit;return Math.max(2,Math.round((ft/2)*pxF/ds)+2);}return 8;}
+function openMask(img=S.pageImg,imageScale=S.scale,threshold){const{W,w,h,ds}=wallMask(img,threshold);const Wc=closeMask(W,w,h,bridgeR(ds,imageScale));const open=new Uint8Array(w*h);for(let i=0;i<w*h;i++)open[i]=Wc[i]?0:1;return{open,w,h,ds,imageScale};}
 function orthogonalize(pts){let n=pts.length;if(n<4)return pts;let edges=[];
   for(let i=0;i<n;i++){const a=pts[i],b=pts[(i+1)%n];const dx=b[0]-a[0],dy=b[1]-a[1];edges.push({a:a.slice(),b:b.slice(),horiz:Math.abs(dx)>=Math.abs(dy)});}
   let m=[];for(const e of edges){const l=m[m.length-1];if(l&&l.horiz===e.horiz)l.b=e.b.slice();else m.push({a:e.a.slice(),b:e.b.slice(),horiz:e.horiz});}
@@ -1156,9 +1205,9 @@ function orthogonalize(pts){let n=pts.length;if(n<4)return pts;let edges=[];
   let out=[];for(let i=0;i<m.length;i++){const e=m[i],f=m[(i+1)%m.length];let x,y;if(e.horiz){y=e.mid[1];x=f.mid[0];}else{x=e.mid[0];y=f.mid[1];}out.push([x,y]);}
   return out.length>=4?out:pts;}
 function capCorners(pts,maxN){if(pts.length<=maxN)return pts;let eps=Math.max(2.5,S.scale*0.12),out=pts,g=0;while(out.length>maxN&&g++<40){eps*=1.4;out=dpClosed(pts,eps);}return out;}
-function regionToRoom(mask,w,h,ds){let pts=maskToPolygon(mask,w,h);if(!pts||pts.length<4)return null;
+function regionToRoom(mask,w,h,ds,imageScale=S.scale){let pts=maskToPolygon(mask,w,h);if(!pts||pts.length<4)return null;
   const mx=+$('maxCorners').value||20;pts=capCorners(pts,mx);pts=orthogonalize(pts);pts=capCorners(pts,mx);
-  return pts.map(p=>({x:p[0]*ds/S.scale,y:p[1]*ds/S.scale}));}
+  return pts.map(p=>({x:p[0]*ds/imageScale,y:p[1]*ds/imageScale}));}
 function defaultCeil(){const rs=S.items.filter(i=>i.type==='room');return rs.length?rs[rs.length-1].ceiling:9;}
 function addRoom(ptsU,name,askDialog){const r={id:uid(),type:'room',name:name||('Room '+(S.items.filter(i=>i.type==='room').length+1)),points:ptsU,ceiling:defaultCeil(),floor:'Laminate',notes:'',color:roomColorFor(),level:S.level};S.items.push(r);if(askDialog)roomDialog(r);return r;}
 
@@ -1173,23 +1222,42 @@ function autoTrace(u){if(!S.pageImg){alert('Open a PDF first.');return;}
   const poly=regionToRoom(mask,w,h,ds);if(!poly){alert('Could not trace a clean outline there. Try manual room.');return;}
   addRoom(poly,null,true);recompute();}
 
-function autoDetectRooms(){if(!S.pageImg){alert('Open a PDF first.');return;}
-  const{open,w,h,ds}=openMask();const stg=$('stage');
-  const vx0=Math.max(0,Math.floor(stg.scrollLeft/ds)),vy0=Math.max(0,Math.floor(stg.scrollTop/ds));
-  const vx1=Math.min(w,Math.ceil((stg.scrollLeft+stg.clientWidth)/ds)),vy1=Math.min(h,Math.ceil((stg.scrollTop+stg.clientHeight)/ds));
-  const lab=new Int32Array(w*h);let next=1;const comps=[];
-  for(let y=vy0;y<vy1;y++)for(let x=vx0;x<vx1;x++){const p=x+y*w;if(!open[p]||lab[p])continue;
-    const stack=[p];lab[p]=next;let cnt=0,touch=false;const cells=[p];
-    while(stack.length){const q=stack.pop();cnt++;const qx=q%w,qy=(q/w)|0;
-      if(qx<=vx0||qy<=vy0||qx>=vx1-1||qy>=vy1-1)touch=true;
-      for(const[nx,ny]of[[qx-1,qy],[qx+1,qy],[qx,qy-1],[qx,qy+1]]){if(nx<vx0||ny<vy0||nx>=vx1||ny>=vy1)continue;const np=nx+ny*w;if(open[np]&&!lab[np]){lab[np]=next;stack.push(np);cells.push(np);}}}
-    next++;comps.push({cnt,touch,cells});}
-  const perFt=S.feetPerUnit?(S.scale/S.feetPerUnit/ds):null;const minPx=perFt?15*perFt*perFt:400;
-  comps.sort((a,b)=>b.cnt-a.cnt);let made=0;
-  for(const c of comps){if(c.touch||c.cnt<minPx)continue;const m=new Uint8Array(w*h);for(const q of c.cells)m[q]=1;
-    const poly=regionToRoom(m,w,h,ds);if(!poly)continue;addRoom(poly);if(++made>=60)break;}
+async function roomDetectionImage(){
+  // Fit-to-page views can be below 25% on large sheets. Render a private,
+  // full-resolution analysis canvas so thin walls do not disappear at that zoom.
+  if(S.scale>=1||!S.page)return{img:S.pageImg,scale:S.scale};
+  const analysisScale=1,page=S.page,viewport=page.getViewport({scale:analysisScale}),canvas=document.createElement('canvas');
+  canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);
+  await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;
+  return{img:canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height),scale:analysisScale};
+}
+async function autoDetectRooms(){if(!S.pageImg){alert('Open a PDF first.');return;}
+  const analysis=await roomDetectionImage(),baseThreshold=+$('wallSens').value||80;
+  // A second, darker-inclusive pass catches thin grey/colored wall lines while
+  // the overlap gate keeps it from duplicating rooms found by the base pass.
+  const thresholds=[...new Set([baseThreshold,Math.min(160,baseThreshold+50)])];let made=0;
+  for(const threshold of thresholds){
+    const{open,w,h,ds,imageScale}=openMask(analysis.img,analysis.scale,threshold),vx0=0,vy0=0,vx1=w,vy1=h;
+    const lab=new Int32Array(w*h);let next=1;const comps=[];
+    for(let y=vy0;y<vy1;y++)for(let x=vx0;x<vx1;x++){const p=x+y*w;if(!open[p]||lab[p])continue;
+      const stack=[p];lab[p]=next;let cnt=0,touch=false;const cells=[p];
+      while(stack.length){const q=stack.pop();cnt++;const qx=q%w,qy=(q/w)|0;
+        if(qx<=vx0||qy<=vy0||qx>=vx1-1||qy>=vy1-1)touch=true;
+        for(const[nx,ny]of[[qx-1,qy],[qx+1,qy],[qx,qy-1],[qx,qy+1]]){if(nx<vx0||ny<vy0||nx>=vx1||ny>=vy1)continue;const np=nx+ny*w;if(open[np]&&!lab[np]){lab[np]=next;stack.push(np);cells.push(np);}}}
+      next++;comps.push({cnt,touch,cells});}
+    const perFt=S.feetPerUnit?(imageScale/S.feetPerUnit/ds):null,minPx=perFt?18*perFt*perFt:400;
+    comps.sort((a,b)=>b.cnt-a.cnt);
+    for(const c of comps){if(c.touch||c.cnt<minPx)continue;const m=new Uint8Array(w*h);for(const q of c.cells)m[q]=1;
+      const poly=regionToRoom(m,w,h,ds,imageScale);if(!poly)continue;
+      const xs=poly.map(p=>p.x),ys=poly.map(p=>p.y),widthFt=FT(Math.max(...xs)-Math.min(...xs)),heightFt=FT(Math.max(...ys)-Math.min(...ys));
+      const areaSf=SF(shoel(poly)),boxSf=Math.max(.01,widthFt*heightFt),fill=areaSf/boxSf,center=centroid(poly);
+      if(S.feetPerUnit&&(areaSf<18||areaSf>3000||widthFt<4||heightFt<4||fill<.28))continue;
+      if(S.items.some(r=>r.type==='room'&&(r.level||'Page 1')===S.level&&(pip(center,r.points)||pip(centroid(r.points),poly))))continue;
+      addRoom(poly);if(++made>=60)break;}
+    if(made>=60)break;
+  }
   recompute();
-  showToast(made?('Auto-detected '+made+' room(s). Review outlines and names before export.'):'No rooms found. Zoom to the floor plan, adjust wall sensitivity or bridge openings, and retry.',made?'success':'warning');}
+  showToast(made?('Locally detected '+made+' room(s) across the full page. Review outlines and names before export.'):'No rooms found. Adjust wall darkness or bridge openings, then retry.',made?'success':'warning');}
 
 // ---- read door/window/fixture callouts from the PDF text layer ----
 function decodeWH(d1,d2,d3,d4){return{w:(+d1)+(+d2)/12,h:(+d3)+(+d4)/12};}
@@ -1298,6 +1366,29 @@ function placeOpening(kind,u,preset){const p=preset||S.preset[kind];
   if(kind==='door'){S.items.push({id:uid(),type:'door',at:u,width:p.width,height:p.height,dtype:p.dtype,subtype:'Interior door',level:S.level});}
   else{S.items.push({id:uid(),type:'window',at:u,width:p.width,height:p.height,wtype:p.wtype,tempered:!!p.tempered,level:S.level});}
   recompute();}
+function openingDialog(kind,u){
+  const isDoor=kind==='door',current={...S.preset[kind]};let typeSel,custom,width,height,tempered;
+  openModal(isDoor?'Place door':'Place window',body=>{
+    typeSel=mField(body,isDoor?'Door type':'Window type',document.createElement('select'));
+    const options=isDoor?DOOR_TYPES:WINDOW_OPS;
+    options.forEach(value=>{const option=document.createElement('option');option.value=value;option.textContent=value;
+      if(value===(isDoor?current.dtype:current.wtype)||value==='Other (specify)'&&!options.includes(isDoor?current.dtype:current.wtype))option.selected=true;
+      typeSel.appendChild(option);});
+    custom=mField(body,'Custom type',Object.assign(document.createElement('input'),{type:'text',value:options.includes(isDoor?current.dtype:current.wtype)?'':(isDoor?current.dtype:current.wtype)||'',placeholder:'Describe the opening type'}));
+    const syncCustom=()=>{custom.parentElement.style.display=typeSel.value==='Other (specify)'?'block':'none';};typeSel.onchange=syncCustom;syncCustom();
+    width=mField(body,'Width',Object.assign(document.createElement('input'),{type:'text',value:fmtFt(current.width),placeholder:'3\'0"'}));
+    height=mField(body,'Height',Object.assign(document.createElement('input'),{type:'text',value:fmtFt(current.height),placeholder:isDoor?'6\'8"':'4\'0"'}));
+    if(!isDoor){const wrap=document.createElement('label');wrap.className='tempbox';tempered=document.createElement('input');tempered.type='checkbox';tempered.checked=!!current.tempered;wrap.appendChild(tempered);wrap.append(' Tempered glass');body.appendChild(wrap);}
+    const note=document.createElement('div');note.className='hint';note.textContent='The next '+(isDoor?'door':'window')+' starts with these same values so repeated placement stays fast.';body.appendChild(note);
+  },()=>{
+    const fw=parseFeet(width.value),fh=parseFeet(height.value);
+    if(!(isFinite(fw)&&fw>0&&isFinite(fh)&&fh>0)){showToast('Enter a valid width and height, such as 3\'0" or 6\'8".','error');return false;}
+    const selected=typeSel.value==='Other (specify)'?(custom.value.trim()||'Other'):typeSel.value;
+    if(isDoor)S.preset.door={dtype:selected,width:fw,height:fh};
+    else S.preset.window={wtype:selected,width:fw,height:fh,tempered:!!tempered.checked};
+    placeOpening(kind,u,S.preset[kind]);
+  });
+}
 // contextual tool options — rendered into the pop-out window (#toolPop)
 function renderToolOpts(){
   _buildToolOpts();
@@ -1308,6 +1399,15 @@ function renderToolOpts(){
     $('toolPopTitle').textContent=(btn?(btn.dataset.label||btn.getAttribute('aria-label')||btn.textContent.trim()):S.tool)+' options';
     pop.classList.add('show');
   }else pop.classList.remove('show');
+}
+function presetGlyph(kind,name){
+  const plumbing={'Toilet':'WC','Sink':'SK','Bathtub':'BT','Shower':'SH','Tub/Shower Combo':'TS','Washer Box':'W','Hose Bibb':'HB','Water Heater':'WH','Floor Drain':'FD','Dishwasher':'DW'};
+  const electrical={'Duplex Outlet':'O','GFCI Outlet':'G','220V Outlet':'220','Switch':'S','3-Way Switch':'S3','Dimmer Switch':'SD','Ceiling Light':'L','Recessed Can':'C','Ceiling Fan':'F','Exhaust Fan':'X','Smoke Detector':'SM','Smoke/CO Combo':'SC','Panel':'P','Subpanel':'SP','Meter':'M','Furnace':'FU','Heat Pump':'HP','Range':'R','Cooktop':'CT'};
+  const code=(kind==='fixture'?plumbing[name]:electrical[name])||'?';
+  if(kind==='fixture')return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="4"/><circle cx="12" cy="12" r="5.5"/><text x="12" y="14">'+code+'</text></svg>';
+  const panel=/panel/i.test(name);return panel
+    ?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M8 8h8M8 11h8M8 14h8"/><text x="12" y="19">'+code+'</text></svg>'
+    :'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><text x="12" y="14">'+code+'</text></svg>';
 }
 function _buildToolOpts(){const t=S.tool;const w=$('toolPopBody');
   if(!w)return;w.innerHTML='';
@@ -1325,40 +1425,17 @@ function _buildToolOpts(){const t=S.tool;const w=$('toolPopBody');
   if(t==='fixture'||t==='electrical'){
     const list=t==='fixture'?FIXTURES:ELECTRICAL;const cur=t==='fixture'?S.preset.ftype:S.preset.etype;
     const pal=document.createElement('div');pal.className='pal';
-    list.forEach(nm=>{if(nm==='Other (specify)')return;const b=document.createElement('button');b.textContent=nm;if(nm===cur)b.classList.add('active');
+    list.forEach(nm=>{if(nm==='Other (specify)')return;const b=document.createElement('button');b.className='presetIconBtn';b.title=nm;b.setAttribute('aria-label',nm);b.innerHTML=presetGlyph(t,nm);if(nm===cur)b.classList.add('active');
       b.onclick=()=>{if(t==='fixture')S.preset.ftype=nm;else S.preset.etype=nm;renderToolOpts();};
       drag(b,{kind:t,val:nm});pal.appendChild(b);});
-    const other=document.createElement('button');other.textContent=(!list.includes(cur)&&cur)?('Other: '+cur):'Other…';
+    const other=document.createElement('button');other.className='presetIconBtn';other.title=(!list.includes(cur)&&cur)?('Other: '+cur):'Other';other.setAttribute('aria-label',other.title);other.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="12" r="1" fill="currentColor"/></svg>';
     if(cur&&!list.includes(cur))other.classList.add('active');
     other.onclick=()=>{const c=prompt(t==='fixture'?'Describe fixture:':'Describe device:',(cur&&!list.includes(cur))?cur:'');if(c){if(t==='fixture')S.preset.ftype=c;else S.preset.etype=c;renderToolOpts();}};
     drag(other,{kind:t,val:cur});pal.appendChild(other);
     w.appendChild(pal);
     const tip=document.createElement('div');tip.className='paltip';tip.textContent='Click to arm, then click the plan — or drag any chip straight onto the plan.';w.appendChild(tip);}
   else if(t==='door'||t==='window'){
-    const presets=t==='door'?DOOR_PRESETS:WINDOW_PRESETS,cur=S.preset[t],key=t==='door'?'dtype':'wtype';
-    const cfgOf=ps=>t==='door'?{dtype:ps.dtype,width:ps.width,height:ps.height}
-                              :{wtype:ps.wtype,width:ps.width,height:ps.height,tempered:!!S.preset.window.tempered};
-    const pal=document.createElement('div');pal.className='pal';
-    presets.forEach(ps=>{const b=document.createElement('button');b.textContent=ps.label;
-      if(cur[key]===ps[key]&&Math.abs(cur.width-ps.width)<0.01&&Math.abs(cur.height-ps.height)<0.01)b.classList.add('active');
-      b.onclick=()=>{S.preset[t]=cfgOf(ps);renderToolOpts();};
-      drag(b,{kind:t,val:cfgOf(ps)});pal.appendChild(b);});
-    const other=document.createElement('button');other.textContent='Other…';
-    other.onclick=()=>{
-      if(t==='door'){const wv=prompt('Custom door width in feet (e.g. 3 or 2\'8"):',fmtFt(cur.width));if(wv==null)return;
-        const fw=parseFeet(wv);if(!(isFinite(fw)&&fw>0)){alert('Could not read that width.');return;}
-        S.preset.door={dtype:cur.dtype||'Swing',width:fw,height:cur.height||6+8/12};}
-      else{const wv=prompt('Custom window width in feet:',fmtFt(cur.width));if(wv==null)return;const fw=parseFeet(wv);if(!(isFinite(fw)&&fw>0)){alert('Could not read that width.');return;}
-        const hv=prompt('Height in feet:',fmtFt(cur.height));if(hv==null)return;const fh=parseFeet(hv);if(!(isFinite(fh)&&fh>0)){alert('Could not read that height.');return;}
-        S.preset.window={wtype:cur.wtype||'Single Hung',width:fw,height:fh,tempered:!!cur.tempered};}
-      renderToolOpts();};
-    if(cur[key]&&!presets.some(ps=>ps[key]===cur[key]&&Math.abs(ps.width-cur.width)<0.01&&Math.abs(ps.height-cur.height)<0.01))other.classList.add('active');
-    drag(other,{kind:t,val:cur});pal.appendChild(other);
-    w.appendChild(pal);
-    if(t==='window'){const tl=document.createElement('label');tl.className='tempbox';
-      const cb=document.createElement('input');cb.type='checkbox';cb.checked=!!S.preset.window.tempered;
-      cb.onchange=()=>{S.preset.window.tempered=cb.checked;renderToolOpts();};tl.appendChild(cb);tl.append(' Place as tempered');w.appendChild(tl);}
-    const tip=document.createElement('div');tip.className='paltip';tip.textContent='Click to arm, then click the plan — or drag any chip straight onto the plan. Change type, size & tempered later in the Door & Window Schedule.';w.appendChild(tip);}
+    tipEl('Click the plan to place one. Type, width, and height are chosen in the placement dialog and remembered for the next click.');}
   else if(t==='structure'){const tip=document.createElement('div');tip.className='paltip';tip.textContent='Click once = pinpoint an item · click-drag = highlight a beam. Then type the structural callout.';w.appendChild(tip);}}
 function mkSel(opts,cur,cb){const sel=document.createElement('select');const list=opts.slice();if(cur&&!list.includes(cur))list.unshift(cur);
   list.forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;if(o===cur)op.selected=true;sel.appendChild(op);});
@@ -1391,7 +1468,7 @@ let _mOk=null,_mCancel=null;
 let _modalReturnFocus=null;
 function openModal(title,build,onOk,onCancel){const back=$('modalBack'),body=$('mBody');_modalReturnFocus=document.activeElement;$('mTitle').textContent=title;body.innerHTML='';build(body);back.classList.add('show');
   const close=()=>{back.classList.remove('show');if(_modalReturnFocus&&typeof _modalReturnFocus.focus==='function')_modalReturnFocus.focus();};
-  _mOk=()=>{close();onOk&&onOk();};_mCancel=()=>{close();onCancel&&onCancel();};
+  _mOk=()=>{if(onOk&&onOk()===false)return;close();};_mCancel=()=>{close();onCancel&&onCancel();};
   const f=body.querySelector('input,select,textarea');if(f)setTimeout(()=>f.focus(),30);}
 $('mOk').onclick=()=>_mOk&&_mOk();
 $('mCancel').onclick=()=>_mCancel&&_mCancel();
@@ -1922,7 +1999,7 @@ $('btnClear').onclick=()=>{if(confirm('Clear all traced items? (keeps scale)')){
 $('btnUndo').onclick=undo;$('btnRedo').onclick=redo;$('btnQaReview').onclick=runQa;
 $('projName').onchange=renderAll;
 ['wFloor','wTrim','wPaint','wDry'].forEach(id=>$(id).onchange=renderAll);
-$('btnAutoAll').onclick=autoDetectRooms;
+$('btnAutoAll').onclick=()=>autoDetectRooms().catch(err=>showToast('Room detection could not finish: '+(err.message||err),'error'));
 $('btnReadText').onclick=readCallouts;
 // help toggles: tuck each left-panel hint behind a ? on its section title
 document.querySelectorAll('.side:not(.right) .sec').forEach(sec=>{const h=sec.querySelector('h3'),hint=sec.querySelector('.hint');if(!h||!hint)return;
@@ -2173,6 +2250,47 @@ $('btnDxf').onclick=()=>{if(!validate())return;const bb=bbox();if(!bb){alert('No
   dl(new Blob([dxf],{type:'application/dxf'}),exName('dxf'));};
 // ---- Save the marked-up plan: burn all annotations onto the original PDF pages ----
 $('btnSavePdf').onclick=saveAnnotatedPDF;
+function markedPdfTag(doc,text,x,y,rgb,pageW){
+  const label=String(text||'').slice(0,34);doc.setFont('helvetica','bold');doc.setFontSize(8);
+  const width=Math.min(190,doc.getTextWidth(label)+9),tx=Math.max(4,Math.min(pageW-width-4,x));
+  doc.setFillColor(255,255,255);doc.setDrawColor(rgb[0],rgb[1],rgb[2]);doc.setLineWidth(.55);doc.roundedRect(tx,y-7,width,10,2,2,'FD');
+  doc.setTextColor(rgb[0],rgb[1],rgb[2]);doc.text(label,tx+4,y);doc.setFont('helvetica','normal');
+}
+function drawMarkedPdfMEP(doc,pageLabel,pageW){
+  const items=S.items.filter(it=>(it.level||'Page 1')===pageLabel&&it.at);
+  items.forEach(it=>{const x=it.at.x,y=it.at.y;
+    if(it.type==='fixture'){
+      doc.setFillColor(37,99,235);doc.setDrawColor(30,64,175);doc.setLineWidth(1);doc.circle(x,y,4.5,'FD');
+      markedPdfTag(doc,it.ftype||'Plumbing',x+8,y+2,[37,99,235],pageW);
+    }else if(it.type==='electrical'){
+      doc.setFillColor(255,255,255);doc.setDrawColor(220,38,38);doc.setLineWidth(1.2);doc.circle(x,y,5,'FD');
+      const code={'Duplex Outlet':'O','GFCI Outlet':'GFI','220V Outlet':'220','Switch':'S','3-Way Switch':'S3','Dimmer Switch':'SD','Ceiling Light':'L','Recessed Can':'C','Ceiling Fan':'F','Exhaust Fan':'X','Smoke Detector':'SD','Smoke/CO Combo':'SC','Panel':'P','Subpanel':'SP','Meter':'M'}[it.etype]||'E';
+      doc.setFont('helvetica','bold');doc.setFontSize(code.length>1?4.5:7);doc.setTextColor(220,38,38);doc.text(code,x,y+1.7,{align:'center'});
+      markedPdfTag(doc,it.etype||'Electrical',x+8,y+2,[220,38,38],pageW);
+    }
+  });
+}
+function drawMarkedPdfSchedule(doc,pageLabel,pageW){
+  const items=S.items.filter(it=>(it.level||'Page 1')===pageLabel),rows=[];
+  const rooms=items.filter(it=>it.type==='room'),roomSf=rooms.reduce((sum,r)=>sum+roomM(r).areaSF,0);
+  if(rooms.length)rows.push(['ROOMS',rooms.length+' · '+roomSf.toFixed(0)+' sf']);
+  const collect=(type,label,name,size)=>{const map={};items.filter(it=>it.type===type).forEach(it=>{const key=name(it)+(size?(' · '+size(it)):'');map[key]=(map[key]||0)+1;});Object.keys(map).sort().forEach(key=>rows.push([label,key+' ×'+map[key]]));};
+  collect('door','DOOR',it=>it.dtype||'Door',it=>fmtFt(it.width)+' × '+fmtFt(it.height));
+  collect('window','WINDOW',it=>it.wtype||'Window',it=>fmtFt(it.width)+' × '+fmtFt(it.height)+(it.tempered?' T':''));
+  collect('fixture','PLUMBING',it=>it.ftype||'Fixture');
+  collect('electrical','ELECTRICAL',it=>it.etype||'Device');
+  collect('structure','STRUCTURE',it=>it.callout||'Structure');
+  const markupCount=items.filter(it=>ANNOT_TYPES.includes(it.type)||it.type==='comment').length;if(markupCount)rows.push(['MARKUP',markupCount+' annotation'+(markupCount===1?'':'s')]);
+  if(!rows.length)rows.push(['PAGE','No Yardstick markings']);
+  const visible=rows.slice(0,pageW<900?15:22),w=Math.min(pageW<900?220:292,pageW-36),rowH=11,h=31+visible.length*rowH+17,x=pageW-w-18,y=18;
+  doc.setFillColor(255,255,255);doc.setDrawColor(38,80,230);doc.setLineWidth(1.2);doc.roundedRect(x,y,w,h,5,5,'FD');
+  doc.setFillColor(21,38,63);doc.roundedRect(x,y,w,23,5,5,'F');doc.rect(x,y+17,w,6,'F');
+  doc.setFillColor(16,185,129);doc.rect(x,y,5,23,'F');doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(255,255,255);doc.text(pageLabel.toUpperCase()+' TAKEOFF SCHEDULE',x+12,y+15);
+  doc.setFontSize(6.8);visible.forEach((row,index)=>{const yy=y+34+index*rowH;if(index%2){doc.setFillColor(244,247,251);doc.rect(x+5,yy-8,w-10,rowH,'F');}
+    doc.setTextColor(65,81,105);doc.setFont('helvetica','bold');doc.text(row[0],x+10,yy);
+    doc.setTextColor(24,35,52);doc.setFont('helvetica','normal');doc.text(String(row[1]).slice(0,52),x+75,yy);});
+  doc.setFontSize(6);doc.setTextColor(105,120,140);doc.text('Yardstick · verify dimensions and quantities in field',x+10,y+h-7);
+}
 async function saveAnnotatedPDF(){
   if(!S.pdfDoc){alert('Open a PDF first — this saves your markup on top of the original plan.');return;}
   const btn=$('btnSavePdf'),lbl=btn?btn.textContent:'';
@@ -2195,9 +2313,13 @@ async function saveAnnotatedPDF(){
         img.onload=()=>{tc.drawImage(img,0,0,cv.width,cv.height);res();};img.onerror=rej;
         img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);});
       const jpg=tmp.toDataURL('image/jpeg',0.92);
-      if(!doc)doc=new jsPDF({unit:'pt',format:[vp1.width,vp1.height]});
-      else doc.addPage([vp1.width,vp1.height]);
+      const orientation=vp1.width>vp1.height?'landscape':'portrait';
+      if(!doc)doc=new jsPDF({unit:'pt',format:[vp1.width,vp1.height],orientation});
+      else doc.addPage([vp1.width,vp1.height],orientation);
       doc.addImage(jpg,'JPEG',0,0,vp1.width,vp1.height);
+      const pageLabel='Page '+pg;
+      drawMarkedPdfMEP(doc,pageLabel,vp1.width);
+      drawMarkedPdfSchedule(doc,pageLabel,vp1.width);
     }
     await savePdfBlob(doc.output('blob'),(S.origName||'plan')+'-marked.pdf');
   }catch(err){alert('Could not build the marked-up PDF: '+(err&&err.message||err));}
@@ -2290,7 +2412,7 @@ const appMenus={
     ['Install app','click','btnInstall']
   ],
   edit:[['Undo','click','btnUndo'],['Redo','click','btnRedo'],'sep',['Clear takeoff…','click','btnClear']],
-  takeoff:[['Set or calibrate scale','scale'],['Read PDF labels','click','btnReadText'],['Detect visible rooms','click','btnAutoAll'],['Run QA review','click','btnQaReview']],
+  takeoff:[['Set or calibrate scale','scale'],['Read PDF labels','click','btnReadText'],['Detect rooms across the full page','click','btnAutoAll'],['Run QA review','click','btnQaReview']],
   markup:[['Freehand','tool','draw'],['Line','tool','line'],['Arrow','tool','arrow'],['Box','tool','rect'],['Ellipse','tool','ellipse'],['Polygon','tool','polygon'],['Text','tool','text'],['Note','tool','comment']],
   view:[['Previous page','click','prevPg'],['Next page','click','nextPg'],'sep',['Zoom out','click','zoomOut'],['Zoom in','click','zoomIn'],['Items & totals','panel','right']],
   help:[['Show tool guidance','help'],['Run QA review','click','btnQaReview']]
@@ -2304,8 +2426,7 @@ function runAppMenuAction(action,value){
   if(action==='click'){const target=$(value);if(target)target.click();}
   else if(action==='tool')setTool(value);
   else if(action==='scale'){
-    if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-l');updateDrawerA11y();}
-    $('scalePreset').focus();
+    const scaleHost=$('scaleHost');if(scaleHost)scaleHost.classList.add('open');$('scalePreset').focus();
   }else if(action==='panel'){
     const panel=$('rightPanel');panel.classList.remove('collapsed');
     if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-r');updateDrawerA11y();}
@@ -2333,12 +2454,18 @@ appDropdown.addEventListener('keydown',event=>{
 document.addEventListener('click',event=>{if(!event.target.closest('.appMenuBar'))closeAppMenu();});
 
 function showRibbon(name){
-  document.querySelectorAll('.ribbonPanel').forEach(panel=>panel.classList.toggle('active',panel.dataset.panel===name));
+  const requested=document.querySelector('[data-ribbon="'+name+'"]'),closing=requested&&requested.getAttribute('aria-selected')==='true';
+  document.querySelectorAll('.ribbonPanel').forEach(panel=>{
+    if(panel.dataset.panel!=='home')panel.classList.toggle('active',!closing&&panel.dataset.panel===name);
+  });
   document.querySelectorAll('[data-ribbon]').forEach(tab=>{
-    const active=tab.dataset.ribbon===name;
+    const active=!closing&&tab.dataset.ribbon===name;
     tab.classList.toggle('active',active);
     tab.setAttribute('aria-selected',String(active));
   });
+  if(name==='draw')setTool(closing?'select':'draw');
+  else if(name==='view')setTool('select');
+  else if(name==='takeoff'&&(closing||MARKUP_TOOLS.includes(S.tool)))setTool('select');
   closeAppMenu();
 }
 document.querySelectorAll('[data-ribbon]').forEach(tab=>tab.addEventListener('click',()=>showRibbon(tab.dataset.ribbon)));
@@ -2348,8 +2475,8 @@ document.querySelectorAll('.ribbon [data-click]').forEach(button=>button.addEven
 document.querySelectorAll('[data-ribbon-action]').forEach(button=>button.addEventListener('click',()=>{
   const action=button.dataset.ribbonAction;
   if(action==='scale'){
-    if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-l');updateDrawerA11y();}
-    $('scalePreset').focus();
+    const scaleHost=$('scaleHost');if(scaleHost)scaleHost.classList.toggle('open');
+    if(scaleHost&&scaleHost.classList.contains('open'))$('scalePreset').focus();
   }else if(action==='left-panel'){
     if(window.matchMedia('(max-width:1024px)').matches){document.body.classList.add('drawer-l');updateDrawerA11y();}
   }else if(action==='right-panel'){
@@ -2359,6 +2486,13 @@ document.querySelectorAll('[data-ribbon-action]').forEach(button=>button.addEven
 }));
 const ribbonContextHost=$('ribbonContextHost');
 if(ribbonContextHost&&$('toolPop'))ribbonContextHost.appendChild($('toolPop'));
+const scaleHost=$('scaleHost'),scaleRow=$('scalePreset')&&$('scalePreset').closest('.row');
+if(scaleHost&&scaleRow)scaleHost.appendChild(scaleRow);
+const autoTuneHost=$('autoTuneHost'),autoTune=document.querySelector('.side:not(.right) details.beta');
+if(autoTuneHost&&autoTune){
+  const summary=autoTune.querySelector('summary');if(summary)summary.textContent='Tune room detection';
+  autoTuneHost.appendChild(autoTune);
+}
 
 $('btnSendIt').textContent='Export ▾';
 $('btnReadText').textContent='Read PDF labels';
