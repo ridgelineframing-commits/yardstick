@@ -28,6 +28,7 @@ const COPY_ASSETS = [
   'icon-192.png',
   'icon-512.png',
   'icon-maskable-512.png',
+  'icon.svg',
 ];
 
 // CDN URL -> local vendored copy. Applied to every occurrence.

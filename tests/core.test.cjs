@@ -28,6 +28,16 @@ test("job normalization removes unsupported and malformed items", () => {
   assert.equal(result.v, 4);
 });
 
+test("wall layouts and generated room provenance survive job normalization", () => {
+  const result = core.normalizeJob({ items: [
+    { id: 1, type: "exterior", level: "Page 1", points: [{ x: 0, y: 0 }, { x: 20, y: 0 }, { x: 20, y: 12 }, { x: 0, y: 12 }] },
+    { id: 2, type: "interior", level: "Page 1", points: [{ x: 10, y: 0 }, { x: 10, y: 12 }] },
+    { id: 3, type: "room", level: "Page 1", source: "wall-layout", points: [{ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 10, y: 12 }, { x: 0, y: 12 }] }
+  ] });
+  assert.deepEqual(result.items.map(item => item.type), ["exterior", "interior", "room"]);
+  assert.equal(result.items[2].source, "wall-layout");
+});
+
 test("QA blocks quantity use when scale is missing", () => {
   const result = qa.review({ items: [], statedAreas: [] });
   assert.equal(result.summary.blockers, 1);

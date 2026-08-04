@@ -1,12 +1,13 @@
 /* Yardstick service worker — offline app shell + runtime caching.
    Bump CACHE when the shell changes so old caches are cleaned up on activate. */
-const CACHE = 'yardstick-v2';
+const CACHE = 'yardstick-v4';
 const CORE = [
   './',
   './index.html',
   './core.js',
   './qa-agent.js',
   './manifest.webmanifest',
+  './icon.svg',
   './icon-192.png',
   './icon-512.png',
   './icon-maskable-512.png',

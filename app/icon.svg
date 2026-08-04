@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Yardstick ruler icon</title>
+  <defs>
+    <linearGradient id="tile" x1="64" y1="48" x2="448" y2="464" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2f5be6"/>
+      <stop offset=".52" stop-color="#1a93a6"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#tile)"/>
+  <g fill="none" stroke="#fff" stroke-linecap="round" transform="rotate(-20 256 264)">
+    <g stroke-width="32">
+      <path d="M116 350V206"/>
+      <path d="M172 350V246"/>
+      <path d="M228 350V206"/>
+      <path d="M284 350V246"/>
+      <path d="M340 350V206"/>
+      <path d="M396 350V246"/>
+    </g>
+    <path d="M84 350h344" stroke-width="40"/>
+  </g>
+</svg>
