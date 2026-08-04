@@ -523,9 +523,6 @@
   .ribbonTabs{flex:0 1 auto;min-width:0}
   .ribbon{height:44px;min-height:44px;align-items:stretch;box-shadow:0 1px 4px #1f2a3710;overflow-x:auto;overflow-y:hidden}
   .ribbonPanel[data-panel="home"]{display:flex!important}
-  .ribbonPanel[data-panel="home"]>.ribbonGroup:nth-child(3){order:5}
-  .ribbonPanel[data-panel="home"]>.ribbonGroup:nth-child(4){order:3}
-  .ribbonPanel[data-panel="home"]>.ribbonGroup:nth-child(5){order:4}
   .ribbonPanel{height:43px;align-items:stretch}
   .ribbonGroup{height:43px;flex-direction:row;align-items:center;padding:2px 3px}
   .ribbonCommands,.ribbonCommands.compact{min-height:0;height:39px;align-items:center;gap:1px}
@@ -652,12 +649,6 @@
   </div>
   <div class="ribbon" id="commandRibbon">
     <div class="ribbonPanel active" data-panel="home" aria-label="Quick tools">
-      <div class="ribbonGroup">
-        <div class="ribbonCommands">
-          <button class="ribbonCmd" data-click="btnOpen" title="Open plan"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M3.5 6.5h6l2 2h9v9.5h-17z"/><path d="M3.5 9h17"/></svg></span><span>Open</span></button>
-          <button class="ribbonCmd" data-click="btnSaveJob" title="Save job"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 4h12l2 2v14H5z"/><path d="M8 4v6h8V4M8 16h8"/></svg></span><span>Save</span></button>
-        </div><div class="ribbonGroupLabel">File</div>
-      </div>
       <div class="ribbonGroup">
         <div class="ribbonCommands">
           <button class="tool ribbonCmd active" data-tool="select" title="Select"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M6 3.5 18 13l-6 .8-3.2 5.3z"/></svg></span><span>Select</span></button>
