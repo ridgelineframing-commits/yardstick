@@ -42,12 +42,14 @@ test("desktop header keeps utilities above one permanent plan-tool row", () => {
 
   const home = html.match(/<div class="ribbonPanel active" data-panel="home"[\s\S]*?<div class="ribbonPanel" data-panel="takeoff"/);
   assert.ok(home, "permanent tool row was not found");
-  for (const label of ["Open", "Save", "Select", "Pan", "Room", "Door", "Window", "Plumbing", "Electrical", "Structure"]) {
+  for (const label of ["Select", "Pan", "Room", "Door", "Window", "Plumbing", "Electrical", "Structure"]) {
     assert.match(home[0], new RegExp(`<span>${label}<\\/span>`), `${label} is missing from the permanent tool row`);
   }
-  for (const label of ["Undo", "Redo", "Clear", "Excel", "PDF"]) {
+  for (const label of ["Open", "Save", "Undo", "Redo", "Clear", "Excel", "PDF"]) {
     assert.doesNotMatch(home[0], new RegExp(`<span>${label}<\\/span>`), `${label} is duplicated in the lower ribbon`);
   }
+  assert.match(html, /file:\[[\s\S]*?\['Open plan/);
+  assert.match(html, /file:\[[\s\S]*?\['Save job file/);
   assert.match(html, /\.menuScale\{margin-left:auto\}/);
   assert.match(html, /\.appMenuBar \[data-click\],\.ribbon \[data-click\]/);
 });
