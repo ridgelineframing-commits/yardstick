@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#101a2e">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Yardstick · PDF Markup &amp; Plan Takeoff</title>
-<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2NCA2NCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSd0aWxlJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agb2Zmc2V0PScwJyBzdG9wLWNvbG9yPScjMmY1YmU2Jy8+PHN0b3Agb2Zmc2V0PScwLjUnIHN0b3AtY29sb3I9JyMxYTkzYTYnLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyMxMGI5ODEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PScyJyB5PScyJyB3aWR0aD0nNjAnIGhlaWdodD0nNjAnIHJ4PScxNCcgZmlsbD0ndXJsKCN0aWxlKScvPjxnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJyB0cmFuc2Zvcm09J3JvdGF0ZSgtMjAgMzIgMzMpJz48ZyBzdHJva2Utd2lkdGg9JzQnPjxwYXRoIGQ9J00xNCA0NFYyNicvPjxwYXRoIGQ9J00yMS4yIDQ0VjMxJy8+PHBhdGggZD0nTTI4LjQgNDRWMjYnLz48cGF0aCBkPSdNMzUuNiA0NFYzMScvPjxwYXRoIGQ9J000Mi44IDQ0VjI2Jy8+PHBhdGggZD0nTTUwIDQ0VjMxJy8+PC9nPjxwYXRoIGQ9J00xMCA0NGg0NCcgc3Ryb2tlLXdpZHRoPSc1Jy8+PC9nPjwvc3ZnPg==">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
@@ -37,7 +37,7 @@
     border-bottom:1px solid #1e3a5f;box-shadow:0 2px 8px #0f1c2e40}
   header .logo{font-weight:800;letter-spacing:1.2px;font-size:17px;display:flex;align-items:center;gap:10px;color:#fff}
   header .logo:before{content:"";width:26px;height:26px;flex:none;border-radius:7px;box-shadow:0 2px 8px #2563eb66;
-    background:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA2NCA2NCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSd0aWxlJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agb2Zmc2V0PScwJyBzdG9wLWNvbG9yPScjMmY1YmU2Jy8+PHN0b3Agb2Zmc2V0PScwLjUnIHN0b3AtY29sb3I9JyMxYTkzYTYnLz48c3RvcCBvZmZzZXQ9JzEnIHN0b3AtY29sb3I9JyMxMGI5ODEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PScyJyB5PScyJyB3aWR0aD0nNjAnIGhlaWdodD0nNjAnIHJ4PScxNCcgZmlsbD0ndXJsKCN0aWxlKScvPjxnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2ZmZmZmZicgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJyB0cmFuc2Zvcm09J3JvdGF0ZSgtMjAgMzIgMzMpJz48ZyBzdHJva2Utd2lkdGg9JzQnPjxwYXRoIGQ9J00xNCA0NFYyNicvPjxwYXRoIGQ9J00yMS4yIDQ0VjMxJy8+PHBhdGggZD0nTTI4LjQgNDRWMjYnLz48cGF0aCBkPSdNMzUuNiA0NFYzMScvPjxwYXRoIGQ9J000Mi44IDQ0VjI2Jy8+PHBhdGggZD0nTTUwIDQ0VjMxJy8+PC9nPjxwYXRoIGQ9J00xMCA0NGg0NCcgc3Ryb2tlLXdpZHRoPSc1Jy8+PC9nPjwvc3ZnPg==") center/cover no-repeat}
+    background:url("icon.svg") center/cover no-repeat}
   header .logo .r{color:#fff}
   header .sub{color:#93a6bd;font-size:11px;margin-top:2px;letter-spacing:.4px}
   header .spacer{flex:1}
@@ -546,6 +546,17 @@
   .quickScale #btnCal{width:auto;height:28px;padding:3px 6px;font-size:10px}
   .quickScale #btnCal:before{content:""}
   .quickScale #calStatus{max-width:88px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9.5px}
+  .topUtilities{height:34px;display:flex;align-items:center;gap:2px;margin-left:5px;min-width:0}
+  .topUtilityGroup{height:26px;display:flex;align-items:center;gap:1px;padding:0 5px;border-left:1px solid var(--line)}
+  .topUtilityButton{height:26px;min-width:28px;padding:3px 5px;border:0;border-radius:5px;background:transparent;box-shadow:none;display:flex;align-items:center;gap:3px;color:var(--muted);font-size:9.5px}
+  .topUtilityButton:hover{background:var(--panel2);color:var(--primary-d);transform:none}
+  .topUtilityButton .ribbonIcon{width:17px;min-width:17px;height:17px}
+  .topUtilityButton .ribbonSvg{width:16px;height:16px}
+  .topUtilities .hdrpz{height:28px;min-height:0;gap:1px}
+  .topUtilities .hdrpz button{height:26px;min-width:26px;padding:3px 5px;border:0;box-shadow:none}
+  .topUtilities .hdrpz .pill{padding:4px 6px;font-size:9.5px;background:var(--panel2)}
+  .topUtilities .hdrdiv{height:17px;margin:0 2px}
+  .menuScale{margin-left:auto}
   .autoTuneHost{display:flex;align-items:center;height:35px}
   .autoTuneHost details.beta{margin:0;padding:3px 7px;border-style:solid;white-space:nowrap;max-height:34px;overflow:auto}
   .autoTuneHost details.beta summary{font-size:10.5px;font-weight:700}
@@ -565,6 +576,8 @@
     .ribbon{height:44px}
     .quickScale #calStatus{display:none}
     .quickScale .scalesel{width:126px;min-width:126px}
+    .topUtilityButton>span:last-child{display:none}
+    .topUtilityGroup{padding-inline:2px}
   }
   @media (max-width:560px){
     .ribbon{height:44px}
@@ -573,6 +586,7 @@
     .ribbonCmd>span:last-child{font-size:9px}
     .menuScale>span,.quickScale #calStatus{display:none}
     .quickScale{display:flex;min-width:max-content}
+    .topUtilities{display:none}
   }
 </style>
 </head>
@@ -615,6 +629,24 @@
       <button class="ribbonTab" data-ribbon="beta" role="tab" aria-selected="false">Beta Features</button>
       <button class="menuTrigger ribbonTab" data-menu="help" aria-expanded="false">Help</button>
     </div>
+    <div class="topUtilities" aria-label="Document controls">
+      <div class="topUtilityGroup" aria-label="Edit history">
+        <button class="topUtilityButton" data-click="btnUndo" aria-label="Undo" title="Undo"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M9 8 4 12l5 4M5 12h8a6 6 0 0 1 6 6"/></svg></span><span>Undo</span></button>
+        <button class="topUtilityButton" data-click="btnRedo" aria-label="Redo" title="Redo"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m15 8 5 4-5 4M19 12h-8a6 6 0 0 0-6 6"/></svg></span><span>Redo</span></button>
+        <button class="topUtilityButton" data-click="btnClear" title="Clear takeoff"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17"/></svg></span><span>Clear</span></button>
+      </div>
+      <div class="topUtilityGroup">
+        <div class="hdrpz" id="hdrPZ">
+          <button id="prevPg" title="Previous page" aria-label="Previous page">&#8592;</button><span id="pgLabel" class="pill">No PDF</span><button id="nextPg" title="Next page" aria-label="Next page">&#8594;</button>
+          <span class="hdrdiv"></span>
+          <button id="zoomOut" title="Zoom out" aria-label="Zoom out">&#8722;</button><span id="zoomLabel" class="pill">100%</span><button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button>
+        </div>
+      </div>
+      <div class="topUtilityGroup" aria-label="Export">
+        <button class="topUtilityButton" data-click="btnXlsx" title="Export Excel"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/><path d="m12.5 13.5 4 4m0-4-4 4"/></svg></span><span>Excel</span></button>
+        <button class="topUtilityButton" data-click="btnSavePdf" title="Save marked-up PDF"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6zM14 3.5V8h4"/><path d="M8.5 15.5h7M8.5 12.5h5"/></svg></span><span>PDF</span></button>
+      </div>
+    </div>
     <div class="menuScale"><span>Scale</span><div class="quickScale" id="scaleHost" aria-label="Plan scale"></div></div>
     <div class="appDropdown" id="appDropdown" role="menu"></div>
   </div>
@@ -627,47 +659,28 @@
         </div><div class="ribbonGroupLabel">File</div>
       </div>
       <div class="ribbonGroup">
-        <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="btnUndo" aria-label="Undo" title="Undo"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M9 8 4 12l5 4M5 12h8a6 6 0 0 1 6 6"/></svg></span><span>Undo</span></button>
-          <button class="ribbonCmd" data-click="btnRedo" aria-label="Redo" title="Redo"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m15 8 5 4-5 4M19 12h-8a6 6 0 0 0-6 6"/></svg></span><span>Redo</span></button>
-          <button class="ribbonCmd" data-click="btnClear" title="Clear takeoff"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17"/></svg></span><span>Clear</span></button>
-        </div><div class="ribbonGroupLabel">Edit</div>
-      </div>
-      <div class="ribbonGroup">
         <div class="ribbonCommands">
           <button class="tool ribbonCmd active" data-tool="select" title="Select"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M6 3.5 18 13l-6 .8-3.2 5.3z"/></svg></span><span>Select</span></button>
           <button class="tool ribbonCmd" data-tool="pan" title="Pan"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3 9 6M12 3l3 3M21 12l-3-3M21 12l-3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3"/></svg></span><span>Pan</span></button>
         </div><div class="ribbonGroupLabel">Mode</div>
       </div>
       <div class="ribbonGroup">
-        <div class="hdrpz" id="hdrPZ">
-          <button id="prevPg" title="Previous page" aria-label="Previous page">&#8592;</button><span id="pgLabel" class="pill">No PDF</span><button id="nextPg" title="Next page" aria-label="Next page">&#8594;</button>
-          <span class="hdrdiv"></span>
-          <button id="zoomOut" title="Zoom out" aria-label="Zoom out">&#8722;</button><span id="zoomLabel" class="pill">100%</span><button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button>
-        </div><div class="ribbonGroupLabel">Page &amp; Zoom</div>
-      </div>
-      <div class="ribbonGroup">
-        <div class="ribbonCommands compact">
-          <button class="ribbonCmd" data-click="btnXlsx" title="Export Excel"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/><path d="m12.5 13.5 4 4m0-4-4 4"/></svg></span><span>Excel</span></button>
-          <button class="ribbonCmd" data-click="btnSavePdf" title="Save marked-up PDF"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4V20H6zM14 3.5V8h4"/><path d="M8.5 15.5h7M8.5 12.5h5"/></svg></span><span>PDF</span></button>
-        </div><div class="ribbonGroupLabel">Output</div>
+        <div class="ribbonCommands">
+          <button class="tool ribbonCmd" data-tool="room" title="Trace a room"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 18V6h7v5h9v7z"/></svg></span><span>Room</span></button>
+          <button class="tool ribbonCmd" data-tool="door" title="Place doors"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 20V4h10v16M5 20h14"/><path d="M15 20A10 10 0 0 0 5 10"/></svg></span><span>Door</span></button>
+          <button class="tool ribbonCmd" data-tool="window" title="Place windows"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM12 5v14M4 12h16"/></svg></span><span>Window</span></button>
+          <button class="tool ribbonCmd" data-tool="fixture" title="Place plumbing fixtures"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h11a4 4 0 0 1 4 4v1h-4v-1H9v5H5v-5a4 4 0 0 1 4-4"/><path d="M9 10V6h6M12 6V3M9 3h6"/><path d="M19 18c0 1.4-1 2.5-2.2 2.5S14.5 19.4 14.5 18c0-1.1 1.5-3 2.3-4 .7 1 2.2 2.9 2.2 4Z"/></svg></span><span>Plumbing</span></button>
+          <button class="tool ribbonCmd" data-tool="electrical" title="Place electrical devices"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 8v5M15 8v5M8 17h8"/></svg></span><span>Electrical</span></button>
+          <button class="tool ribbonCmd" data-tool="structure" title="Add structural callouts"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 6h16v4H4zM7 10v8M17 10v8M4 18h16"/></svg></span><span>Structure</span></button>
+        </div><div class="ribbonGroupLabel">Plan tools</div>
       </div>
     </div>
     <div class="ribbonPanel" data-panel="takeoff" role="tabpanel">
       <div class="ribbonGroup">
         <div class="ribbonCommands">
-          <button class="tool ribbonCmd" data-tool="room" title="Trace a room"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 18V6h7v5h9v7z"/></svg></span><span>Room</span></button>
-          <button class="tool ribbonCmd" data-tool="door" title="Place doors"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 20V4h10v16M5 20h14"/><path d="M15 20A10 10 0 0 0 5 10"/></svg></span><span>Door</span></button>
-          <button class="tool ribbonCmd" data-tool="window" title="Place windows"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM12 5v14M4 12h16"/></svg></span><span>Window</span></button>
-        </div><div class="ribbonGroupLabel">Plan</div>
-      </div>
-      <div class="ribbonGroup">
-        <div class="ribbonCommands">
-          <button class="tool ribbonCmd" data-tool="fixture" title="Place plumbing fixtures"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h11a4 4 0 0 1 4 4v1h-4v-1H9v5H5v-5a4 4 0 0 1 4-4"/><path d="M9 10V6h6M12 6V3M9 3h6"/><path d="M19 18c0 1.4-1 2.5-2.2 2.5S14.5 19.4 14.5 18c0-1.1 1.5-3 2.3-4 .7 1 2.2 2.9 2.2 4Z"/></svg></span><span>Plumbing</span></button>
-          <button class="tool ribbonCmd" data-tool="electrical" title="Place electrical devices"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 8v5M15 8v5M8 17h8"/></svg></span><span>Electrical</span></button>
-          <button class="tool ribbonCmd" data-tool="structure" title="Add structural callouts"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M4 6h16v4H4zM7 10v8M17 10v8M4 18h16"/></svg></span><span>Structure</span></button>
+          <button class="ribbonCmd" data-click="btnReadText" title="Read plan labels"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 5h14M12 5v14M8 19h8"/></svg></span><span>Read labels</span></button>
           <button class="ribbonCmd" data-click="btnQaReview" title="Run takeoff QA"><span class="ribbonIcon"><svg class="ribbonSvg" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7"/></svg></span><span>QA</span></button>
-        </div><div class="ribbonGroupLabel">Systems</div>
+        </div><div class="ribbonGroupLabel">Review</div>
       </div>
     </div>
     <div class="ribbonPanel" data-panel="draw" role="tabpanel">
@@ -2580,7 +2593,7 @@ function showRibbon(name){
   closeAppMenu();
 }
 document.querySelectorAll('[data-ribbon]').forEach(tab=>tab.addEventListener('click',()=>showRibbon(tab.dataset.ribbon)));
-document.querySelectorAll('.ribbon [data-click]').forEach(button=>button.addEventListener('click',()=>{
+document.querySelectorAll('.appMenuBar [data-click],.ribbon [data-click]').forEach(button=>button.addEventListener('click',()=>{
   const target=$(button.dataset.click);if(target)target.click();
 }));
 document.querySelectorAll('[data-ribbon-action]').forEach(button=>button.addEventListener('click',()=>{

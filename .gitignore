@@ -20,6 +20,7 @@ dist/
 /src/icon-192.png
 /src/icon-512.png
 /src/icon-maskable-512.png
+/src/icon.svg
 /tmp/
 /worker-configuration.d.ts
 /.wrangler/
